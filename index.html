@@ -4337,6 +4337,7 @@ function goCompare() {
   document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
   document.getElementById('sticky-profile').classList.add('visible');
   saveState();
+  history.pushState({page:'compare'}, '');
   window.scrollTo({top:0,behavior:'instant'});
 }
 
@@ -4345,8 +4346,45 @@ function goStep2FromCompare() {
   document.getElementById('page-step2').style.display = '';
   if (_cmpSel.length > 0) document.getElementById('cmp-bar').classList.add('cmp-bar-on');
   saveState();
+  history.pushState({page:'step2'}, '');
   window.scrollTo({top:0,behavior:'instant'});
 }
+
+// Browser back/forward navigation
+window.addEventListener('popstate', function(e) {
+  const page = (e.state && e.state.page) || 'step1';
+  if (page === 'step2') {
+    document.getElementById('page-step1').style.display = 'none';
+    document.getElementById('page-compare').style.display = 'none';
+    document.getElementById('page-step2').style.display = '';
+    const sp = document.getElementById('sticky-profile');
+    sp.classList.add('visible','step-pinned');
+    document.getElementById('cmp-bar').classList.toggle('cmp-bar-on', _cmpSel.length > 0);
+    void sp.offsetHeight;
+    _updateSidebarTop();
+    recalcAndShow();
+    _lpUpdateNav();
+    window.scrollTo({top:0,behavior:'instant'});
+  } else if (page === 'compare' && _cmpSel.length === 2) {
+    _buildComparePage(_cmpSel[0], _cmpSel[1]);
+    document.getElementById('page-step1').style.display = 'none';
+    document.getElementById('page-step2').style.display = 'none';
+    document.getElementById('page-compare').style.display = 'block';
+    document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
+    document.getElementById('sticky-profile').classList.add('visible');
+    window.scrollTo({top:0,behavior:'instant'});
+  } else {
+    // step1 or fallback
+    document.getElementById('page-step2').style.display = 'none';
+    document.getElementById('page-compare').style.display = 'none';
+    document.getElementById('page-step1').style.display = '';
+    document.getElementById('sticky-profile').classList.remove('visible','step-pinned');
+    document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
+    _lpUpdateNav();
+    requestAnimationFrame(() => initSegPills());
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+});
 
 
 function cmpvToggle(hd) {
