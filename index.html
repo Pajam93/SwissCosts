@@ -3251,9 +3251,11 @@ function renderChips() {
   if (elS) elS.innerHTML = '';
   const hasLocs = locs.length > 0;
   const clearRow = document.getElementById('chips-clear-row');
-  const clearRowS = document.getElementById('sidebar-chips-clear-row');
   if (clearRow) clearRow.style.display = hasLocs ? '' : 'none';
-  if (clearRowS) clearRowS.style.display = hasLocs ? '' : 'none';
+  const hdr = document.getElementById('sidebar-chips-header');
+  if (hdr) { hdr.style.display = hasLocs ? 'flex' : 'none'; }
+  const cnt = document.getElementById('sidebar-chips-count');
+  if (cnt) cnt.textContent = hasLocs ? `(${locs.length})` : '';
   if (!hasLocs) return;
   _buildChipsInto(el);
   if (elS) _buildChipsInto(elS);
