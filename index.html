@@ -91,8 +91,8 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .ded-toggle-icon{color:var(--muted);display:flex;align-items:center;flex-shrink:0;transition:color .18s}
 .ded-toggle:hover .ded-toggle-icon,.ded-toggle.customised .ded-toggle-icon{color:var(--green-dark)}
 /* DEDUCTIONS MODAL */
-.ded-modal-overlay{position:fixed;inset:0;background:rgba(10,20,20,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .22s}
-.ded-modal-overlay.open{opacity:1;pointer-events:auto}
+.ded-modal-overlay{position:fixed;inset:0;background:rgba(10,20,20,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .22s,visibility 0s .22s}
+.ded-modal-overlay.open{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .22s,visibility 0s 0s}
 .ded-modal{background:var(--white);border-radius:20px;width:100%;max-width:680px;padding:28px 28px 24px;box-shadow:0 24px 64px rgba(0,0,0,.18),0 4px 16px rgba(0,0,0,.08);transform:translateY(16px) scale(.98);transition:transform .25s var(--ease-snap);position:relative}
 .ded-modal-overlay.open .ded-modal{transform:translateY(0) scale(1)}
 .ded-modal-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:16px}
