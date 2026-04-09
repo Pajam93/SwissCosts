@@ -715,7 +715,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 }
 .loc-card.card-selected{box-shadow:var(--sh-light)}
 /* ── Compare bar ─────────────────────────────────────── */
-.cmp-bar{position:fixed;bottom:0;left:0;right:0;z-index:300;background:#E6F2F1;border-top:1px solid var(--border);color:var(--text);transform:translateY(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+.cmp-bar{position:fixed;bottom:0;left:0;right:0;z-index:300;background:#E6F2F1;border-top:1px solid var(--border);color:var(--text);transform:translateY(100%);pointer-events:none;transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:0 -4px 16px rgba(0,0,0,.06)}
 .cmp-bar-inner{max-width:1440px;margin:0 auto;padding:7px 32px;display:flex;align-items:center;gap:14px}
 @media(max-width:1000px){.cmp-bar-inner{padding-left:20px;padding-right:20px;gap:8px}}
 @media(max-width:640px){
