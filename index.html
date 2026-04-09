@@ -428,12 +428,12 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* RELOCATION CTA CARD */
 .relo-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:0;margin-top:24px;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;pointer-events:none;box-shadow:var(--sh-light);overflow:hidden;display:none;align-items:stretch;flex-wrap:wrap}
 .relo-card.relo-visible{opacity:1;transform:translateY(0);pointer-events:auto;display:flex}
-.relo-card-body{flex:1 1 260px;min-width:0;padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between}
-.relo-card-illus{flex:1 1 200px;min-width:0;min-height:180px;background:#E8F5F3;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}
+.relo-card-body{flex:1 1 260px;min-width:280px;padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between}
+.relo-card-illus{flex:1 1 200px;min-width:160px;min-height:120px;aspect-ratio:5/2;background:#E8F5F3;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}
 .relo-card-illus svg{width:100%;height:100%;display:block}
 .relo-card-title{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;line-height:1.3;margin-top:8px;margin-bottom:6px}
 .relo-card-sub{font-size:14px;color:var(--muted);line-height:1.5;font-weight:400}
-.relo-card-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 20px;border-radius:12px;background:var(--green);border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .18s,transform .15s;text-decoration:none;letter-spacing:-.02em;box-sizing:border-box}
+.relo-card-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 20px;border-radius:12px;background:var(--green);border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .18s,transform .15s;text-decoration:none;letter-spacing:-.02em;box-sizing:border-box;margin-top:16px}
 .relo-card-btn:hover{background:#1a7a72;transform:translateY(-1px)}
 .relo-card-btn:active{transform:translateY(0)}
 .relo-card-btn svg{flex-shrink:0;transition:transform .18s}
