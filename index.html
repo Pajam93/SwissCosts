@@ -4158,6 +4158,7 @@ function cmpvSetMode(mode) {
     locs = [];
     renderChips();
     document.getElementById('cmp').style.display = 'none';
+    if (!history.state) history.replaceState({page:'step1'}, '');
   }
   updateStickyProfile();
   updateDedSub();
