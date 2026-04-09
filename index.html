@@ -3239,12 +3239,27 @@ function renderChips() {
   const elS = document.getElementById('sidebar-chips');
   el.innerHTML = '';
   if (elS) elS.innerHTML = '';
-  if (!locs.length) return;
+  const hasLocs = locs.length > 0;
+  const clearRow = document.getElementById('chips-clear-row');
+  const clearRowS = document.getElementById('sidebar-chips-clear-row');
+  if (clearRow) clearRow.style.display = hasLocs ? '' : 'none';
+  if (clearRowS) clearRowS.style.display = hasLocs ? '' : 'none';
+  if (!hasLocs) return;
   _buildChipsInto(el);
   if (elS) _buildChipsInto(elS);
   renderQuickAdd();
   updateAddBtn();
   fetchCOA(locs.map(l => l.canton));
+}
+
+function clearAllLocs() {
+  locs = [];
+  _cmpSel = [];
+  renderChips();
+  recalcAndShow();
+  saveState();
+  document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
+  _updateCmpBarSlots();
 }
 
 // ── QUICK-ADD SUGGESTIONS ─────────────────────────────────────────────────
