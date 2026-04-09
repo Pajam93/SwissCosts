@@ -2993,15 +2993,18 @@ function goStep2() {
   void document.getElementById('sticky-profile').offsetHeight; // force reflow so height is readable
   _updateSidebarTop();
   recalcAndShow(); saveState();
+  history.pushState({page:'step2'}, '');
   _lpUpdateNav();
   window.scrollTo({top:0,behavior:'instant'});
 }
 function goStep1() {
   document.getElementById('page-step2').style.display = 'none';
+  document.getElementById('page-compare').style.display = 'none';
   document.getElementById('page-step1').style.display = '';
   document.getElementById('sticky-profile').classList.remove('visible','step-pinned');
   document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
   saveState();
+  history.pushState({page:'step1'}, '');
   _lpUpdateNav();
   requestAnimationFrame(() => initSegPills());
   window.scrollTo({top:0,behavior:'instant'});
