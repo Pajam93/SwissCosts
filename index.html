@@ -3749,17 +3749,25 @@ function loadState() {
     updateCivilUI();
     updatePermitUI();
     updateAddBtn();
-    if (s.page === 'step2' && s.inputs && s.inputs.salary) {
+    // Respect browser history state over localStorage page (handles browser back/forward)
+    const _targetPage = (history.state && history.state.page) || s.page;
+    if (_targetPage === 'step2' && s.inputs && s.inputs.salary) {
       document.getElementById('page-step1').style.display = 'none';
       document.getElementById('page-step2').style.display = '';
       document.getElementById('sticky-profile').classList.add('visible','step-pinned');
-    } else if (s.page === 'compare' && s.locs && s.locs.length >= 2) {
+    } else if (_targetPage === 'compare' && s.locs && s.locs.length >= 2) {
       const sel = (s.cmpSel && s.cmpSel.length === 2) ? s.cmpSel : [locs[0].name, locs[1].name];
       _cmpSel = sel.slice();
       document.getElementById('page-step1').style.display = 'none';
       document.getElementById('page-step2').style.display = 'none';
       document.getElementById('page-compare').style.display = 'block';
       document.getElementById('sticky-profile').classList.add('visible','step-pinned');
+    }
+    // Seed initial history state if none exists (fresh page load)
+    if (!history.state) {
+      const _pg = document.getElementById('page-compare').style.display === 'block' ? 'compare' :
+                  document.getElementById('page-step2').style.display !== 'none' ? 'step2' : 'step1';
+      history.replaceState({page: _pg}, '');
     }
     return !!(s.locs && s.locs.length);
   } catch(e) { return 0; }
