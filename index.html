@@ -3261,6 +3261,8 @@ function renderChips() {
   if (hdr) { hdr.style.display = hasLocs ? 'flex' : 'none'; }
   const cnt = document.getElementById('sidebar-chips-count');
   if (cnt) cnt.textContent = hasLocs ? `(${locs.length})` : '';
+  const mobileBtn = document.getElementById('mobile-clear-locs');
+  if (mobileBtn) mobileBtn.style.display = hasLocs ? '' : 'none';
   if (!hasLocs) return;
   _buildChipsInto(el);
   if (elS) _buildChipsInto(elS);
