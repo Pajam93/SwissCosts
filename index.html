@@ -766,21 +766,23 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .cmp-bar-btn.ready{background:var(--green);border-color:var(--green);color:#fff;cursor:pointer}
 .cmp-bar-btn.ready:hover{background:#1a7a72}
 /* ── Compare page ────────────────────────────────────── */
+:root{--cmpv-label-w:220px}
 #page-compare{display:none;flex:1;width:100%;min-width:0}
-.cmpv-wrap{max-width:1440px;width:100%;margin:0 auto;padding:clamp(20px,2.5vh,36px) 32px 60px}
-@media(max-width:1000px){.cmpv-wrap{padding-left:20px;padding-right:20px}}
-/* Title row */
-.cmpv-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+/* Same padding as step2 for consistent back-btn position */
+.cmpv-wrap{max-width:1440px;width:100%;margin:0 auto;padding:clamp(20px,2.5vh,36px) 40px 60px}
+/* Back button */
 .cmpv-wrap .back-btn{margin-bottom:16px}
-.cmpv-title{font-size:clamp(20px,3vw,30px);font-weight:700;letter-spacing:-.04em;color:var(--text);line-height:1.1;margin:0}
+/* Title + toggle — single row, title stretches */
+.cmpv-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.cmpv-title{font-size:clamp(20px,3vw,30px);font-weight:700;letter-spacing:-.04em;color:var(--text);line-height:1.1;margin:0;flex:1;min-width:0}
 /* Monthly/yearly toggle */
 .cmpv-toggle-wrap{display:inline-flex;align-items:center;background:#C8E6E2;border-radius:14px;padding:4px;gap:2px;flex-shrink:0}
 .cmpv-toggle-btn{border:none;background:transparent;padding:8px 18px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--green-dark);border-radius:10px;transition:all .2s var(--ease-snap);line-height:1.2;white-space:nowrap}
 .cmpv-toggle-btn.active{background:var(--white);color:var(--text);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.10)}
-/* Column header row */
-.cmpv-col-header{display:flex;align-items:stretch;margin-bottom:4px;border-radius:12px 12px 0 0;overflow:hidden}
-.cmpv-col-hd-spacer{flex:0 0 var(--cmpv-label-w,220px);background:var(--bg)}
-.cmpv-col-hd{flex:1;padding:14px 16px;display:flex;align-items:center;gap:10px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
+/* Column header — CSS Grid, sticky below nav */
+.cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:4px;border-radius:12px 12px 0 0;overflow:hidden;position:sticky;top:68px;z-index:10}
+.cmpv-col-hd-spacer{background:var(--bg)}
+.cmpv-col-hd{padding:14px 16px;display:flex;align-items:center;gap:10px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
 .cmpv-col-hd.winner{background:var(--green-bg);border-bottom-color:var(--green)}
 .cmpv-col-hd>div{min-width:0;flex:1}
 .cmpv-col-hd-name{font-size:15px;font-weight:700;letter-spacing:-.03em;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -795,47 +797,56 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Section body */
 .cmpv-section-body{padding-top:12px}
 .cmpv-section-body.cmpv-collapsed{display:none}
-/* Rows */
-.cmpv-row{display:flex;align-items:stretch;background:transparent;margin-bottom:6px;min-height:52px}
+/* Rows — CSS Grid matches header columns exactly */
+.cmpv-row{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;background:transparent;margin-bottom:2px;min-height:52px}
 .cmpv-row:nth-child(odd){background:rgba(242,246,246,.7)}
-.cmpv-label-cell{flex:0 0 var(--cmpv-label-w,220px);padding:11px 12px 11px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13px;color:var(--muted);font-weight:500;min-width:0;overflow:hidden}
+.cmpv-label-cell{padding:11px 12px 11px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13px;color:var(--muted);font-weight:500;min-width:0;overflow:hidden}
 .cmpv-label-cell>span.cmpv-label-main{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 .cmpv-label-sub{display:block;font-size:11px;color:var(--subtle);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.cmpv-val-cell{flex:1;padding:11px 16px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text);min-width:0}
+.cmpv-val-cell{padding:11px 16px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text);min-width:0}
 .cmpv-val-cell.better{background:rgba(15,118,110,.07);color:var(--green-dark)}
 .cmpv-val-cell.better .cmpv-pct{margin-right:auto}
 .cmpv-val-cell.better::after{content:'';display:inline-block;width:16px;height:16px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--green);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpolyline points='2.5 6.5 5 9 9.5 3' stroke='%230f766e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") center/10px no-repeat;margin-left:auto}
-/* Percentage chip badge */
+/* Percentage chip */
 .cmpv-pct{font-size:10.5px;color:var(--green-dark);font-weight:700;background:rgba(15,118,110,.1);padding:2px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-left:4px}
-/* Tablet */
-@media(max-width:700px){
-  :root{--cmpv-label-w:130px}
+/* Tablet ≤1000px */
+@media(max-width:1000px){
+  :root{--cmpv-label-w:160px}
+  .cmpv-wrap{padding-left:20px;padding-right:20px}
   .cmpv-label-cell{font-size:12px;padding-right:8px}
-  .cmpv-val-cell{font-size:13px;padding:10px 10px}
-  .cmpv-col-hd{padding:12px 10px;gap:7px}
-  .cmpv-col-hd-name{font-size:13px}
+  .cmpv-val-cell{font-size:13px;padding:10px 12px}
+  .cmpv-col-hd{padding:12px 12px;gap:8px}
+  .cmpv-col-hd-name{font-size:14px}
+  .cmpv-col-header{top:65px}
+}
+/* Small ≤640px */
+@media(max-width:640px){
+  :root{--cmpv-label-w:110px}
   .cmpv-col-hd-canton{display:none}
   .cmpv-winner-badge{font-size:9px;padding:0 7px;height:18px}
   .cmpv-section-title{font-size:10px}
+  .cmpv-val-cell{padding:10px 10px}
+  .cmpv-col-hd{padding:12px 8px;gap:6px}
+  .cmpv-col-hd-name{font-size:13px}
 }
-/* Small mobile — label stacks above values */
-@media(max-width:500px){
+/* Mobile ≤440px — label spans full width, values side by side below */
+@media(max-width:440px){
   :root{--cmpv-label-w:0px}
-  .cmpv-wrap{padding-left:12px;padding-right:12px}
-  .cmpv-row{flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:2px}
-  .cmpv-label-cell{flex:0 0 100%;padding:8px 0 2px;font-size:11px;font-weight:600;color:var(--subtle);text-transform:uppercase;letter-spacing:.04em}
-  .cmpv-val-cell{flex:1 1 0;font-size:12px;padding:8px 8px}
-  .cmpv-val-cell+.cmpv-val-cell{border-left:none}
+  .cmpv-wrap{padding-left:16px;padding-right:16px}
+  .cmpv-col-header{grid-template-columns:1fr 1fr}
   .cmpv-col-hd-spacer{display:none}
-  .cmpv-col-hd{padding:10px 10px;gap:6px}
+  .cmpv-row{grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);margin-bottom:0;min-height:0}
+  .cmpv-label-cell{grid-column:1/-1;padding:8px 0 2px;font-size:11px;font-weight:600;color:var(--subtle);text-transform:uppercase;letter-spacing:.04em}
   .cmpv-col-hd-name{font-size:12px}
   .cmpv-winner-badge{display:none}
-  .cmpv-topbar{margin-bottom:12px}
+  .cmpv-topbar{flex-wrap:wrap;gap:10px;margin-bottom:16px}
   .cmpv-toggle-wrap{width:100%}
-  .cmpv-toggle-btn{flex:1;padding:6px 8px;font-size:12px;text-align:center}
+  .cmpv-toggle-btn{flex:1;padding:8px 8px;font-size:13px;text-align:center}
   .cmpv-section-hd{padding:16px 0 12px}
   .cmpv-pct{font-size:9.5px;padding:1px 5px}
   .cmpv-val-cell.better::after{display:none}
+  .cmpv-val-cell{font-size:12px;padding:8px 8px}
+  .cmpv-section-body{padding-top:4px}
 }
 
 /* ── NAV LINKS ─────────────────────────────────────────────────────────── */
