@@ -3522,6 +3522,7 @@ function renderCards() {
     });
   }));
   fetchCOA(data.map(d => d.canton));
+  _attachSwipeToDelete();
 
   // Restore open cards
   if (openNames.size) {
