@@ -224,7 +224,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Tablet: show trash left of toggle, same color as desktop sidebar icon */
 @media(min-width:641px) and (max-width:1000px){.cmp-clear-mobile{display:none !important}.cmp-clear-tablet{color:var(--text)}}
 /* Mobile: hide tablet button, show inside toggle right-aligned */
-@media(max-width:640px){.cmp-header-right{margin-left:0}.cmp-clear-tablet{display:none !important}.cmp-clear-mobile{margin-left:auto;padding:10px 0;margin-bottom:-1.5px;border-radius:0}}
+@media(max-width:640px){.cmp-header-right{display:contents}.cmp-clear-tablet{display:none !important}.cmp-clear-mobile{margin-left:auto;padding:10px 0;margin-bottom:-1.5px;border-radius:0}}
 
 /* HINTS */
 .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.55}
