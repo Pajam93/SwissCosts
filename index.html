@@ -216,7 +216,10 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 @media(max-width:1000px){#sidebar-chips-header{display:none !important}}
 .chip-clear-all{display:inline-flex;align-items:center;background:none;border:none;cursor:pointer;font-size:12px;font-weight:500;color:var(--subtle);padding:2px 0;font-family:inherit;transition:color .15s;white-space:nowrap}
 .chip-clear-all:hover{color:var(--text)}
-@media(min-width:1001px){#mobile-chips-clear{display:none !important}}
+@media(min-width:1001px){#mobile-chips-clear{display:none !important}#tablet-chips-clear{display:none !important}}
+@media(min-width:641px) and (max-width:1000px){#mobile-chips-clear{display:none !important}}
+@media(max-width:640px){#tablet-chips-clear{display:none !important}}
+.tablet-chips-clear{margin-right:auto;margin-left:12px;font-size:13px}
 
 /* HINTS */
 .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.55}
