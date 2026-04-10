@@ -271,20 +271,21 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .cmp-header svg{color:var(--green);flex-shrink:0;opacity:.8}
 
 /* LOCATION CARDS */
-/* Swipe-to-delete wrapper — carries the shadow so overflow:hidden doesn't clip it */
-.lc-swipe-wrap{position:relative;overflow:hidden;border-radius:16px;margin-bottom:12px;box-shadow:var(--sh-light);transition:box-shadow .2s;isolation:isolate;-webkit-mask-image:-webkit-radial-gradient(white,black)}
+/* Swipe-to-delete wrapper — carries the shadow (child shadow would be clipped by overflow:hidden) */
+.lc-swipe-wrap{position:relative;overflow:hidden;border-radius:16px;margin-bottom:12px;box-shadow:var(--sh-light);transition:box-shadow .2s}
 .lc-swipe-wrap:last-child{margin-bottom:0}
 .lc-swipe-wrap:hover{box-shadow:var(--sh)}
 .lc-swipe-wrap:has(.best){box-shadow:0 2px 8px rgba(15,118,110,.14)}
-/* Delete bg — full width behind card, icon right-aligned */
-.lc-delete-bg{position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:flex-end;padding-right:22px;background:#FF3B30;color:#fff;pointer-events:none}
-@media(min-width:1001px){.lc-delete-bg{display:none}}
-.lc-swipe-wrap .loc-card{margin-bottom:0;border-radius:16px;will-change:transform}
+/* Delete bg — hidden at rest, only shown while actively dragging to prevent GPU bleed */
+.lc-delete-bg{position:absolute;inset:0;display:none;align-items:center;justify-content:flex-end;padding-right:22px;background:#FF3B30;color:#fff;pointer-events:none}
+.lc-swipe-wrap.lc-dragging .lc-delete-bg{display:flex}
+@media(min-width:1001px){.lc-delete-bg{display:none !important}}
+.lc-swipe-wrap .loc-card{margin-bottom:0;border-radius:16px}
 .lc-swipe-wrap .loc-card.lc-swiping{transition:none !important}
-.loc-card{background:var(--white);border-radius:16px;padding:28px 28px 24px;margin-bottom:12px;cursor:pointer;transition:transform .3s var(--ease-snap);box-shadow:none}
+.loc-card{background:var(--white);border-radius:16px;padding:28px 28px 24px;margin-bottom:12px;cursor:pointer;transition:box-shadow .2s,transform .3s var(--ease-snap);box-shadow:var(--sh-light)}
 .loc-card:last-child{margin-bottom:0}
-.loc-card:hover{transform:translateY(-1px)}
-.loc-card.best{background:#ECFDF9}
+.loc-card:hover{box-shadow:var(--sh);transform:translateY(-1px)}
+.loc-card.best{background:#ECFDF9;box-shadow:0 2px 8px rgba(15,118,110,.14)}
 .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px}
 .card-left{display:flex;align-items:center;gap:7px;flex-wrap:wrap;min-width:0}
 .card-name{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
