@@ -216,10 +216,14 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 @media(max-width:1000px){#sidebar-chips-header{display:none !important}}
 .chip-clear-all{display:inline-flex;align-items:center;background:none;border:none;cursor:pointer;font-size:12px;font-weight:500;color:var(--subtle);padding:2px 0;font-family:inherit;transition:color .15s;white-space:nowrap}
 .chip-clear-all:hover{color:var(--text)}
-@media(min-width:1001px){#cmp-clear-locs{display:none !important}}
-.cmp-clear-locs{background:none;border:none;cursor:pointer;color:var(--subtle);padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;flex-shrink:0;margin-left:auto}
+.cmp-clear-locs{background:none;border:none;cursor:pointer;color:var(--subtle);padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;flex-shrink:0}
 .cmp-clear-locs:hover{color:var(--text);background:var(--bg)}
-@media(max-width:640px){.cmp-clear-locs{padding:10px 0;margin-bottom:-1.5px;border-radius:0}}
+/* Desktop: hide both */
+@media(min-width:1001px){.cmp-clear-locs{display:none !important}}
+/* Tablet: show outside button left of toggle, hide inside */
+@media(min-width:641px) and (max-width:1000px){.cmp-clear-mobile{display:none !important}.cmp-clear-tablet{margin-left:12px}}
+/* Mobile: hide outside button, show inside toggle right-aligned */
+@media(max-width:640px){.cmp-clear-tablet{display:none !important}.cmp-clear-mobile{margin-left:auto;padding:10px 0;margin-bottom:-1.5px;border-radius:0}}
 
 /* HINTS */
 .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.55}
