@@ -3257,11 +3257,14 @@ function renderChips() {
   if (hdr) { hdr.style.display = hasLocs ? 'flex' : 'none'; }
   const cnt = document.getElementById('sidebar-chips-count');
   if (cnt) cnt.textContent = hasLocs ? `(${locs.length})` : '';
-  const mobileBtn = document.getElementById('mobile-clear-locs');
-  if (mobileBtn) mobileBtn.style.display = hasLocs ? '' : 'none';
   if (!hasLocs) return;
   _buildChipsInto(el);
   if (elS) _buildChipsInto(elS);
+  // Append "Clear all" at end of mobile chips row (only when 2+ locations)
+  if (locs.length >= 2) {
+    const mkClear = () => { const b = document.createElement('button'); b.className='chip-clear-all'; b.textContent='Clear all'; b.onclick=clearAllLocs; return b; };
+    el.appendChild(mkClear());
+  }
   renderQuickAdd();
   updateAddBtn();
   fetchCOA(locs.map(l => l.canton));
