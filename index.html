@@ -3703,42 +3703,42 @@ function _attachSwipeToDelete() {
       dx = Math.min(0, cx - sx); // left only
       if (dx < -MAX_DRAG) dx = -MAX_DRAG - ((-dx - MAX_DRAG) * 0.12); // rubber band
       card.style.transform = 'translateX(' + dx + 'px)';
-      wrap.classList.toggle('lc-peek', dx < -8);
     }, { passive: false });
 
     card.addEventListener('touchend', function() {
       if (!active) return;
       active = false;
       card.classList.remove('lc-swiping');
-      wrap.classList.remove('lc-peek');
       if (!horiz) { card.style.transform = ''; return; }
 
       if (dx < -55) {
-        // Delete: slide out then collapse
+        // Delete: fly out, then collapse height
         didSwipe = true;
-        card.style.transition = 'transform .22s ease-in';
-        card.style.transform = 'translateX(-115%)';
+        // 1. Slide card fully out (fast ease-in)
+        card.style.transition = 'transform .2s cubic-bezier(0.4,0,1,1), opacity .18s ease';
+        card.style.transform = 'translateX(-110%)';
+        card.style.opacity = '0';
+        // 2. After card exits, collapse the row
         var h = wrap.offsetHeight;
-        wrap.style.overflow = 'hidden';
         setTimeout(function() {
-          wrap.style.transition = 'height .28s ease, margin-bottom .28s ease, opacity .18s ease';
+          wrap.style.transition = 'height .3s cubic-bezier(0.4,0,0.2,1), margin-bottom .3s cubic-bezier(0.4,0,0.2,1), box-shadow .15s ease';
           wrap.style.height = h + 'px';
+          wrap.style.boxShadow = 'none';
           requestAnimationFrame(function() {
             requestAnimationFrame(function() {
               wrap.style.height = '0px';
               wrap.style.marginBottom = '0';
-              wrap.style.opacity = '0';
             });
           });
           setTimeout(function() {
             var name = wrap.dataset.swipeName;
             var idx = locs.findIndex(function(l) { return l.name === name; });
             if (idx >= 0) removeLoc(idx);
-          }, 290);
-        }, 30);
+          }, 310);
+        }, 170);
       } else {
-        // Snap back
-        card.style.transition = 'transform .32s var(--ease-snap)';
+        // Snap back with spring
+        card.style.transition = 'transform .35s var(--ease-snap)';
         card.style.transform = 'translateX(0)';
       }
     }, { passive: true });
