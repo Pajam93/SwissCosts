@@ -1809,14 +1809,15 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
       <div id="cmp" style="display:none">
         <div class="cmp-header">
           <span id="cmp-header-title">Cost comparison</span>
+          <button id="tablet-chips-clear" class="chip-clear-all tablet-chips-clear" onclick="clearAllLocs()" style="display:none">Clear all</button>
           <div class="view-toggle">
             <span class="seg-pill"></span>
             <button class="view-btn active" onclick="setView('monthly',this)">Monthly</button>
             <button class="view-btn" onclick="setView('annual',this)">Annual</button>
           </div>
         </div>
+        <div id="mobile-chips-clear" style="display:none;margin-bottom:8px"><button class="chip-clear-all" onclick="clearAllLocs()">Clear all</button></div>
         <div id="chips" class="chips"></div>
-        <div id="mobile-chips-clear" style="display:none;text-align:right;margin-top:-10px;margin-bottom:10px"><button class="chip-clear-all" onclick="clearAllLocs()">Clear all</button></div>
 
         <div id="banner" class="savings-banner" style="display:none"></div>
         <div id="cards"></div>
