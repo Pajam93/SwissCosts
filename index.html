@@ -271,18 +271,20 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .cmp-header svg{color:var(--green);flex-shrink:0;opacity:.8}
 
 /* LOCATION CARDS */
-/* Swipe-to-delete wrapper (mobile/tablet) */
-.lc-swipe-wrap{position:relative;overflow:hidden;border-radius:16px;margin-bottom:12px}
+/* Swipe-to-delete wrapper — carries the shadow so overflow:hidden doesn't clip it */
+.lc-swipe-wrap{position:relative;overflow:hidden;border-radius:16px;margin-bottom:12px;box-shadow:var(--sh-light);transition:box-shadow .2s}
 .lc-swipe-wrap:last-child{margin-bottom:0}
-.lc-delete-bg{position:absolute;right:0;top:0;bottom:0;width:76px;display:flex;align-items:center;justify-content:center;background:#FF3B30;color:#fff;pointer-events:none;border-radius:0 16px 16px 0;opacity:0;transition:opacity .15s}
-.lc-swipe-wrap.lc-peek .lc-delete-bg{opacity:1}
+.lc-swipe-wrap:hover{box-shadow:var(--sh)}
+.lc-swipe-wrap:has(.best){box-shadow:0 2px 8px rgba(15,118,110,.14)}
+/* Delete bg — full width behind card, icon right-aligned */
+.lc-delete-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:22px;background:#FF3B30;color:#fff;pointer-events:none}
 @media(min-width:1001px){.lc-delete-bg{display:none}}
-.lc-swipe-wrap .loc-card{margin-bottom:0;will-change:transform}
-.lc-swipe-wrap .loc-card.lc-swiping{transition:none !important;transform:none}
-.loc-card{background:var(--white);border-radius:16px;padding:28px 28px 24px;margin-bottom:12px;cursor:pointer;transition:box-shadow .2s,transform .3s var(--ease-snap);box-shadow:var(--sh-light)}
+.lc-swipe-wrap .loc-card{margin-bottom:0;border-radius:16px;will-change:transform}
+.lc-swipe-wrap .loc-card.lc-swiping{transition:none !important}
+.loc-card{background:var(--white);border-radius:16px;padding:28px 28px 24px;margin-bottom:12px;cursor:pointer;transition:transform .3s var(--ease-snap);box-shadow:none}
 .loc-card:last-child{margin-bottom:0}
-.loc-card:hover{box-shadow:var(--sh);transform:translateY(-1px)}
-.loc-card.best{background:#ECFDF9;box-shadow:0 2px 8px rgba(15,118,110,.14)}
+.loc-card:hover{transform:translateY(-1px)}
+.loc-card.best{background:#ECFDF9}
 .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px}
 .card-left{display:flex;align-items:center;gap:7px;flex-wrap:wrap;min-width:0}
 .card-name{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
