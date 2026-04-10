@@ -3673,6 +3673,80 @@ function removeLoc(i){
   if (name) { const si = _cmpSel.indexOf(name); if (si>=0) { _cmpSel.splice(si,1); _renderCmpSel(); _updateCmpBar(); } }
   renderChips(); recalcAndShow(); saveState();
 }
+
+// ── SWIPE-TO-DELETE (mobile/tablet) ───────────────────────────────────────
+function _attachSwipeToDelete() {
+  document.querySelectorAll('.lc-swipe-wrap').forEach(function(wrap) {
+    const card = wrap.querySelector('.loc-card');
+    if (!card || card._swipeReady) return;
+    card._swipeReady = true;
+
+    let sx = 0, sy = 0, dx = 0, active = false, horiz = null, didSwipe = false;
+    const MAX_DRAG = 90;
+
+    card.addEventListener('touchstart', function(e) {
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      dx = 0; active = true; horiz = null; didSwipe = false;
+      card.classList.add('lc-swiping');
+    }, { passive: true });
+
+    card.addEventListener('touchmove', function(e) {
+      if (!active) return;
+      const cx = e.touches[0].clientX, cy = e.touches[0].clientY;
+      const adx = Math.abs(cx - sx), ady = Math.abs(cy - sy);
+      if (horiz === null && (adx > 6 || ady > 6)) horiz = adx > ady;
+      if (!horiz) return;
+      e.preventDefault();
+      dx = Math.min(0, cx - sx); // left only
+      if (dx < -MAX_DRAG) dx = -MAX_DRAG - ((-dx - MAX_DRAG) * 0.12); // rubber band
+      card.style.transform = 'translateX(' + dx + 'px)';
+      wrap.classList.toggle('lc-peek', dx < -8);
+    }, { passive: false });
+
+    card.addEventListener('touchend', function() {
+      if (!active) return;
+      active = false;
+      card.classList.remove('lc-swiping');
+      wrap.classList.remove('lc-peek');
+      if (!horiz) { card.style.transform = ''; return; }
+
+      if (dx < -55) {
+        // Delete: slide out then collapse
+        didSwipe = true;
+        card.style.transition = 'transform .22s ease-in';
+        card.style.transform = 'translateX(-115%)';
+        var h = wrap.offsetHeight;
+        wrap.style.overflow = 'hidden';
+        setTimeout(function() {
+          wrap.style.transition = 'height .28s ease, margin-bottom .28s ease, opacity .18s ease';
+          wrap.style.height = h + 'px';
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              wrap.style.height = '0px';
+              wrap.style.marginBottom = '0';
+              wrap.style.opacity = '0';
+            });
+          });
+          setTimeout(function() {
+            var name = wrap.dataset.swipeName;
+            var idx = locs.findIndex(function(l) { return l.name === name; });
+            if (idx >= 0) removeLoc(idx);
+          }, 290);
+        }, 30);
+      } else {
+        // Snap back
+        card.style.transition = 'transform .32s var(--ease-snap)';
+        card.style.transform = 'translateX(0)';
+      }
+    }, { passive: true });
+
+    // Block click if a real swipe happened
+    card.addEventListener('click', function(e) {
+      if (didSwipe) { e.stopImmediatePropagation(); e.preventDefault(); didSwipe = false; }
+    }, true);
+  });
+}
 function resetForm(){
   selComm=null; hlIdx=-1;
   document.getElementById('cin').value='';
