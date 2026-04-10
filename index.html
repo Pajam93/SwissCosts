@@ -3265,10 +3265,8 @@ function renderChips() {
   const cnt = document.getElementById('sidebar-chips-count');
   if (cnt) cnt.textContent = hasLocs ? `(${locs.length})` : '';
   const show = hasLocs && locs.length >= 2;
-  const mobileClear = document.getElementById('mobile-chips-clear');
-  if (mobileClear) mobileClear.style.display = show ? '' : 'none';
-  const tabletClear = document.getElementById('tablet-chips-clear');
-  if (tabletClear) tabletClear.style.display = show ? '' : 'none';
+  const cmpClear = document.getElementById('cmp-clear-locs');
+  if (cmpClear) cmpClear.style.display = show ? '' : 'none';
   if (!hasLocs) return;
   _buildChipsInto(el);
   if (elS) _buildChipsInto(elS);
