@@ -3801,7 +3801,7 @@ function pickComm(idx){
   document.getElementById('mhval').textContent=f(c.median||CANTON_MEDIAN[c.canton]||1700);
   document.getElementById('mhint').classList.add('show');
   const med = c.median||CANTON_MEDIAN[c.canton]||1700; document.getElementById('rin').placeholder='e.g. '+String(med).replace(/\B(?=(\d{3})+(?!\d))/g,"'");
-  document.getElementById('rin').focus();
+  if (!_suppressFocus) document.getElementById('rin').focus();
   updateAddBtn();
   updateLocClearBtn();
 }
