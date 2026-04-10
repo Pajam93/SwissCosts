@@ -3740,6 +3740,7 @@ function _attachSwipeToDelete() {
         }, 170);
       } else {
         // Snap back with spring
+        wrap.classList.remove('lc-dragging');
         card.style.transition = 'transform .35s var(--ease-snap)';
         card.style.transform = 'translateX(0)';
       }
