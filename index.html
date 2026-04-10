@@ -3711,7 +3711,7 @@ function _attachSwipeToDelete() {
       if (!active) return;
       active = false;
       card.classList.remove('lc-swiping');
-      if (!horiz) { card.style.transform = ''; return; }
+      if (!horiz) { wrap.classList.remove('lc-dragging'); card.style.transform = ''; return; }
 
       if (dx < -55) {
         // Delete: fly out, then collapse height
