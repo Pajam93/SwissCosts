@@ -2801,12 +2801,23 @@ function quickCommAdd(name) {
   if (!_suggCache.length) return;
   pickComm(0);
 }
+var _suppressFocus = false;
 function addSuggLoc(name) {
   _suggCache = searchCommunes(name);
   if (!_suggCache.length) return;
+  var isMobileTablet = window.innerWidth <= 1000;
+  _suppressFocus = isMobileTablet;
   pickComm(0);
+  _suppressFocus = false;
   document.getElementById('rin').value = ''; // blank → tryAdd uses median
   tryAdd();
+  if (isMobileTablet) {
+    setTimeout(function() {
+      var el = document.getElementById('cmp');
+      var target = (el && el.style.display !== 'none') ? el : document.getElementById('results-empty');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
 }
 function spQpIncome(raw) { const el=document.getElementById('spi-salary'); if(!el)return; el.value=raw; fmtInput(el); spSyncNum(el,'salary'); updateStickyProfile(); }
 function spQpP3a(raw)    { const el=document.getElementById('spi-pillar3a');if(!el)return; el.value=raw; fmtInput(el); spSyncNum(el,'pillar3a'); }
