@@ -3692,6 +3692,7 @@ function _attachSwipeToDelete() {
       sy = e.touches[0].clientY;
       dx = 0; active = true; horiz = null; didSwipe = false;
       card.classList.add('lc-swiping');
+      wrap.classList.add('lc-dragging');
     }, { passive: true });
 
     card.addEventListener('touchmove', function(e) {
