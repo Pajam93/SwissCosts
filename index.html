@@ -3504,9 +3504,9 @@ function renderCards() {
         </div>
         ${grossMo?`<div class="lc-bfooter">
           <div class="lc-bstats">
-            <span class="bst lc-bstat-rent"><span class="bst-icon" style="color:var(--green)"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><span class="bst-lbl">${t('card.rent')}</span><span class="bst-val">CHF\u00a0${f(d.rent*mult)}</span><span class="bst-pct">${fp(rP)}%</span></span>
+            <span class="bst lc-bstat-rent"><span class="bst-icon" style="color:var(--green)"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><span class="bst-lbl">${t('card.rent')}</span><span class="bst-val">CHF\u00a0${f(d.rent*mult)}</span><span class="bst-pct">${fp(rP)}%</span></span>
             <span class="bst-sep"></span>
-            <span class="bst lc-bstat-tax"><span class="bst-icon" style="color:var(--green-br)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span><span class="bst-lbl">Tax${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}</span><span class="bst-pct">${fp(tP)}%</span></span>
+            <span class="bst lc-bstat-tax"><span class="bst-icon" style="color:var(--green-br)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span><span class="bst-lbl">Tax${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}</span><span class="bst-pct">${fp(tP)}%</span></span>
           </div>
           ${cardGross?`<div class="lc-gross">CHF\u00a0${f(viewMode==='annual'?cardGross:grossMo)}${period}\u00a0${t('card.gross')}</div>`:''}
         </div>`:''}
