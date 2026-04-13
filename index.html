@@ -3571,10 +3571,10 @@ function renderCards() {
             <span class="det-section-total">CHF ${f(d.taxMonthly*mult)}${period}</span>
           </div>
           <div class="det-lines">
-            <div class="det-line"><span>${t('card.cantonal')}</span><span class="det-line-val">CHF ${f(Math.round(tb.cantonal*mult/12))}${period}<span class="dv-pct">${fp(tb.cantonal/cardGross*100)}%</span></span></div>
-            <div class="det-line"><span>${t('card.communal')}</span><span class="det-line-val">CHF ${f(Math.round(tb.communal*mult/12))}${period}<span class="dv-pct">${fp(tb.communal/cardGross*100)}%</span></span></div>
-            <div class="det-line"><span>${t('card.federal')}</span><span class="det-line-val">CHF ${f(Math.round(tb.federal*mult/12))}${period}<span class="dv-pct">${fp(tb.federal/cardGross*100)}%</span></span></div>
-            ${tb.churchTax>0?`<div class="det-line"><span>${t('card.church')}</span><span class="det-line-val">CHF ${f(Math.round(tb.churchTax*mult/12))}${period}<span class="dv-pct">${fp(tb.churchTax/cardGross*100)}%</span></span></div>`:''}
+            <div class="det-line"><span class="det-line-lbl">${t('card.cantonal')}<span class="dv-pct">${fp(tb.cantonal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.cantonal*mult/12))}${period}</span></div>
+            <div class="det-line"><span class="det-line-lbl">${t('card.communal')}<span class="dv-pct">${fp(tb.communal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.communal*mult/12))}${period}</span></div>
+            <div class="det-line"><span class="det-line-lbl">${t('card.federal')}<span class="dv-pct">${fp(tb.federal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.federal*mult/12))}${period}</span></div>
+            ${tb.churchTax>0?`<div class="det-line"><span class="det-line-lbl">${t('card.church')}<span class="dv-pct">${fp(tb.churchTax/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.churchTax*mult/12))}${period}</span></div>`:''}
           </div>
         </div>
         ${(tb.wealthCanton+tb.wealthCommune)>0?`<div class="det-quiet-group"><div class="det-quiet">
