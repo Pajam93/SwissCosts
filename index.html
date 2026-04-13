@@ -310,7 +310,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Total equation: [house]+[%] before the amount — hidden at rest, visible on card hover */
 .lc-total-eq{display:inline-flex;align-items:center;gap:5px;margin-right:10px;opacity:0;transform:translateX(-5px);transition:opacity .22s,transform .22s var(--ease-snap)}
 .loc-card:hover .lc-total-eq{opacity:1;transform:translateX(0)}
-.lc-teq-pill{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;flex-shrink:0;cursor:pointer}
+.lc-teq-pill{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;flex-shrink:0;cursor:pointer;transition:background .15s,transform .2s var(--ease-snap)}
 .lc-teq-plus{font-size:12px;font-weight:600;color:var(--subtle);line-height:1}
 /* Pill hover → activate matching bar + stat */
 .loc-card:has(.lc-teq-rent:hover) .lc-bfill-rent{filter:brightness(1.28) saturate(0.82)}
