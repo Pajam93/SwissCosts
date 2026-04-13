@@ -3745,14 +3745,16 @@ function _attachSwipeToDelete() {
       sy = e.touches[0].clientY;
       dx = 0; active = true; horiz = null; didSwipe = false;
       card.classList.add('lc-swiping');
-      wrap.classList.add('lc-dragging');
     }, { passive: true });
 
     card.addEventListener('touchmove', function(e) {
       if (!active) return;
       const cx = e.touches[0].clientX, cy = e.touches[0].clientY;
       const adx = Math.abs(cx - sx), ady = Math.abs(cy - sy);
-      if (horiz === null && (adx > 6 || ady > 6)) horiz = adx > ady;
+      if (horiz === null && (adx > 6 || ady > 6)) {
+        horiz = adx > ady;
+        if (horiz) wrap.classList.add('lc-dragging');
+      }
       if (!horiz) return;
       e.preventDefault();
       dx = Math.min(0, cx - sx); // left only
