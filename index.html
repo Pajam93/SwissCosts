@@ -4445,34 +4445,6 @@ function lpPopCardClick(name, canton, rent) {
 }
 
 // ── BAR TOOLTIP ────────────────────────────────────────────────────────────
-function initBarTips() {
-  const tip = document.createElement('div');
-  tip.id = 'bar-tip';
-  document.body.appendChild(tip);
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function attachTips(container) {
-    container.addEventListener('mouseover', e => {
-      const el = e.target.closest('[data-tip]');
-      if (!el) { tip.classList.remove('show'); return; }
-      tip.textContent = el.dataset.tip;
-      tip.classList.add('show');
-      tip.style.left = (mx - tip.offsetWidth / 2) + 'px';
-      tip.style.top  = (my - tip.offsetHeight - 12) + 'px';
-    });
-    container.addEventListener('mousemove', e => {
-      if (!tip.classList.contains('show')) return;
-      tip.style.left = (e.clientX - tip.offsetWidth / 2) + 'px';
-      tip.style.top  = (e.clientY - tip.offsetHeight - 12) + 'px';
-    });
-    container.addEventListener('mouseout', e => {
-      if (!e.relatedTarget || !e.relatedTarget.closest('[data-tip]')) tip.classList.remove('show');
-    });
-  }
-  attachTips(document.getElementById('cards'));
-  attachTips(document.getElementById('lp-pop-grid'));
-}
-initBarTips();
 renderPopularLocs();
 
 // ── Side-by-side compare ─────────────────────────────────────────────────────
