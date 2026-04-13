@@ -3467,10 +3467,6 @@ function renderCards() {
 
   const n = data.length;
 
-  // Preserve which cards are currently open
-  const openNames = new Set(
-    [...document.querySelectorAll('.loc-card.open')].map(el => el.dataset.name)
-  );
 
   document.getElementById('cards').innerHTML = data.map((d,i) => {
     const tb = d.taxBreakdown;
