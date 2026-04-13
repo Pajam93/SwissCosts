@@ -509,10 +509,13 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* ANIMATIONS */
 @keyframes fade-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes lc-card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .input-shake{animation:shake .35s var(--ease-snap)}
 .profile-card{animation:fade-up .4s var(--ease-snap) both}
 .profile-card:nth-child(2){animation-delay:.07s}
 .profile-card:nth-child(3){animation-delay:.14s}
+/* Loc-card entry stagger */
+.lc-swipe-wrap{animation:lc-card-in .3s var(--ease-snap) calc(var(--card-i,0)*55ms) both}
 
 /* STEP WIZARD */
 /* ── STEP 1: homepage centred layout ────────────────────────────────────── */
