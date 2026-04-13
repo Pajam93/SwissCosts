@@ -355,9 +355,10 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .loc-card.best .lc-gross{color:var(--green-dark)}
 /* Chevron */
 .loc-card{position:relative}
-.lc-chevron{color:var(--subtle);transition:transform .3s var(--ease-snap),color .15s;flex-shrink:0;display:flex;align-items:center;cursor:pointer;padding:4px;margin:-4px}
+.lc-chevron{color:var(--subtle);transition:transform .3s var(--ease-snap),color .15s,background .15s;flex-shrink:0;display:flex;align-items:center;cursor:pointer;padding:6px;margin:-6px;border-radius:50%}
 .loc-card.open .lc-chevron{transform:rotate(180deg)}
 .loc-card:hover .lc-chevron{color:var(--muted)}
+.lc-chevron:hover{background:rgba(15,118,110,.08);color:var(--green)!important}
 /* Bar callouts (card-integrated, replaces floating tooltip) */
 .lc-btrack-wrap{position:relative}
 .lc-bcall{position:absolute;bottom:calc(100% + 7px);transform:translateX(-50%) translateY(4px);background:var(--white);border-radius:7px;padding:4px 9px;font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;opacity:0;transition:opacity .15s,transform .15s;pointer-events:none;box-shadow:0 2px 10px rgba(0,0,0,.1);z-index:10;border:1px solid var(--border)}
