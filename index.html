@@ -3571,10 +3571,15 @@ function renderCards() {
   fetchCOA(data.map(d => d.canton));
   _attachSwipeToDelete();
 
-  // Restore open cards
+  // Restore open cards (suppress transition so they open instantly)
   if (openNames.size) {
     document.querySelectorAll('.loc-card').forEach(el => {
-      if (openNames.has(el.dataset.name)) el.classList.add('open');
+      if (openNames.has(el.dataset.name)) {
+        const det = el.querySelector('.card-detail');
+        if (det) det.style.transition = 'none';
+        el.classList.add('open');
+        if (det) requestAnimationFrame(() => { det.style.transition = ''; });
+      }
     });
   }
 
