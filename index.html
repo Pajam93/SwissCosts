@@ -3557,9 +3557,9 @@ function renderCards() {
         </div>
         ${grossMo?`<div class="lc-bfooter">
           <div class="lc-bstats">
-            <span class="bst lc-bstat-rent"><span class="bst-left"><span class="bst-lbl">${t('card.rent')}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.rent*mult)}</span></span></span>
+            <span class="bst lc-bstat-rent"><span class="bst-left"><span class="bst-icon" style="color:var(--subtle)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="bst-lbl">${t('card.rent')}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.rent*mult)}</span></span></span>
             <span class="bst-sep"></span>
-            <span class="bst lc-bstat-tax"><span class="bst-left"><span class="bst-lbl">${t('card.incomeTax')}${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}</span></span></span>
+            <span class="bst lc-bstat-tax"><span class="bst-left"><span class="bst-icon" style="color:var(--subtle)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span><span class="bst-lbl">${t('card.incomeTax')}${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}</span></span></span>
           </div>
         </div>`:''}
       </div>
