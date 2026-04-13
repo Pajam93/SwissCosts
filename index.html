@@ -454,9 +454,11 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .det-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--subtle)}
 .det-section-total{font-size:15px;font-weight:700;color:var(--text)}
 .det-lines{margin-top:10px;display:flex;flex-direction:column;gap:0}
-.det-lines-cascade{margin-top:2px;padding:4px 0 12px 14px;border-left:2px solid var(--border)}
-.det-line{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);padding:6px 0}
-.det-line-val{display:flex;align-items:center;gap:6px;color:var(--muted);font-weight:500;font-size:13px}
+.det-lines-cascade{margin:4px 0 8px;padding:2px 12px;background:rgba(15,118,110,.04);border-radius:10px}
+.det-line{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);padding:8px 0}
+.det-line+.det-line{border-top:1px solid rgba(15,118,110,.08)}
+.det-line>span:first-child{font-weight:500;color:var(--muted)}
+.det-line-val{display:flex;align-items:center;gap:6px;color:var(--text);font-weight:600;font-size:13px}
 /* quiet row: social / wealth — no sub-items, no border (avoids double lines) */
 .det-quiet{display:flex;justify-content:space-between;align-items:center;padding:6px 2px}
 .det-quiet+.det-quiet{padding-top:2px}
