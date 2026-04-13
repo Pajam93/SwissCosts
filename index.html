@@ -3561,7 +3561,7 @@ function renderCards() {
           <span class="lc-chevron"><span class="lc-chevron-lbl">Details</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 9l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
         <div class="lc-row-sub">
-          <span class="lc-name">${d.name}</span>
+          <span class="lc-name">${d.name}<span class="lc-canton-name">${CANTON_NAME[d.canton]||''}</span></span>
           <div class="lc-total-wrap"><span class="card-total">CHF\u00a0${f(d.total*mult)}<span class="card-total-period">${viewMode==='annual'?'per year':'per month'}</span></span></div>
         </div>
       </div>
