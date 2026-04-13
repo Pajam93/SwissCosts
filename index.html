@@ -3544,7 +3544,7 @@ function renderCards() {
             <span class="bst-sep"></span>
             <span class="bst lc-bstat-tax"><span class="bst-left"><span class="bst-icon" style="color:#62BDB8"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span><span class="bst-lbl">Tax${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}</span><span class="bst-pct">${fp(tP)}%</span></span></span>
           </div>
-          ${cardGross?`<div class="lc-gross-sep"></div><div class="lc-gross"><span class="lc-gross-left"><span class="lc-gross-icon lc-gross-chf">CHF</span><span class="lc-gross-lbl">${t('card.gross')}</span></span><span class="lc-gross-val">CHF\u00a0${f(viewMode==='annual'?cardGross:grossMo)}${period}</span></div>`:''}
+          ${cardGross?`<div class="lc-gross-sep"></div><div class="lc-gross"><span class="lc-gross-left"><span class="lc-gross-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></span><span class="lc-gross-lbl">${t('card.gross')}</span></span><span class="lc-gross-val">CHF\u00a0${f(viewMode==='annual'?cardGross:grossMo)}${period}</span></div>`:''}
         </div>`:''}
       </div>
       <div class="card-detail"><div class="card-detail-inner">
