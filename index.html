@@ -439,10 +439,13 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 @media(max-width:640px){#cwrap .pf-input-search{padding-right:90px}}
 
 /* DETAIL PANEL */
-.card-detail{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .36s var(--ease-snap),margin-top .36s var(--ease-snap);margin-top:0}
+.card-detail{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .4s var(--ease-snap),margin-top .4s var(--ease-snap),opacity .3s ease;margin-top:0;opacity:0}
 .card-detail-inner{min-height:0;padding-top:0}
-.loc-card.open .card-detail{grid-template-rows:1fr;margin-top:10px}
-.loc-card.open .bst{padding:6px 0}
+.loc-card.open .card-detail{grid-template-rows:1fr;margin-top:12px;opacity:1}
+/* Footer rows expand when card opens */
+.bst{transition:padding .3s var(--ease-snap)}
+.bst-sep{transition:margin .3s var(--ease-snap)}
+.loc-card.open .bst{padding:8px 0}
 .loc-card.open .bst-sep{margin:0}
 /* section block: title + total header, optional sub-lines */
 .det-section{padding:14px 2px;border-bottom:1px solid var(--border)}
