@@ -3661,18 +3661,15 @@ function toggleCard(el, event){
   const opening = !el.classList.contains('open');
   el.classList.toggle('open');
   if (opening) {
-    // double-rAF ensures display:block layout reflow is complete before measuring
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      const navH = document.querySelector('nav').offsetHeight;
-      const stickyBar = document.getElementById('sticky-profile');
-      const stickyH = stickyBar.classList.contains('visible') ? stickyBar.offsetHeight : 0;
+    // Wait for CSS grid-rows transition to finish before measuring final height
+    setTimeout(function() {
       const cardBottom = el.getBoundingClientRect().bottom;
       const viewportH = window.innerHeight;
       if (cardBottom > viewportH - 16) {
         const overBy = cardBottom - (viewportH - 16);
         window.scrollBy({ top: overBy, behavior: 'smooth' });
       }
-    }));
+    }, 420);
   }
 }
 
