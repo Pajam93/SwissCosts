@@ -358,10 +358,11 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .loc-card.best .lc-gross{color:var(--green-dark)}
 /* Chevron */
 .loc-card{position:relative}
-.lc-chevron{color:var(--subtle);transition:transform .3s var(--ease-snap),color .15s,background .15s;flex-shrink:0;display:flex;align-items:center;gap:4px;cursor:pointer;padding:6px;margin:-6px;border-radius:99px}
+.lc-chevron{color:var(--subtle);transition:color .15s,background .15s;flex-shrink:0;display:flex;align-items:center;gap:4px;cursor:pointer;padding:6px;margin:-6px;border-radius:99px}
+.lc-chevron svg{transition:transform .3s var(--ease-snap)}
 .lc-chevron-lbl{font-size:11px;font-weight:600;color:inherit;opacity:0;max-width:0;overflow:hidden;white-space:nowrap;padding-left:0;transition:opacity .2s,max-width .25s var(--ease-snap),padding-left .25s var(--ease-snap)}
 .loc-card:hover .lc-chevron-lbl{padding-left:4px}
-.loc-card.open .lc-chevron{transform:rotate(180deg)}
+.loc-card.open .lc-chevron svg{transform:rotate(180deg)}
 .loc-card:hover .lc-chevron{background:rgba(15,118,110,.08);color:var(--green)}
 .loc-card:hover .lc-chevron-lbl{opacity:1;max-width:60px}
 .loc-card.open .lc-chevron-lbl{display:none}
