@@ -3276,6 +3276,7 @@ let _suggCache = [];
 
 const f = n => Math.round(n).toLocaleString('de-CH').replace(/,/g,"'");
 const fp = n => (+n).toFixed(1);
+const CANTON_NAME = {AG:"Canton of Aargau",AI:"Canton of Appenzell Innerrhoden",AR:"Canton of Appenzell Ausserrhoden",BE:"Canton of Bern",BL:"Canton of Basel-Landschaft",BS:"Canton of Basel-Stadt",FR:"Canton of Fribourg",GE:"Canton of Geneva",GL:"Canton of Glarus",GR:"Canton of Graubünden",JU:"Canton of Jura",LU:"Canton of Lucerne",NE:"Canton of Neuchâtel",NW:"Canton of Nidwalden",OW:"Canton of Obwalden",SG:"Canton of St. Gallen",SH:"Canton of Schaffhausen",SO:"Canton of Solothurn",SZ:"Canton of Schwyz",TG:"Canton of Thurgau",TI:"Canton of Ticino",UR:"Canton of Uri",VD:"Canton of Vaud",VS:"Canton of Valais",ZG:"Canton of Zug",ZH:"Canton of Zurich"};
 
 // ── ESTV PRE-COMPUTED TAX TABLE (2025) ──────────────────────────────────
 // Ages: [30,40,50,60] | Status: [single,married] | Incomes: [30000, 50000, 70000, 90000, 110000, 130000, 160000, 200000, 260000, 350000]
