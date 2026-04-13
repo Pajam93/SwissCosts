@@ -3569,11 +3569,6 @@ function renderCards() {
   fetchCOA(data.map(d => d.canton));
   _attachSwipeToDelete();
 
-  // Preserve which cards are currently open
-  const openNames = new Set(
-    [...document.querySelectorAll('.loc-card.open')].map(el => el.dataset.name)
-  );
-
   // Restore open cards (suppress transition so they open instantly)
   if (openNames.size) {
     document.querySelectorAll('.loc-card').forEach(el => {
