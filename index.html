@@ -376,7 +376,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .lc-bars:has(.lc-bfill-tax:hover) .lc-bstat-tax .bst-pct,.lc-bstat-tax:hover .bst-pct{background:rgba(11,83,78,.13);color:var(--green-dark)}
 /* Focus ring on bar track — non-colour accessibility indicator */
 .lc-bars:has(.lc-bfill-rent:hover) .lc-btrack,.lc-bars:has(.lc-bstat-rent:hover) .lc-btrack,.loc-card:has(.lc-teq-rent:hover) .lc-btrack{box-shadow:0 0 0 2.5px rgba(24,163,155,.28)}
-.lc-bars:has(.lc-bfill-tax:hover) .lc-btrack,.lc-bars:has(.lc-bstat-tax:hover) .lc-btrack,.loc-card:has(.lc-teq-tax:hover) .lc-btrack{box-shadow:0 0 0 2.5px rgba(58,158,152,.32)}
+.lc-bars:has(.lc-bfill-tax:hover) .lc-btrack,.lc-bars:has(.lc-bstat-tax:hover) .lc-btrack,.loc-card:has(.lc-teq-tax:hover) .lc-btrack{box-shadow:0 0 0 2.5px rgba(98,189,184,.32)}
 /* Mutual focus dim — inactive side fades when the other is active */
 .loc-card:has(.lc-bfill-rent:hover) .lc-bfill-tax,.loc-card:has(.lc-bstat-rent:hover) .lc-bfill-tax,.loc-card:has(.lc-teq-rent:hover) .lc-bfill-tax{opacity:.35}
 .loc-card:has(.lc-bfill-rent:hover) .lc-bstat-tax,.loc-card:has(.lc-bstat-rent:hover) .lc-bstat-tax,.loc-card:has(.lc-teq-rent:hover) .lc-bstat-tax{opacity:.35}
@@ -3518,7 +3518,7 @@ function renderCards() {
         </div>
         <div class="lc-row-sub">
           <span class="lc-name">${d.name}</span>
-          <div class="lc-total-wrap">${grossMo?`<span class="lc-total-eq" aria-hidden="true"><span class="lc-teq-pill lc-teq-rent" style="background:rgba(15,118,110,.12);color:var(--green)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><span class="lc-teq-plus">+</span><span class="lc-teq-pill lc-teq-tax" style="background:rgba(58,158,152,.12);color:#62BDB8"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span></span>`:''}<span class="card-total">CHF\u00a0${f(d.total*mult)}<span class="card-total-period">${period}</span></span></div>
+          <div class="lc-total-wrap">${grossMo?`<span class="lc-total-eq" aria-hidden="true"><span class="lc-teq-pill lc-teq-rent" style="background:rgba(15,118,110,.12);color:var(--green)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><span class="lc-teq-plus">+</span><span class="lc-teq-pill lc-teq-tax" style="background:rgba(98,189,184,.12);color:#62BDB8"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></span></span>`:''}<span class="card-total">CHF\u00a0${f(d.total*mult)}<span class="card-total-period">${period}</span></span></div>
         </div>
       </div>
       <div class="lc-bars">
