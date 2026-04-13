@@ -442,17 +442,30 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 @media(max-width:640px){#cwrap .pf-input-search{padding-right:90px}}
 
 /* DETAIL PANEL */
-.card-detail{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .4s var(--ease-snap),opacity .3s ease;margin-top:0;opacity:0}
+@keyframes det-row-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card-detail{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .45s var(--ease-snap);margin-top:0}
 .card-detail-inner{min-height:0}
-.loc-card.open .card-detail{grid-template-rows:1fr;opacity:1}
+.loc-card.open .card-detail{grid-template-rows:1fr}
+/* Staggered children reveal */
+.card-detail .det-lines,.card-detail .det-grand{opacity:0;transform:translateY(6px);transition:none}
+.loc-card.open .card-detail .det-lines{animation:det-row-in .32s var(--ease-snap) .25s both}
+.loc-card.open .card-detail .det-grand{animation:det-row-in .32s var(--ease-snap) .35s both}
+.card-detail .det-line{opacity:0;transform:translateY(4px);transition:none}
+.loc-card.open .card-detail .det-line:nth-child(1){animation:det-row-in .28s var(--ease-snap) .28s both}
+.loc-card.open .card-detail .det-line:nth-child(2){animation:det-row-in .28s var(--ease-snap) .34s both}
+.loc-card.open .card-detail .det-line:nth-child(3){animation:det-row-in .28s var(--ease-snap) .40s both}
+.loc-card.open .card-detail .det-line:nth-child(4){animation:det-row-in .28s var(--ease-snap) .46s both}
 /* Footer rows expand when card opens */
-.bst{transition:padding .3s var(--ease-snap),border-color .3s ease}
-.bst-sep{overflow:hidden;transition:max-height .3s var(--ease-snap),margin .3s var(--ease-snap),opacity .3s ease;max-height:4px;opacity:1}
+.bst{transition:padding .35s var(--ease-snap),border-color .4s ease}
+.bst-sep{overflow:hidden;transition:max-height .35s var(--ease-snap),margin .35s var(--ease-snap),opacity .25s ease;max-height:4px;opacity:1}
 .loc-card.open .bst{padding:10px 2px}
 .loc-card.open .lc-bstat-tax{padding-bottom:0}
 .loc-card.open .bst-sep{max-height:0;margin:0;opacity:0}
 .loc-card.open .bst-lbl{color:var(--subtle);font-size:11px;letter-spacing:.9px}
 .loc-card.open .bst-val{font-size:15px;font-weight:700;color:var(--text)}
+/* Card lift on open */
+.loc-card{transition:box-shadow .3s ease}
+.loc-card.open{box-shadow:0 12px 40px rgba(0,0,0,.13),0 2px 10px rgba(0,0,0,.07)}
 /* section block: title + total header, optional sub-lines */
 .det-section{padding:10px 2px;border-bottom:1px solid var(--border)}
 .det-section-hd{display:flex;justify-content:space-between;align-items:center}
