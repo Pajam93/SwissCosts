@@ -392,10 +392,15 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* bst-val turns green on activation */
 .lc-bars:has(.lc-bfill-rent:hover) .lc-bstat-rent .bst-val,.lc-bstat-rent:hover .bst-val,.loc-card:has(.lc-teq-rent:hover) .lc-bstat-rent .bst-val{color:var(--green-dark)}
 .lc-bars:has(.lc-bfill-tax:hover) .lc-bstat-tax .bst-val,.lc-bstat-tax:hover .bst-val,.loc-card:has(.lc-teq-tax:hover) .lc-bstat-tax .bst-val{color:var(--green-dark)}
-/* Card footer: same line when space allows, gross wraps right-aligned when not */
-.lc-bfooter{flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:4px 8px}
-.lc-bstats{flex:1;min-width:0;flex-wrap:wrap;row-gap:3px}
-.lc-gross{margin-left:auto;white-space:nowrap;flex-shrink:0}
+/* Card footer: stacked by default */
+.lc-bfooter{flex-direction:column;gap:6px;align-items:stretch}
+.lc-bstats{flex-direction:column;gap:6px}
+.bst-sep{display:none}
+.bst{justify-content:space-between}
+.bst-val{margin-left:auto;margin-right:6px}
+.lc-gross{margin-left:0;justify-content:space-between;white-space:nowrap;flex-shrink:0}
+.lc-gross-icon{display:flex}
+.lc-gross-lbl{flex:1;margin-left:4px}
 /* Mobile card overrides */
 @media(max-width:640px){
   .loc-card{padding:18px 18px 16px}
