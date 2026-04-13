@@ -3550,9 +3550,9 @@ function renderCards() {
         </div>
         ${grossMo?`<div class="lc-bfooter">
           <div class="lc-bstats">
-            <span class="bst lc-bstat-rent"><span class="bst-left"><span class="bst-lbl">${t('card.rent')}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.rent*mult)}</span><span class="bst-pct">${fp(rP)}%</span></span></span>
+            <span class="bst lc-bstat-rent"><span class="bst-left"><span class="bst-lbl">${t('card.rent')}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.rent*mult)}<span class="bst-val-period">${period}</span></span><span class="bst-pct">${fp(rP)}%</span></span></span>
             <span class="bst-sep"></span>
-            <span class="bst lc-bstat-tax"><span class="bst-left"><span class="bst-lbl">${t('card.incomeTax')}${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}</span><span class="bst-pct">${fp(tP)}%</span></span></span>
+            <span class="bst lc-bstat-tax"><span class="bst-left"><span class="bst-lbl">${t('card.incomeTax')}${tb&&tb.isQuellensteuer?`<sup class="lc-qs">${t('card.atSource')}</sup>`:''}</span></span><span class="bst-right"><span class="bst-val">CHF\u00a0${f(d.taxMonthly*mult)}<span class="bst-val-period">${period}</span></span><span class="bst-pct">${fp(tP)}%</span></span></span>
           </div>
         </div>`:''}
       </div>
