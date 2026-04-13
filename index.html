@@ -3580,7 +3580,7 @@ function renderCards() {
         </div>
         ${(tb.wealthCanton+tb.wealthCommune)>0?`<div class="det-quiet-group"><div class="det-quiet">
           <span class="det-quiet-title">${t('card.wealth')}</span>
-          <span class="det-quiet-val">CHF ${f(viewMode==='annual'?tb.totalWealthTax:Math.round(tb.totalWealthTax/12))}${period}</span>
+          <span class="det-quiet-val">CHF ${f(viewMode==='annual'?tb.totalWealthTax:Math.round(tb.totalWealthTax/12))}</span>
         </div></div>`:''}
         `:`<div style="color:var(--muted);font-size:12.5px;padding:10px 2px">${t('card.noTax')}</div>`}
         <div class="det-grand">
