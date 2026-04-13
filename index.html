@@ -3525,37 +3525,6 @@ function renderCards() {
           ${cardGross?`<div class="lc-gross">CHF\u00a0${f(viewMode==='annual'?cardGross:grossMo)}${period}\u00a0${t('card.gross')}</div>`:''}
         </div>`:''}
       </div>
-      <div class="card-detail"><div class="card-detail-inner">
-        <div class="det-section">
-          <div class="det-section-hd">
-            <span class="det-section-title">${t('card.rent')}</span>
-            <span class="det-section-total">CHF ${f(d.rent*mult)}${period}</span>
-          </div>
-        </div>
-        ${tb?`
-        <div class="det-section">
-          <div class="det-section-hd">
-            <span class="det-section-title">${t('card.incomeTax')}</span>
-            <span class="det-section-total">CHF ${f(Math.round(tb.totalIncomeTax*mult/12))}${period}</span>
-          </div>
-          <div class="det-lines">
-            <div class="det-line"><span>${t('card.cantonal')}</span><span class="det-line-val">CHF ${f(Math.round(tb.cantonal*mult/12))}${period}<span class="dv-pct">${fp(tb.cantonal/cardGross*100)}%</span></span></div>
-            <div class="det-line"><span>${t('card.communal')}</span><span class="det-line-val">CHF ${f(Math.round(tb.communal*mult/12))}${period}<span class="dv-pct">${fp(tb.communal/cardGross*100)}%</span></span></div>
-            <div class="det-line"><span>${t('card.federal')}</span><span class="det-line-val">CHF ${f(Math.round(tb.federal*mult/12))}${period}<span class="dv-pct">${fp(tb.federal/cardGross*100)}%</span></span></div>
-            ${tb.churchTax>0?`<div class="det-line"><span>${t('card.church')}</span><span class="det-line-val">CHF ${f(Math.round(tb.churchTax*mult/12))}${period}<span class="dv-pct">${fp(tb.churchTax/cardGross*100)}%</span></span></div>`:''}
-          </div>
-        </div>
-        ${(tb.wealthCanton+tb.wealthCommune)>0?`<div class="det-quiet-group"><div class="det-quiet">
-          <span class="det-quiet-title">${t('card.wealth')}</span>
-          <span class="det-quiet-val">CHF ${f(viewMode==='annual'?tb.totalWealthTax:Math.round(tb.totalWealthTax/12))}${period}</span>
-        </div></div>`:''}
-        `:`<div style="color:var(--muted);font-size:12.5px;padding:10px 2px">${t('card.noTax')}</div>`}
-        <div class="det-grand">
-          <span class="det-grand-lbl">${t('card.total')}</span>
-          <span class="det-grand-val">CHF ${f(d.total*mult)}<span class="det-grand-period">${period}</span></span>
-        </div>
-        ${netHtml}
-      </div></div>
     </div></div>`;
   }).join('');
 
