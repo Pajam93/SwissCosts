@@ -272,9 +272,9 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 
 /* LOCATION CARDS */
 /* Swipe-to-delete wrapper — carries the shadow (child shadow would be clipped by overflow:hidden) */
-.lc-swipe-wrap{position:relative;overflow:hidden;border-radius:16px;margin-bottom:12px;box-shadow:var(--sh-light);transition:box-shadow .2s}
+.lc-swipe-wrap{position:relative;overflow:hidden;border-radius:16px;margin-bottom:12px;box-shadow:var(--sh-light);transition:box-shadow .2s,outline-color .2s;outline:1.5px solid transparent}
 .lc-swipe-wrap:last-child{margin-bottom:0}
-.lc-swipe-wrap:hover{box-shadow:var(--sh)}
+.lc-swipe-wrap:hover{box-shadow:var(--sh);outline-color:var(--green-br)}
 .lc-swipe-wrap:has(.best){box-shadow:0 2px 8px rgba(15,118,110,.14)}
 /* Delete bg — hidden at rest, only shown while actively dragging to prevent GPU bleed */
 .lc-delete-bg{position:absolute;inset:0;display:none;align-items:center;justify-content:flex-end;padding-right:22px;background:#FF3B30;color:#fff;pointer-events:none}
