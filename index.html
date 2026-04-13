@@ -380,8 +380,8 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .loc-card:has(.lc-bfill-tax:hover) .lc-bfill-rent,.loc-card:has(.lc-bstat-tax:hover) .lc-bfill-rent,.loc-card:has(.lc-teq-tax:hover) .lc-bfill-rent{opacity:.35}
 .loc-card:has(.lc-bfill-tax:hover) .lc-bstat-rent,.loc-card:has(.lc-bstat-tax:hover) .lc-bstat-rent,.loc-card:has(.lc-teq-tax:hover) .lc-bstat-rent{opacity:.35}
 /* Bar/stat hover → activate matching pill in total equation */
-.loc-card:has(.lc-bfill-rent:hover) .lc-teq-rent,.loc-card:has(.lc-bstat-rent:hover) .lc-teq-rent{background:rgba(15,118,110,.22)!important;transform:scale(1.12)}
-.loc-card:has(.lc-bfill-tax:hover) .lc-teq-tax,.loc-card:has(.lc-bstat-tax:hover) .lc-teq-tax{background:rgba(126,205,199,.48)!important;transform:scale(1.12)}
+.loc-card:has(.lc-bfill-rent:hover) .lc-teq-rent,.loc-card:has(.lc-bstat-rent:hover) .lc-teq-rent,.lc-teq-rent:hover{background:rgba(15,118,110,.22)!important;transform:scale(1.12)}
+.loc-card:has(.lc-bfill-tax:hover) .lc-teq-tax,.loc-card:has(.lc-bstat-tax:hover) .lc-teq-tax,.lc-teq-tax:hover{background:rgba(126,205,199,.48)!important;transform:scale(1.12)}
 /* bst-val turns green on activation */
 .lc-bars:has(.lc-bfill-rent:hover) .lc-bstat-rent .bst-val,.lc-bstat-rent:hover .bst-val,.loc-card:has(.lc-teq-rent:hover) .lc-bstat-rent .bst-val{color:var(--green-dark)}
 .lc-bars:has(.lc-bfill-tax:hover) .lc-bstat-tax .bst-val,.lc-bstat-tax:hover .bst-val,.loc-card:has(.lc-teq-tax:hover) .lc-bstat-tax .bst-val{color:var(--green-dark)}
