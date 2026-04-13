@@ -340,7 +340,8 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .lc-name{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
 .loc-card.best .lc-name{color:var(--green-dark)}
 .lc-meta{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;cursor:pointer}
-.lc-canton{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.2px;background:var(--bg);padding:0 10px;height:22px;border-radius:99px;border:1px solid var(--border);flex-shrink:0;line-height:1;display:inline-flex;align-items:center}
+.lc-canton{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.2px;background:var(--bg);padding:0 10px;height:22px;border-radius:99px;border:1px solid var(--border);flex-shrink:0;line-height:1;display:inline-flex;align-items:center;transition:background .15s,border-color .15s}
+.loc-card:hover .lc-canton{background:rgba(15,118,110,.06);border-color:var(--border-strong)}
 .lc-total-wrap{display:flex;align-items:center;flex-shrink:0}
 .card-total-period{font-size:14px;font-weight:500;color:var(--muted)}
 .lc-qs{font-size:1em;vertical-align:baseline;color:var(--subtle);font-weight:400;margin-left:4px}
