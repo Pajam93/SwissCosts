@@ -4613,6 +4613,7 @@ window.addEventListener('popstate', function(e) {
     window.scrollTo({top:0,behavior:'instant'});
   } else {
     // step1 or fallback
+    document.body.classList.remove('is-compare');
     document.getElementById('page-step2').style.display = 'none';
     document.getElementById('page-compare').style.display = 'none';
     document.getElementById('page-step1').style.display = '';
