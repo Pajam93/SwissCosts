@@ -4571,6 +4571,7 @@ function goCompare() {
   document.getElementById('page-compare').style.display = 'block';
   document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
   document.getElementById('sticky-profile').classList.add('visible');
+  document.body.classList.add('is-compare');
   saveState();
   history.pushState({page:'compare'}, '');
   window.scrollTo({top:0,behavior:'instant'});
@@ -4580,6 +4581,7 @@ function goStep2FromCompare() {
   document.getElementById('page-compare').style.display = 'none';
   document.getElementById('page-step2').style.display = '';
   if (_cmpSel.length > 0) document.getElementById('cmp-bar').classList.add('cmp-bar-on');
+  document.body.classList.remove('is-compare');
   saveState();
   history.pushState({page:'step2'}, '');
   window.scrollTo({top:0,behavior:'instant'});
