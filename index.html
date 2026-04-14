@@ -4574,7 +4574,12 @@ function goCompare() {
   document.getElementById('page-step2').style.display = 'none';
   document.getElementById('page-compare').style.display = 'block';
   document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
-  document.getElementById('sticky-profile').classList.add('visible');
+  const _sp = document.getElementById('sticky-profile');
+  _sp.classList.add('visible');
+  _sp.style.position = 'static';
+  _sp.style.top = 'auto';
+  _sp.style.boxShadow = 'none';
+  _sp.style.marginTop = '62px';
   document.body.classList.add('is-compare');
   saveState();
   history.pushState({page:'compare'}, '');
