@@ -845,10 +845,16 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* ── Compare page ────────────────────────────────────── */
 :root{--cmpv-label-w:220px}
 #page-compare{display:none;flex:1;width:100%;min-width:0}
+/* Compare page: hide site nav, un-stick profile bar */
+body.is-compare .site-nav{display:none}
+body.is-compare #sticky-profile{position:static;top:auto;box-shadow:none}
+/* Minimal compare nav */
+.cmpv-nav{position:sticky;top:0;z-index:20;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;height:48px;gap:16px}
+.cmpv-nav-close{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:none;background:none;cursor:pointer;color:var(--text);border-radius:6px;transition:background .15s;flex-shrink:0;padding:0}
+.cmpv-nav-close:hover{background:var(--border)}
+.cmpv-nav-title{font-size:14px;font-weight:600;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif}
 /* Same padding as step2 for consistent back-btn position */
 .cmpv-wrap{max-width:1440px;width:100%;margin:0 auto;padding:clamp(20px,2.5vh,36px) 40px 60px}
-/* Back button */
-.cmpv-wrap .back-btn{margin-bottom:16px}
 /* Title + toggle — single row, title stretches */
 .cmpv-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
 .cmpv-title{font-size:clamp(32px,3vw,42px);font-weight:600;letter-spacing:-.4px;color:var(--text);line-height:1.15;margin:0;flex:1;min-width:0;padding-left:var(--cmpv-label-w)}
