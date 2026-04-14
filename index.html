@@ -4763,9 +4763,15 @@ function _buildComparePage(nameA, nameB) {
 
   document.getElementById('page-compare').innerHTML = `
   <div class="cmpv-nav">
-    <button class="cmpv-nav-close" onclick="goStep2FromCompare()" title="Close comparison">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    <div class="cmpv-nav-inner">
+      <a class="logo" href="#" onclick="event.preventDefault();goStep2FromCompare()">
+        <svg class="logo-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg>
+        SwissCosts
+      </a>
+      <button class="cmpv-nav-close" onclick="goStep2FromCompare()" title="Close comparison">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
   </div>
   <div class="cmpv-wrap">
     <div class="cmpv-topbar">
