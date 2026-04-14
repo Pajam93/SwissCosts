@@ -848,11 +848,12 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Compare page: hide site nav, un-stick profile bar */
 body.is-compare nav{display:none}
 body.is-compare #sticky-profile{position:static;top:auto;box-shadow:none}
-/* Minimal compare nav */
-.cmpv-nav{position:sticky;top:0;z-index:20;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;height:48px;gap:16px}
+/* Compare nav — mirrors site <nav> exactly, full viewport width */
+.cmpv-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;}
+.cmpv-nav-inner{max-width:1440px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 40px}
 .cmpv-nav-close{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:none;background:none;cursor:pointer;color:var(--text);border-radius:6px;transition:background .15s;flex-shrink:0;padding:0}
 .cmpv-nav-close:hover{background:var(--border)}
-.cmpv-nav-title{font-size:14px;font-weight:600;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif}
+@media(max-width:1000px){.cmpv-nav-inner{padding-left:20px;padding-right:20px}}
 /* Same padding as step2 for consistent back-btn position */
 .cmpv-wrap{max-width:1440px;width:100%;margin:0 auto;padding:clamp(20px,2.5vh,36px) 40px 60px}
 /* Title + toggle — single row, title stretches */
