@@ -4723,9 +4723,9 @@ function _buildComparePage(nameA, nameB) {
   ].join('');
 
   /* ── Toggle ── */
-  const toggleHtml = `<div class="cmpv-toggle-wrap">
-    <button class="cmpv-toggle-btn${!isAnn?' active':''}" onclick="cmpvSetMode('monthly')" type="button">Monthly</button>
-    <button class="cmpv-toggle-btn${isAnn?' active':''}" onclick="cmpvSetMode('annual')" type="button">Yearly</button>
+  const toggleHtml = `<div class="view-toggle cmpv-toggle-wrap">
+    <button class="view-btn${!isAnn?' active':''}" onclick="cmpvSetMode('monthly',this)" type="button">Monthly</button>
+    <button class="view-btn${isAnn?' active':''}" onclick="cmpvSetMode('annual',this)" type="button">Yearly</button>
   </div>`;
 
   document.getElementById('page-compare').innerHTML = `
