@@ -857,7 +857,8 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .cmpv-toggle-btn{border:none;background:transparent;padding:8px 18px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--green-dark);border-radius:10px;transition:all .2s var(--ease-snap);line-height:1.2;white-space:nowrap}
 .cmpv-toggle-btn.active{background:var(--white);color:var(--text);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.10)}
 /* Column header — CSS Grid, sticky below nav */
-.cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:4px;border-radius:0;overflow:hidden;position:sticky;top:68px;z-index:10}
+.cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:4px;border-radius:0;overflow:hidden;position:sticky;top:68px;z-index:10;transition:box-shadow .2s ease}
+.cmpv-col-header.is-stuck{box-shadow:0 4px 16px rgba(0,0,0,.08)}
 .cmpv-col-hd-spacer{background:var(--bg)}
 .cmpv-col-hd{padding:16px 20px 14px;display:flex;flex-direction:column;gap:6px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
 .cmpv-col-hd.winner{background:var(--green-bg);border-bottom-color:var(--green)}
