@@ -859,12 +859,16 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Column header — CSS Grid, sticky below nav */
 .cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:4px;border-radius:0;overflow:hidden;position:sticky;top:68px;z-index:10}
 .cmpv-col-hd-spacer{background:var(--bg)}
-.cmpv-col-hd{padding:14px 16px;display:flex;align-items:center;gap:10px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
+.cmpv-col-hd{padding:16px 20px 14px;display:flex;flex-direction:column;gap:6px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
 .cmpv-col-hd.winner{background:var(--green-bg);border-bottom-color:var(--green)}
-.cmpv-col-hd>div{min-width:0;flex:1}
-.cmpv-col-hd-name{font-size:15px;font-weight:700;letter-spacing:-.03em;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmpv-col-hd-top{display:flex;align-items:center;gap:8px;min-width:0}
+.cmpv-col-hd-top>div{min-width:0;flex:1}
+.cmpv-col-hd-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
 .cmpv-col-hd-canton{font-size:11px;color:var(--muted);margin-top:1px}
-.cmpv-winner-badge{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0 10px;height:22px;border-radius:99px;white-space:nowrap;flex-shrink:0;background:var(--green);color:#fff;letter-spacing:.2px}
+.cmpv-col-hd-cost{font-size:22px;font-weight:700;letter-spacing:-.5px;color:var(--text);line-height:1;white-space:nowrap}
+.cmpv-col-hd.winner .cmpv-col-hd-cost{color:var(--green-dark)}
+.cmpv-col-hd-save{display:inline-flex;align-items:center;font-size:11px;font-weight:600;color:var(--green-dark);background:rgba(15,118,110,.1);padding:2px 8px;border-radius:4px;white-space:nowrap;width:fit-content}
+.cmpv-winner-badge{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0 8px;height:20px;border-radius:4px;white-space:nowrap;flex-shrink:0;background:var(--green);color:#fff;letter-spacing:.2px;margin-left:auto}
 /* Section headers */
 .cmpv-section-hd{display:flex;align-items:center;gap:10px;cursor:pointer;padding:22px 0 20px;user-select:none;border-bottom:1.5px solid var(--border)}
 .cmpv-section-hd:hover .cmpv-section-title,.cmpv-section-hd:hover .cmpv-chev{color:var(--green-dark)}
