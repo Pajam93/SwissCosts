@@ -3588,11 +3588,8 @@ function renderCards() {
             <div class="det-line"><span class="det-line-lbl">${t('card.communal')}<span class="dv-pct">${fp(tb.communal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.communal*mult/12))}</span></div>
             <div class="det-line"><span class="det-line-lbl">${t('card.federal')}<span class="dv-pct">${fp(tb.federal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.federal*mult/12))}</span></div>
             ${tb.churchTax>0?`<div class="det-line"><span class="det-line-lbl">${t('card.church')}<span class="dv-pct">${fp(tb.churchTax/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.churchTax*mult/12))}</span></div>`:''}
+            ${(tb.wealthCanton+tb.wealthCommune)>0?`<div class="det-line"><span class="det-line-lbl">${t('card.wealth')}</span><span class="det-line-val">CHF ${f(viewMode==='annual'?tb.totalWealthTax:Math.round(tb.totalWealthTax/12))}</span></div>`:''}
           </div>
-          ${(tb.wealthCanton+tb.wealthCommune)>0?`<div class="det-quiet-group"><div class="det-quiet">
-            <span class="det-quiet-title">${t('card.wealth')}</span>
-            <span class="det-quiet-val">CHF ${f(viewMode==='annual'?tb.totalWealthTax:Math.round(tb.totalWealthTax/12))}</span>
-          </div></div>`:''}
         `:`<div style="color:var(--muted);font-size:12.5px;padding:10px 2px">${t('card.noTax')}</div>`}
         <div class="det-grand">
           <span class="det-grand-lbl">${t('card.total')}</span>
