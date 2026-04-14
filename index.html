@@ -859,7 +859,17 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Column header — CSS Grid, sticky below nav */
 .cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:4px;border-radius:0;overflow:hidden;position:sticky;top:126px;z-index:10;transition:box-shadow .2s ease}
 .cmpv-col-header.is-stuck{box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.cmpv-col-hd-spacer{background:var(--bg)}
+.cmpv-col-hd-spacer{background:var(--bg);display:flex;align-items:center;padding:0 12px}
+/* Hide-identical toggle */
+.cmpv-eq-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.cmpv-eq-toggle input{position:absolute;opacity:0;width:0;height:0}
+.cmpv-eq-track{width:34px;height:19px;background:#D1D5DB;border-radius:99px;position:relative;transition:background .2s;flex-shrink:0}
+.cmpv-eq-track::after{content:'';position:absolute;width:15px;height:15px;background:#fff;border-radius:50%;top:2px;left:2px;transition:left .18s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.cmpv-eq-toggle input:checked+.cmpv-eq-track{background:var(--green)}
+.cmpv-eq-toggle input:checked+.cmpv-eq-track::after{left:17px}
+.cmpv-eq-lbl{font-size:11px;font-weight:500;color:var(--muted);line-height:1.35}
+/* Hide equal rows when toggle is on */
+#page-compare.hide-equal .cmpv-row--equal{display:none}
 .cmpv-col-hd{padding:16px 20px 14px;display:flex;flex-direction:column;gap:6px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
 .cmpv-col-hd.winner{background:var(--green-bg);border-bottom-color:var(--green)}
 .cmpv-col-hd-top{display:flex;align-items:center;gap:8px;min-width:0}
