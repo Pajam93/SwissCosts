@@ -4656,7 +4656,7 @@ function _buildComparePage(nameA, nameB) {
     const labelHtml = subtitle
       ? `<span class="cmpv-label-main">${label}</span><span class="cmpv-label-sub">${subtitle}</span>`
       : `<span class="cmpv-label-main">${label}</span>`;
-    return `<div class="cmpv-row">
+    return `<div class="cmpv-row${equal?' cmpv-row--equal':''}">
       <div class="cmpv-label-cell">${labelHtml}</div>
       <div class="cmpv-val-cell${aBetter?' better':''}">${fmt(valA)}${extraA||''}</div>
       <div class="cmpv-val-cell${bBetter?' better':''}">${fmt(valB)}${extraB||''}</div>
