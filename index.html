@@ -4609,6 +4609,7 @@ window.addEventListener('popstate', function(e) {
     document.getElementById('page-compare').style.display = 'block';
     document.getElementById('cmp-bar').classList.remove('cmp-bar-on');
     document.getElementById('sticky-profile').classList.add('visible');
+    document.body.classList.add('is-compare');
     window.scrollTo({top:0,behavior:'instant'});
   } else {
     // step1 or fallback
