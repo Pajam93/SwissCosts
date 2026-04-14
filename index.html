@@ -4753,7 +4753,13 @@ function _buildComparePage(nameA, nameB) {
       ${toggleHtml}
     </div>
     <div id="cmpv-col-header" class="cmpv-col-header">
-      <div class="cmpv-col-hd-spacer"></div>
+      <div class="cmpv-col-hd-spacer">
+        <label class="cmpv-eq-toggle">
+          <input type="checkbox" onchange="cmpvToggleEqual(this)">
+          <span class="cmpv-eq-track"></span>
+          <span class="cmpv-eq-lbl">Hide<br>identical</span>
+        </label>
+      </div>
       <div class="cmpv-col-hd${aWins?' winner':''}">
         <div class="cmpv-col-hd-top">
           ${coaImg(la.canton,20)}
