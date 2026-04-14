@@ -4354,6 +4354,10 @@ function _getCol(loc) {
   return _colByCommune[key] || _colByCanon[loc.canton] || _colDefault;
 }
 
+function cmpvToggleEqual(cb) {
+  document.getElementById('page-compare').classList.toggle('hide-equal', cb.checked);
+}
+
 let _cmpvMode = 'monthly';
 function cmpvSetMode(mode) {
   _cmpvMode = mode;
