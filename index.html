@@ -4344,7 +4344,11 @@ function _getCol(loc) {
 let _cmpvMode = 'monthly';
 function cmpvSetMode(mode) {
   _cmpvMode = mode;
-  if (_cmpSel.length >= 2) _buildComparePage(_cmpSel[0], _cmpSel[1]);
+  if (_cmpSel.length >= 2) {
+    _buildComparePage(_cmpSel[0], _cmpSel[1]);
+    const tog = document.querySelector('#page-compare .view-toggle');
+    if (tog) posSegPill(tog, true);
+  }
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
