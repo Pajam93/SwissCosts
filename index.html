@@ -4012,6 +4012,8 @@ function loadState() {
       document.getElementById('page-step2').style.display = 'none';
       document.getElementById('page-compare').style.display = 'block';
       document.getElementById('sticky-profile').classList.add('visible','step-pinned');
+      document.body.classList.add('is-compare');
+      _applyCompareStickyStyles();
     }
     // Seed initial history state if none exists (fresh page load)
     if (!history.state) {
