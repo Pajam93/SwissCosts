@@ -4740,14 +4740,22 @@ function _buildComparePage(nameA, nameB) {
     <div id="cmpv-col-header" class="cmpv-col-header">
       <div class="cmpv-col-hd-spacer"></div>
       <div class="cmpv-col-hd${aWins?' winner':''}">
-        ${coaImg(la.canton,22)}
-        <div><div class="cmpv-col-hd-name">${nameA}</div><div class="cmpv-col-hd-canton">${la.canton||''}</div></div>
-        ${aWins&&saveMo>0?`<span class="cmpv-winner-badge">Best deal</span>`:''}
+        <div class="cmpv-col-hd-top">
+          ${coaImg(la.canton,20)}
+          <div><div class="cmpv-col-hd-name">${nameA}</div><div class="cmpv-col-hd-canton">${la.canton||''}</div></div>
+          ${aWins&&saveMo>0?`<span class="cmpv-winner-badge">Best deal</span>`:''}
+        </div>
+        <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalA*12:totalA)}${isAnn?'/yr':'/mo'}</div>
+        ${aWins&&saveMo>0?`<div class="cmpv-col-hd-save">Save CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
       </div>
       <div class="cmpv-col-hd${!aWins?' winner':''}">
-        ${coaImg(lb.canton,22)}
-        <div><div class="cmpv-col-hd-name">${nameB}</div><div class="cmpv-col-hd-canton">${lb.canton||''}</div></div>
-        ${!aWins&&saveMo>0?`<span class="cmpv-winner-badge">Best deal</span>`:''}
+        <div class="cmpv-col-hd-top">
+          ${coaImg(lb.canton,20)}
+          <div><div class="cmpv-col-hd-name">${nameB}</div><div class="cmpv-col-hd-canton">${lb.canton||''}</div></div>
+          ${!aWins&&saveMo>0?`<span class="cmpv-winner-badge">Best deal</span>`:''}
+        </div>
+        <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalB*12:totalB)}${isAnn?'/yr':'/mo'}</div>
+        ${!aWins&&saveMo>0?`<div class="cmpv-col-hd-save">Save CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
       </div>
     </div>
     ${section('Housing', housingRows)}
