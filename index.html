@@ -4766,10 +4766,23 @@ function _buildComparePage(nameA, nameB) {
     ${hasTax ? section('Tax breakdown', taxBreakdownRows) : ''}
     ${section('Cost of living in commune', colRows)}
   </div>`;
-  // Init animated pill on the view-toggle
+  // Init animated pill on the view-toggle + sticky shadow observer
   requestAnimationFrame(() => {
     const tog = document.querySelector('#page-compare .view-toggle');
     if (tog) posSegPill(tog, true);
+
+    // Sentinel: a 1px element just above the col-header; when it leaves
+    // the viewport the header is "stuck" and gets the shadow class.
+    const colHd = document.getElementById('cmpv-col-header');
+    if (colHd) {
+      const sentinel = document.createElement('div');
+      sentinel.style.cssText = 'height:1px;margin-bottom:-1px;pointer-events:none';
+      colHd.parentElement.insertBefore(sentinel, colHd);
+      const obs = new IntersectionObserver(([e]) => {
+        colHd.classList.toggle('is-stuck', !e.isIntersecting);
+      }, { threshold: 0 });
+      obs.observe(sentinel);
+    }
   });
 }
 
