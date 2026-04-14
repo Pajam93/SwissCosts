@@ -4591,6 +4591,7 @@ function goStep2FromCompare() {
 window.addEventListener('popstate', function(e) {
   const page = (e.state && e.state.page) || 'step1';
   if (page === 'step2') {
+    document.body.classList.remove('is-compare');
     document.getElementById('page-step1').style.display = 'none';
     document.getElementById('page-compare').style.display = 'none';
     document.getElementById('page-step2').style.display = '';
