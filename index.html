@@ -4756,6 +4756,11 @@ function _buildComparePage(nameA, nameB) {
     ${hasTax ? section('Tax breakdown', taxBreakdownRows) : ''}
     ${section('Cost of living in commune', colRows)}
   </div>`;
+  // Init animated pill on the view-toggle
+  requestAnimationFrame(() => {
+    const tog = document.querySelector('#page-compare .view-toggle');
+    if (tog) posSegPill(tog, true);
+  });
 }
 
 
