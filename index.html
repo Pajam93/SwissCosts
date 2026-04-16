@@ -894,26 +894,26 @@ body.is-compare #sticky-profile{margin-top:62px}
 .cmpv-col-hd-save{display:inline-flex;align-items:center;font-size:11px;font-weight:600;color:var(--green-dark);background:rgba(15,118,110,.1);padding:2px 8px;border-radius:4px;white-space:nowrap;width:fit-content}
 .cmpv-winner-badge{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0 8px;height:20px;border-radius:4px;white-space:nowrap;flex-shrink:0;background:var(--green);color:#fff;letter-spacing:.2px;margin-left:auto}
 /* Section headers */
-.cmpv-section-hd{display:flex;align-items:center;gap:10px;cursor:pointer;padding:22px 0 20px;user-select:none;border-bottom:1.5px solid var(--border)}
+.cmpv-section-hd{display:flex;align-items:center;gap:10px;cursor:pointer;padding:24px 0 12px;user-select:none;border-bottom:none}
 .cmpv-section-hd:hover .cmpv-section-title,.cmpv-section-hd:hover .cmpv-chev{color:var(--green-dark)}
-.cmpv-chev{flex-shrink:0;color:var(--muted);transition:transform .22s var(--ease-snap),color .15s}
+.cmpv-chev{flex-shrink:0;color:var(--subtle);transition:transform .22s var(--ease-snap),color .15s}
 .cmpv-section-hd.cmpv-collapsed .cmpv-chev{transform:rotate(-90deg)}
-.cmpv-section-title{font-size:11px;font-weight:700;color:var(--text);letter-spacing:.07em;text-transform:uppercase}
-/* Section body */
-.cmpv-section-body{padding-top:12px}
+.cmpv-section-title{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+/* Section body — white card */
+.cmpv-section-body{padding-top:0;background:var(--white);border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:4px}
 .cmpv-section-body.cmpv-collapsed{display:none}
 /* Rows — CSS Grid matches header columns exactly */
-.cmpv-row{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;background:transparent;margin-bottom:2px;min-height:52px}
-.cmpv-row:nth-child(odd){background:rgba(242,246,246,.7)}
-.cmpv-label-cell{padding:11px 12px 11px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13px;color:var(--muted);font-weight:500;min-width:0;overflow:hidden}
+.cmpv-row{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;background:transparent;margin-bottom:0;min-height:52px;border-bottom:1px solid var(--border)}
+.cmpv-row:last-child{border-bottom:none}
+.cmpv-label-cell{padding:12px 16px 12px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13px;color:var(--text);font-weight:500;min-width:0;overflow:hidden}
 .cmpv-label-cell>span.cmpv-label-main{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 .cmpv-label-sub{display:block;font-size:11px;color:var(--subtle);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.cmpv-val-cell{padding:11px 16px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text);min-width:0}
-.cmpv-val-cell.better{background:rgba(15,118,110,.07);color:var(--green-dark)}
+.cmpv-val-cell{padding:12px 18px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text);min-width:0;border-left:1px solid var(--border)}
+.cmpv-val-cell.better{background:rgba(15,118,110,.08);color:var(--green-dark)}
 .cmpv-val-cell.better .cmpv-pct{margin-right:auto}
-.cmpv-val-cell.better::after{content:'';display:inline-block;width:16px;height:16px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--green);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpolyline points='2.5 6.5 5 9 9.5 3' stroke='%230f766e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") center/10px no-repeat;margin-left:auto}
+.cmpv-val-cell.better::after{display:none}
 /* Percentage chip */
-.cmpv-pct{font-size:10.5px;color:var(--green-dark);font-weight:700;background:rgba(15,118,110,.1);padding:2px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-left:4px}
+.cmpv-pct{font-size:10.5px;color:var(--green-dark);font-weight:600;background:rgba(15,118,110,.1);padding:2px 7px;border-radius:99px;white-space:nowrap;flex-shrink:0;margin-left:4px}
 /* Tablet ≤1000px — 2-column layout: label spans full width, values side by side below */
 @media(max-width:1000px){
   :root{--cmpv-label-w:0px}
