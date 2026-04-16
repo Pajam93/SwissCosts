@@ -4800,13 +4800,14 @@ function _buildComparePage(nameA, nameB) {
       </button>
     </div>
   </div>
-  <div class="cmpv-wrap cmpv-wrap--top">
-    <div class="cmpv-topbar">
-      <div class="cmpv-title">${nameA} vs ${nameB}</div>
-      ${toggleHtml}
+  <div id="cmpv-sticky-hd" class="cmpv-sticky-hd">
+    <div class="cmpv-topbar-outer">
+      <div class="cmpv-topbar">
+        <div class="cmpv-title">${nameA} vs ${nameB}</div>
+        ${toggleHtml}
+      </div>
     </div>
-  </div>
-  <div id="cmpv-col-header" class="cmpv-col-header">
+    <div id="cmpv-col-header" class="cmpv-col-header">
       <div class="cmpv-col-hd-spacer">
         <label class="cmpv-eq-toggle">
           <input type="checkbox" onchange="cmpvToggleEqual(this)">
@@ -4833,8 +4834,9 @@ function _buildComparePage(nameA, nameB) {
         ${!aWins&&saveMo>0?`<div class="cmpv-col-hd-save">Save CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
       </div>
     </div>
+    </div>
   </div>
-  <div class="cmpv-wrap cmpv-wrap--body">
+  <div class="cmpv-wrap">
     ${section('Housing', housingRows)}
     ${hasTax ? section('Tax breakdown', taxBreakdownRows) : ''}
     ${section('Cost of living in commune', colRows)}
@@ -4844,15 +4846,15 @@ function _buildComparePage(nameA, nameB) {
     const tog = document.querySelector('#page-compare .view-toggle');
     if (tog) posSegPill(tog, true);
 
-    // Sentinel: a 1px element just above the col-header; when it leaves
-    // the viewport the header is "stuck" and gets the shadow class.
-    const colHd = document.getElementById('cmpv-col-header');
-    if (colHd) {
+    // Sentinel: a 1px element just above the sticky bar; when it leaves
+    // the viewport the bar is "stuck" and gets the shadow class.
+    const stickyHd = document.getElementById('cmpv-sticky-hd');
+    if (stickyHd) {
       const sentinel = document.createElement('div');
       sentinel.style.cssText = 'height:1px;margin-bottom:-1px;pointer-events:none';
-      colHd.parentElement.insertBefore(sentinel, colHd);
+      stickyHd.parentElement.insertBefore(sentinel, stickyHd);
       const obs = new IntersectionObserver(([e]) => {
-        colHd.classList.toggle('is-stuck', !e.isIntersecting);
+        stickyHd.classList.toggle('is-stuck', !e.isIntersecting);
       }, { threshold: 0 });
       obs.observe(sentinel);
     }
