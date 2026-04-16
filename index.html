@@ -855,12 +855,14 @@ body.is-compare #sticky-profile{position:static;top:auto;box-shadow:none}
 .cmpv-nav-close:hover{background:var(--border)}
 /* Push profile bar below fixed cmpv-nav, column header sticks just under it */
 body.is-compare #sticky-profile{margin-top:62px}
-body.is-compare .cmpv-col-header{top:62px}
 @media(max-width:1000px){.cmpv-nav-inner{padding-left:20px;padding-right:20px}}
 /* Same padding as step2 for consistent back-btn position */
 .cmpv-wrap{max-width:1440px;width:100%;margin:0 auto;padding:clamp(20px,2.5vh,36px) 40px 60px}
-.cmpv-wrap--top{padding-bottom:0}
-.cmpv-wrap--body{padding-top:0}
+/* Sticky bar: topbar + col-header together, edge-to-edge like navbar */
+.cmpv-sticky-hd{position:sticky;top:62px;z-index:10;background:var(--white);transition:box-shadow .2s ease}
+.cmpv-sticky-hd.is-stuck{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+/* Topbar outer — provides padding when topbar is outside .cmpv-wrap */
+.cmpv-topbar-outer{padding:clamp(20px,2.5vh,36px) 40px 0}
 /* Title + toggle — single row, title stretches */
 .cmpv-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
 .cmpv-title{font-size:clamp(32px,3vw,42px);font-weight:600;letter-spacing:-.4px;color:var(--text);line-height:1.15;margin:0;flex:1;min-width:0;padding-left:var(--cmpv-label-w)}
@@ -868,9 +870,8 @@ body.is-compare .cmpv-col-header{top:62px}
 .cmpv-toggle-wrap{display:inline-flex;align-items:center;background:#C8E6E2;border-radius:14px;padding:4px;gap:2px;flex-shrink:0}
 .cmpv-toggle-btn{border:none;background:transparent;padding:8px 18px;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--green-dark);border-radius:10px;transition:all .2s var(--ease-snap);line-height:1.2;white-space:nowrap}
 .cmpv-toggle-btn.active{background:var(--white);color:var(--text);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.10)}
-/* Column header — CSS Grid, sticky below nav */
-.cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:4px;border-radius:0;overflow:hidden;position:sticky;top:48px;z-index:10;transition:box-shadow .2s ease;padding:0 40px;background:var(--white)}
-.cmpv-col-header.is-stuck{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+/* Column header — CSS Grid, no longer self-sticky (parent .cmpv-sticky-hd handles it) */
+.cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:0;border-radius:0;overflow:hidden;padding:0 40px;background:var(--white)}
 .cmpv-col-hd-spacer{background:var(--bg);display:flex;align-items:center;padding:0 12px}
 /* Hide-identical toggle */
 .cmpv-eq-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
@@ -4799,12 +4800,13 @@ function _buildComparePage(nameA, nameB) {
       </button>
     </div>
   </div>
-  <div class="cmpv-wrap">
+  <div class="cmpv-wrap cmpv-wrap--top">
     <div class="cmpv-topbar">
       <div class="cmpv-title">${nameA} vs ${nameB}</div>
       ${toggleHtml}
     </div>
-    <div id="cmpv-col-header" class="cmpv-col-header">
+  </div>
+  <div id="cmpv-col-header" class="cmpv-col-header">
       <div class="cmpv-col-hd-spacer">
         <label class="cmpv-eq-toggle">
           <input type="checkbox" onchange="cmpvToggleEqual(this)">
@@ -4831,6 +4833,8 @@ function _buildComparePage(nameA, nameB) {
         ${!aWins&&saveMo>0?`<div class="cmpv-col-hd-save">Save CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
       </div>
     </div>
+  </div>
+  <div class="cmpv-wrap cmpv-wrap--body">
     ${section('Housing', housingRows)}
     ${hasTax ? section('Tax breakdown', taxBreakdownRows) : ''}
     ${section('Cost of living in commune', colRows)}
