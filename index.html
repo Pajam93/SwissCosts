@@ -908,7 +908,8 @@ body.is-compare #sticky-profile{margin-top:62px}
 .cmpv-row:hover .cmpv-val-cell{background:color-mix(in srgb,var(--white) 80%,var(--bg))}
 .cmpv-row:hover .cmpv-val-cell.better{background:rgba(15,118,110,.1)}
 /* Label — no fill, no stroke */
-.cmpv-label-cell{padding:14px 16px 14px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13.5px;color:var(--text);font-weight:500;min-width:0;overflow:hidden;background:transparent}
+.cmpv-label-cell{padding:14px 16px 14px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13.5px;color:var(--text);font-weight:500;min-width:0;overflow:hidden;background:transparent;border-bottom:1px solid var(--border)}
+.cmpv-row:last-child .cmpv-label-cell{border-bottom:none}
 .cmpv-label-cell>span.cmpv-label-main{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 .cmpv-label-sub{display:block;font-size:11px;color:var(--subtle);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 /* Value cells — each cell is a fully boxed card; margin-top:-1px collapses shared borders */
