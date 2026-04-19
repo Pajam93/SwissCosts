@@ -352,14 +352,18 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .lc-btrack{height:8px;background:var(--green-bg);border-radius:99px;overflow:hidden;display:flex;transition:height .22s var(--ease-snap),box-shadow .22s ease}
 .lc-btrack-wrap{height:20px;display:flex;align-items:center}
 .lc-btrack{width:100%}
-.lc-btrack-wrap:hover .lc-btrack{height:12px}
+/* Track grows on wrap hover only — keeps height stable as mouse crosses between fills */
+.lc-btrack-wrap:hover .lc-btrack,
+.loc-card:has(.lc-bstat-rent:hover) .lc-btrack,
+.loc-card:has(.lc-bstat-tax:hover) .lc-btrack,
+.loc-card:has(.lc-teq-rent:hover) .lc-btrack,
+.loc-card:has(.lc-teq-tax:hover) .lc-btrack{height:12px}
 .lc-bfill{height:100%;transition:width .6s var(--ease-snap),background .15s ease,opacity .22s ease}
 .lc-bfill-rent{background:var(--green);transition:width .6s var(--ease-snap),background .2s ease}
 .lc-bfill-rent:hover,.loc-card:has(.lc-bstat-rent:hover) .lc-bfill-rent{background:var(--green-dark)}
 .lc-bfill-tax{background:#62BDB8;transition:width .6s var(--ease-snap),background .2s ease}
 .lc-bfill-tax:hover,.loc-card:has(.lc-bstat-tax:hover) .lc-bfill-tax{background:#3A9E97}
-/* bstat hover → grow bar */
-.loc-card:has(.lc-bstat-rent:hover) .lc-btrack,.loc-card:has(.lc-bstat-tax:hover) .lc-btrack{height:12px}
+/* bstat hover → handled in unified selector above */
 .lc-bfooter{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .lc-bstats{display:flex;align-items:center;gap:8px}
 .lc-gross{font-size:13px;display:flex;align-items:center;gap:0;width:100%;justify-content:space-between}
@@ -872,7 +876,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 .cmpv-toggle-btn.active{background:var(--white);color:var(--text);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.10)}
 /* Column header — CSS Grid, no longer self-sticky (parent .cmpv-sticky-hd handles it) */
 .cmpv-col-header{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;margin-bottom:0;border-radius:0;overflow:hidden;padding:0 40px;background:var(--bg);max-width:1440px;margin-left:auto;margin-right:auto;width:100%}
-.cmpv-col-hd-spacer{background:var(--bg);display:flex;align-items:center;padding:0 12px}
+.cmpv-col-hd-spacer{background:transparent;display:flex;align-items:center;padding:0 20px}
 /* Hide-identical toggle */
 .cmpv-eq-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
 .cmpv-eq-toggle input{position:absolute;opacity:0;width:0;height:0}
@@ -883,44 +887,55 @@ body.is-compare #sticky-profile{margin-top:62px}
 .cmpv-eq-lbl{font-size:11px;font-weight:500;color:var(--muted);line-height:1.35}
 /* Hide equal rows when toggle is on */
 #page-compare.hide-equal .cmpv-row--equal{display:none}
-.cmpv-col-hd{padding:16px 20px 14px;display:flex;flex-direction:column;gap:6px;background:var(--white);border-bottom:3px solid transparent;min-width:0}
+.cmpv-col-hd{padding:16px 20px 14px;display:flex;flex-direction:column;gap:6px;justify-content:center;background:var(--white);border-left:3px solid transparent;min-width:0}
 .cmpv-col-hd:last-child{margin-left:12px}
-.cmpv-col-hd.winner{background:var(--green-bg);border-bottom-color:var(--green)}
+.cmpv-col-hd.winner{background:var(--green-bg);border-left-color:var(--green)}
 .cmpv-col-hd-top{display:flex;align-items:center;gap:8px;min-width:0}
 .cmpv-col-hd-top>div{min-width:0;flex:1}
 .cmpv-col-hd-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
 .cmpv-col-hd-canton{font-size:11px;color:var(--muted);margin-top:1px}
+.cmpv-col-hd-costrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-width:0}
 .cmpv-col-hd-cost{font-size:22px;font-weight:700;letter-spacing:-.5px;color:var(--text);line-height:1;white-space:nowrap}
 .cmpv-col-hd.winner .cmpv-col-hd-cost{color:var(--green-dark)}
-.cmpv-col-hd-save{display:inline-flex;align-items:center;font-size:11px;font-weight:600;color:var(--green-dark);background:rgba(15,118,110,.1);padding:2px 8px;border-radius:4px;white-space:nowrap;width:fit-content}
+.cmpv-col-hd-save{display:inline-flex;align-items:center;font-size:11px;font-weight:600;color:var(--green-dark);background:rgba(15,118,110,.14);padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;letter-spacing:-.005em;font-variant-numeric:tabular-nums}
 .cmpv-winner-badge{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0 8px;height:20px;border-radius:4px;white-space:nowrap;flex-shrink:0;background:var(--green);color:#fff;letter-spacing:.2px;margin-left:auto}
-/* Section headers */
-.cmpv-section-hd{display:flex;align-items:center;gap:10px;cursor:pointer;padding:28px 0 10px;user-select:none;border-bottom:none}
-.cmpv-section-hd:hover .cmpv-section-title,.cmpv-section-hd:hover .cmpv-chev{color:var(--text)}
-.cmpv-chev{flex-shrink:0;color:var(--subtle);transition:transform .22s var(--ease-snap),color .15s}
+/* Section headers — title text aligns with row labels; chevron hangs to the left */
+.cmpv-section-hd{display:flex;align-items:center;gap:6px;cursor:pointer;padding:32px 0 10px 20px;user-select:none;border-bottom:none}
+.cmpv-section-hd .cmpv-chev{margin-left:-24px}
+.cmpv-section-hd:hover .cmpv-section-title,.cmpv-section-hd:hover .cmpv-chev,.cmpv-section-hd:hover .cmpv-section-count{color:var(--text)}
+.cmpv-chev{flex-shrink:0;color:var(--muted);transition:transform .22s var(--ease-snap),color .15s}
 .cmpv-section-hd.cmpv-collapsed .cmpv-chev{transform:rotate(-90deg)}
-.cmpv-section-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-/* Section body — no outer border (borders live on val-cells only) */
-.cmpv-section-body{padding-top:0;background:transparent;border-radius:0;border:none;overflow:visible;margin-bottom:0}
+.cmpv-section-title{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-.005em;text-transform:none}
+.cmpv-section-count{font-size:12px;font-weight:500;color:var(--subtle);margin-left:-2px}
+/* Section body — flat, no card, no rounding */
+.cmpv-section-body{padding:0;background:transparent;border-radius:0;border:none;overflow:visible;margin-bottom:0;box-shadow:none}
 .cmpv-section-body.cmpv-collapsed{display:none}
-/* Rows */
-.cmpv-row{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;background:transparent;margin-bottom:0;min-height:58px;transition:background .1s}
-.cmpv-row:hover .cmpv-val-cell{background:color-mix(in srgb,var(--white) 80%,var(--bg))}
+/* Rows — flat grid with shared horizontal dividers */
+.cmpv-row{display:grid;grid-template-columns:var(--cmpv-label-w) 1fr 1fr;background:transparent;margin-bottom:0;min-height:52px;transition:background .12s;border-top:1px solid var(--border);position:relative}
+.cmpv-row:first-child{border-top:none}
+.cmpv-section-body .cmpv-row:first-child{border-top:1px solid var(--border)}
+.cmpv-section-body{border-bottom:1px solid var(--border)}
+.cmpv-row:hover{background:color-mix(in srgb,var(--green-bg) 28%,transparent)}
+/* Label cell — clean, no vertical separator */
+.cmpv-label-cell{padding:12px 20px 12px 20px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:14px;color:var(--text);font-weight:500;min-width:0;overflow:hidden;background:transparent}
+.cmpv-label-cell>span.cmpv-label-main{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;letter-spacing:-.005em}
+.cmpv-label-sub{display:block;font-size:11.5px;color:var(--subtle);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+/* Value cells — flat, transparent */
+.cmpv-val-cell{padding:12px 20px;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#0a0a0a;min-width:0;background:transparent;transition:background .1s,color .1s;position:relative;letter-spacing:-.005em;font-variant-numeric:tabular-nums}
+/* Winner cell — subtle green wash + left accent */
+.cmpv-val-cell.better{background:rgba(15,118,110,.06);color:var(--green-dark);font-weight:700;box-shadow:inset 2px 0 0 var(--green)}
 .cmpv-row:hover .cmpv-val-cell.better{background:rgba(15,118,110,.1)}
-/* Label — no fill, no stroke */
-.cmpv-label-cell{padding:14px 16px 14px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:13.5px;color:var(--text);font-weight:500;min-width:0;overflow:hidden;background:transparent;border-bottom:1px solid var(--border)}
-.cmpv-row:last-child .cmpv-label-cell{border-bottom:none}
-.cmpv-label-cell>span.cmpv-label-main{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-.cmpv-label-sub{display:block;font-size:11px;color:var(--subtle);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
-/* Value cells — each cell is a fully boxed card; margin-top:-1px collapses shared borders */
-.cmpv-val-cell{padding:14px 20px;display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:var(--text);min-width:0;border:1px solid var(--border);background:var(--white);transition:background .1s;position:relative;margin-top:-1px}
-.cmpv-val-cell:last-child{margin-left:12px}
-.cmpv-row:first-child .cmpv-val-cell{margin-top:0}
-.cmpv-val-cell.better{background:rgba(15,118,110,.07);color:var(--green-dark);box-shadow:inset 3px 0 0 var(--green);border-color:rgba(15,118,110,.3);z-index:1}
-.cmpv-val-cell.better .cmpv-pct{margin-right:auto}
-.cmpv-val-cell.better::after{display:none}
-/* Percentage chip */
-.cmpv-pct{font-size:10.5px;color:var(--green-dark);font-weight:700;background:rgba(15,118,110,.1);padding:2px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-left:4px}
+/* Delta — simple text, no pill */
+.cmpv-delta{display:inline-flex;align-items:center;gap:2px;font-size:12px;font-weight:600;color:var(--green-dark);background:transparent;padding:0;border-radius:0;line-height:1.5;white-space:nowrap;flex-shrink:0;letter-spacing:-.01em;margin-left:auto}
+.cmpv-delta svg{flex-shrink:0;opacity:.9}
+/* Equal-row value — still pure dark text */
+.cmpv-val-cell.equal-tag{color:#0a0a0a}
+.cmpv-eqmark{font-size:10.5px;font-weight:500;color:var(--subtle);background:transparent;padding:0;border-radius:0;letter-spacing:.02em;margin-left:auto;text-transform:uppercase}
+/* Percentage chip — same style as step2 .bst-pct */
+.cmpv-pct{font-size:11.5px;color:var(--green-dark);font-weight:600;background:rgba(15,118,110,.08);padding:2px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-left:6px;letter-spacing:-.005em;text-align:center;line-height:1.4}
+.cmpv-val-cell.better .cmpv-pct{background:rgba(11,83,78,.13);color:var(--green-dark)}
+/* Magnitude bar — removed for simplicity */
+.cmpv-val-cell .cmpv-bar{display:none}
 /* Tablet ≤1000px — 2-column layout: label spans full width, values side by side below */
 @media(max-width:1000px){
   :root{--cmpv-label-w:0px}
@@ -929,14 +944,17 @@ body.is-compare #sticky-profile{margin-top:62px}
   .cmpv-topbar-outer{padding-left:20px;padding-right:20px}
   .cmpv-col-hd-spacer{display:none}
   .cmpv-row{grid-template-columns:1fr 1fr;margin-bottom:0;min-height:0}
-  .cmpv-label-cell{grid-column:1/-1;padding:18px 16px 6px;font-size:12px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;border-bottom:none}
+  .cmpv-label-cell{grid-column:1/-1;padding:12px 16px 4px;font-size:12px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;background:color-mix(in srgb,var(--bg) 55%,var(--white));border-top:1px solid var(--border)}
+  .cmpv-row:first-child .cmpv-label-cell{border-top:none}
   .cmpv-label-sub{font-size:11px;color:var(--subtle)}
-  .cmpv-val-cell{font-size:13px;padding:12px 14px;font-weight:600;margin-top:0}
-  .cmpv-val-cell.better{box-shadow:none;border-color:var(--green);border-top-width:2px}
+  .cmpv-val-cell{font-size:13.5px;padding:10px 14px;font-weight:600;border-top:none}
+  .cmpv-val-cell.better{box-shadow:inset 0 2px 0 var(--green);background:rgba(15,118,110,.07)}
   .cmpv-col-hd{padding:12px 14px 10px;gap:4px}
   .cmpv-col-hd-cost{font-size:18px}
   .cmpv-col-hd-name{font-size:13px}
-  .cmpv-section-hd{padding:22px 0 10px}
+  .cmpv-section-hd{padding:24px 0 10px 16px}
+  .cmpv-section-hd .cmpv-chev{margin-left:-22px}
+  .cmpv-section-title{font-size:14px}
   .cmpv-section-body{padding-top:0}
 }
 /* Small ≤640px */
@@ -946,16 +964,17 @@ body.is-compare #sticky-profile{margin-top:62px}
   .cmpv-topbar-outer{padding-left:16px;padding-right:16px}
   .cmpv-col-hd-canton{display:none}
   .cmpv-winner-badge{font-size:9px;padding:0 6px;height:18px}
-  .cmpv-section-title{font-size:10px}
   .cmpv-col-hd{padding:10px 12px 8px;gap:3px}
   .cmpv-col-hd-cost{font-size:16px}
   .cmpv-col-hd-save{font-size:10px;padding:1px 6px}
   .cmpv-col-hd-name{font-size:12px}
-  .cmpv-section-hd{padding:16px 0 12px}
-  .cmpv-pct{font-size:9.5px;padding:1px 5px}
-  .cmpv-val-cell.better::after{display:none}
-  .cmpv-label-cell{padding:16px 12px 5px}
-  .cmpv-val-cell{font-size:12px;padding:10px 8px}
+  .cmpv-section-hd{padding:22px 0 10px 14px}
+  .cmpv-section-hd .cmpv-chev{margin-left:-20px}
+  .cmpv-section-title{font-size:15px}
+  .cmpv-pct{font-size:10px}
+  .cmpv-label-cell{padding:12px 14px 4px}
+  .cmpv-val-cell{font-size:12.5px;padding:10px 12px}
+  .cmpv-delta{font-size:10px;padding:1px 6px}
   /* cmpv topbar: stacked, tab-bar toggle */
   .cmpv-topbar{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:16px}
   .cmpv-toggle-wrap{background:none;border-radius:0;padding:0;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:0;width:100%;flex-shrink:1}
@@ -1978,7 +1997,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="mailto:?subject=Swiss%20Relocation%20Enquiry" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#ecd39f998e86898f98d1bf9b859f9fc9dedcbe8980838f8d98858382c9dedca9829d99859e95" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2037,7 +2056,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="mailto:hello@swisscosts.ch">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#462e232a2a290635312f3535252935323568252e">Contact</a>
       </div>
     </div>
 
@@ -2051,7 +2070,7 @@ body.is-compare #sticky-profile{margin-top:62px}
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script>
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SWISS TAX ENGINE — Exact ESTV methodology, tax year 2024
@@ -2739,7 +2758,7 @@ function coaImg(canton, size) {
   if (!canton || !CANTON_COA_FILE[canton]) return '';
   const s = size || 18;
   const url = CANTON_COA_CACHE[canton] || '';
-  return `<img class="coa-img" src="${url}" data-canton="${canton}" alt="${canton}" width="${s}" height="${s}" style="${url?'':'display:none'}" onerror="this.style.display='none'">`;
+  return `<img class="coa-img"${url?` src="${url}"`:''} data-canton="${canton}" alt="${canton}" width="${s}" height="${s}" style="${url?'':'display:none'}" onerror="this.style.display='none'">`;
 }
 
 // Preload all 26 cantons at page init so images are ready before user adds a location
@@ -4708,16 +4727,34 @@ function _buildComparePage(nameA, nameB) {
     const labelHtml = subtitle
       ? `<span class="cmpv-label-main">${label}</span><span class="cmpv-label-sub">${subtitle}</span>`
       : `<span class="cmpv-label-main">${label}</span>`;
+
+    // Delta pill — only on winner, shows % difference vs loser
+    let deltaHtml = '';
+    if (!equal && valA !== null && valB !== null && (valA || valB)) {
+      const loser = aBetter ? valB : valA;
+      const winner = aBetter ? valA : valB;
+      if (loser && winner !== loser) {
+        const pct = Math.abs(((winner - loser) / loser) * 100);
+        if (pct >= 0.5) {
+          const arrow = lowerBetter
+            ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`
+            : `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`;
+          deltaHtml = `<span class="cmpv-delta">${arrow}${pct >= 10 ? Math.round(pct) : pct.toFixed(1)}%</span>`;
+        }
+      }
+    }
+
     return `<div class="cmpv-row${equal?' cmpv-row--equal':''}">
       <div class="cmpv-label-cell">${labelHtml}</div>
-      <div class="cmpv-val-cell${aBetter?' better':''}">${fmt(valA)}${extraA||''}</div>
-      <div class="cmpv-val-cell${bBetter?' better':''}">${fmt(valB)}${extraB||''}</div>
+      <div class="cmpv-val-cell${aBetter?' better':''}${equal?' equal-tag':''}">${fmt(valA)}${extraA||''}${aBetter?deltaHtml:''}</div>
+      <div class="cmpv-val-cell${bBetter?' better':''}${equal?' equal-tag':''}">${fmt(valB)}${extraB||''}${bBetter?deltaHtml:''}</div>
     </div>`;
   }
 
   const chevSvg = `<svg class="cmpv-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
 
   function section(title, rowsHtml) {
+    if (!rowsHtml) return '';
     return `<div class="cmpv-section-hd" onclick="cmpvToggle(this)">
       ${chevSvg}
       <span class="cmpv-section-title">${title}</span>
@@ -4828,19 +4865,21 @@ function _buildComparePage(nameA, nameB) {
         <div class="cmpv-col-hd-top">
           ${coaImg(la.canton,20)}
           <div><div class="cmpv-col-hd-name">${nameA}</div><div class="cmpv-col-hd-canton">${la.canton||''}</div></div>
-          ${aWins&&saveMo>0?`<span class="cmpv-winner-badge">Better deal</span>`:''}
         </div>
-        <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalA*12:totalA)}${isAnn?'/yr':'/mo'}</div>
-        ${aWins&&saveMo>0?`<div class="cmpv-col-hd-save">Save CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
+        <div class="cmpv-col-hd-costrow">
+          <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalA*12:totalA)}${isAnn?'/yr':'/mo'}</div>
+          ${aWins&&saveMo>0?`<div class="cmpv-col-hd-save">−CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
+        </div>
       </div>
       <div class="cmpv-col-hd${!aWins?' winner':''}">
         <div class="cmpv-col-hd-top">
           ${coaImg(lb.canton,20)}
           <div><div class="cmpv-col-hd-name">${nameB}</div><div class="cmpv-col-hd-canton">${lb.canton||''}</div></div>
-          ${!aWins&&saveMo>0?`<span class="cmpv-winner-badge">Better deal</span>`:''}
         </div>
-        <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalB*12:totalB)}${isAnn?'/yr':'/mo'}</div>
-        ${!aWins&&saveMo>0?`<div class="cmpv-col-hd-save">Save CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
+        <div class="cmpv-col-hd-costrow">
+          <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalB*12:totalB)}${isAnn?'/yr':'/mo'}</div>
+          ${!aWins&&saveMo>0?`<div class="cmpv-col-hd-save">−CHF&nbsp;${f(isAnn?saveMo*12:saveMo)}${isAnn?'/yr':'/mo'}</div>`:''}
+        </div>
       </div>
     </div>
     </div>
