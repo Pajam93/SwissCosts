@@ -887,7 +887,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 .cmpv-eq-lbl{font-size:11px;font-weight:500;color:var(--muted);line-height:1.35}
 /* Hide equal rows when toggle is on */
 #page-compare.hide-equal .cmpv-row--equal{display:none}
-.cmpv-col-hd{padding:16px 20px 14px;display:flex;flex-direction:column;gap:6px;justify-content:center;background:var(--white);border-left:3px solid transparent;min-width:0}
+.cmpv-col-hd{padding:22px 20px 20px;display:flex;flex-direction:column;gap:8px;justify-content:center;background:var(--white);border-left:3px solid transparent;min-width:0;min-height:108px}
 .cmpv-col-hd:last-child{margin-left:12px}
 .cmpv-col-hd.winner{background:var(--green-bg);border-left-color:var(--green)}
 .cmpv-col-hd-top{display:flex;align-items:center;gap:8px;min-width:0}
@@ -943,18 +943,19 @@ body.is-compare #sticky-profile{margin-top:62px}
   .cmpv-col-header{grid-template-columns:1fr 1fr;padding-left:20px;padding-right:20px}
   .cmpv-topbar-outer{padding-left:20px;padding-right:20px}
   .cmpv-col-hd-spacer{display:none}
-  .cmpv-row{grid-template-columns:1fr 1fr;margin-bottom:0;min-height:0}
-  .cmpv-label-cell{grid-column:1/-1;padding:12px 16px 4px;font-size:12px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;background:color-mix(in srgb,var(--bg) 55%,var(--white));border-top:1px solid var(--border)}
+  .cmpv-row{grid-template-columns:1fr 1fr;margin-bottom:0;min-height:0;border-top:none}
+  .cmpv-section-body .cmpv-row:first-child{border-top:none}
+  .cmpv-label-cell{grid-column:1/-1;padding:12px 16px 4px;font-size:12px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;background:transparent;border-top:1px solid var(--border)}
   .cmpv-row:first-child .cmpv-label-cell{border-top:none}
   .cmpv-label-sub{font-size:11px;color:var(--subtle)}
   .cmpv-val-cell{font-size:13.5px;padding:10px 14px;font-weight:600;border-top:none}
-  .cmpv-val-cell.better{box-shadow:inset 0 2px 0 var(--green);background:rgba(15,118,110,.07)}
-  .cmpv-col-hd{padding:12px 14px 10px;gap:4px}
+  .cmpv-val-cell.better{box-shadow:inset 2px 0 0 var(--green);background:rgba(15,118,110,.07)}
+  .cmpv-col-hd{padding:16px 14px;gap:6px;min-height:88px}
   .cmpv-col-hd-cost{font-size:18px}
   .cmpv-col-hd-name{font-size:13px}
   .cmpv-section-hd{padding:24px 0 10px 16px}
   .cmpv-section-hd .cmpv-chev{margin-left:-22px}
-  .cmpv-section-title{font-size:14px}
+  .cmpv-section-title{font-size:15px}
   .cmpv-section-body{padding-top:0}
 }
 /* Small ≤640px */
@@ -963,18 +964,17 @@ body.is-compare #sticky-profile{margin-top:62px}
   .cmpv-col-header{padding-left:16px;padding-right:16px}
   .cmpv-topbar-outer{padding-left:16px;padding-right:16px}
   .cmpv-col-hd-canton{display:none}
-  .cmpv-winner-badge{font-size:9px;padding:0 6px;height:18px}
-  .cmpv-col-hd{padding:10px 12px 8px;gap:3px}
+  .cmpv-col-hd{padding:12px;gap:4px;min-height:76px}
   .cmpv-col-hd-cost{font-size:16px}
-  .cmpv-col-hd-save{font-size:10px;padding:1px 6px}
+  .cmpv-col-hd-save{font-size:10px;padding:2px 6px;border-radius:6px}
   .cmpv-col-hd-name{font-size:12px}
   .cmpv-section-hd{padding:22px 0 10px 14px}
   .cmpv-section-hd .cmpv-chev{margin-left:-20px}
-  .cmpv-section-title{font-size:15px}
-  .cmpv-pct{font-size:10px}
+  .cmpv-section-title{font-size:14px}
+  .cmpv-pct{font-size:10px;padding:2px 6px}
   .cmpv-label-cell{padding:12px 14px 4px}
-  .cmpv-val-cell{font-size:12.5px;padding:10px 12px}
-  .cmpv-delta{font-size:10px;padding:1px 6px}
+  .cmpv-val-cell{font-size:12.5px;padding:10px 12px;gap:6px}
+  .cmpv-delta{font-size:10px;padding:0;border-radius:0}
   /* cmpv topbar: stacked, tab-bar toggle */
   .cmpv-topbar{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:16px}
   .cmpv-toggle-wrap{background:none;border-radius:0;padding:0;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:0;width:100%;flex-shrink:1}
@@ -1997,7 +1997,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#ecd39f998e86898f98d1bf9b859f9fc9dedcbe8980838f8d98858382c9dedca9829d99859e95" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#79460a0c1b131c1a0d442a0e100a0a5c4b492b1c15161a180d1016175c4b493c17080c100b00" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2056,7 +2056,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#462e232a2a290635312f3535252935323568252e">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#59313c353536192a2e302a2a3a362a2d2a773a31">Contact</a>
       </div>
     </div>
 
