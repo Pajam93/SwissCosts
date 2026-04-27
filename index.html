@@ -233,12 +233,15 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .median-hint strong{color:var(--text)}
 
 /* AUTOCOMPLETE */
-.sugg{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--white);border:1px solid var(--border);border-radius:16px;z-index:200;overflow-x:hidden;overflow-y:auto;max-height:260px;box-shadow:0 8px 40px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.05);display:none}
+.sugg{position:absolute;top:calc(100% - 1px);left:-1.5px;right:-1.5px;background:var(--white);border:1.5px solid var(--green);border-top:none;border-radius:0 0 12px 12px;z-index:200;overflow:hidden;box-shadow:0 12px 28px rgba(15,23,42,.10),0 2px 6px rgba(15,23,42,.06);display:none}
 .sugg.on{display:block;animation:sugg-in .18s var(--ease-snap)}
-@keyframes sugg-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.si{padding:11px 16px;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);transition:background .12s;font-family:'DM Sans',sans-serif}
+/* When dropdown is open, flatten bottom of the input wrap to fuse visually */
+.pf-input-wrap:has(.sugg.on){border-bottom-left-radius:0;border-bottom-right-radius:0;border-color:var(--green);box-shadow:none}
+@keyframes sugg-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.si{padding:13px 16px 13px 42px;font-size:14.5px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);transition:background .12s;font-family:'DM Sans',sans-serif}s',sans-serif}
 .si:last-child{border-bottom:none}
 .si:hover,.si.hl{background:var(--green-bg)}
+.si.hl{box-shadow:inset 3px 0 0 var(--green)}
 .si .sn{font-weight:600;color:var(--text)}
 .si .sm{font-size:12px;color:var(--muted);text-align:right;line-height:1.4}
 
@@ -450,6 +453,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Commune input: extra right padding to make room for picks */
 #cwrap .pf-input-search{padding-right:120px}
 @media(max-width:640px){#cwrap .pf-input-search{padding-right:90px}}
+/* Attention-grabbing state — animated placeholder until user interacts */
 
 /* DETAIL PANEL */
 @keyframes det-row-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -468,6 +472,18 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* Footer rows expand when card opens */
 .bst{transition:padding .35s var(--ease-snap),border-color .4s ease}
 .bst-sep{overflow:hidden;transition:max-height .35s var(--ease-snap),margin .35s var(--ease-snap),opacity .25s ease;max-height:4px;opacity:1}
+/* Sublines nested inside bstats — collapse by default, expand on open */
+.bst-sublines{display:grid;grid-template-rows:0fr;overflow:hidden;transition:grid-template-rows .4s var(--ease-snap),margin .4s var(--ease-snap);margin:0;width:100%;align-self:stretch}
+.bst-sublines>.det-line{min-height:0;padding:0 2px;font-size:13px;opacity:0;transform:translateY(4px);transition:none}
+.loc-card.open .bst-sublines{grid-template-rows:1fr;margin:0}
+.loc-card.open .bst-sublines>.det-line{padding:6px 2px}
+.loc-card.open .bst-sublines-rent>.det-line:nth-child(1){animation:det-row-in .28s var(--ease-snap) .22s both}
+.loc-card.open .bst-sublines-rent>.det-line:nth-child(2){animation:det-row-in .28s var(--ease-snap) .27s both}
+.loc-card.open .bst-sublines-tax>.det-line:nth-child(1){animation:det-row-in .28s var(--ease-snap) .32s both}
+.loc-card.open .bst-sublines-tax>.det-line:nth-child(2){animation:det-row-in .28s var(--ease-snap) .37s both}
+.loc-card.open .bst-sublines-tax>.det-line:nth-child(3){animation:det-row-in .28s var(--ease-snap) .42s both}
+.loc-card.open .bst-sublines-tax>.det-line:nth-child(4){animation:det-row-in .28s var(--ease-snap) .47s both}
+.loc-card.open .bst-sublines-tax>.det-line:nth-child(5){animation:det-row-in .28s var(--ease-snap) .52s both}
 .loc-card.open .bst{padding:10px 2px}
 .loc-card.open .lc-bstat-tax{padding-bottom:0}
 .loc-card.open .bst-sep{max-height:0;margin:0;opacity:0}
@@ -857,6 +873,8 @@ body.is-compare #sticky-profile{position:static;top:auto;box-shadow:none}
 .cmpv-nav-inner{max-width:1440px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 40px}
 .cmpv-nav-close{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:none;background:none;cursor:pointer;color:var(--text);border-radius:6px;transition:background .15s;flex-shrink:0;padding:0}
 .cmpv-nav-close:hover{background:var(--border)}
+.cmpv-nav-print{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:none;background:none;cursor:pointer;color:var(--muted);border-radius:6px;transition:background .15s,color .15s;flex-shrink:0;padding:0}
+.cmpv-nav-print:hover{background:var(--border);color:var(--text)}
 /* Push profile bar below fixed cmpv-nav, column header sticks just under it */
 body.is-compare #sticky-profile{margin-top:62px}
 @media(max-width:1000px){.cmpv-nav-inner{padding-left:20px;padding-right:20px}}
@@ -888,7 +906,6 @@ body.is-compare #sticky-profile{margin-top:62px}
 /* Hide equal rows when toggle is on */
 #page-compare.hide-equal .cmpv-row--equal{display:none}
 .cmpv-col-hd{padding:22px 20px 20px;display:flex;flex-direction:column;gap:8px;justify-content:center;background:var(--white);border-left:3px solid transparent;min-width:0;min-height:108px}
-.cmpv-col-hd:last-child{margin-left:12px}
 .cmpv-col-hd.winner{background:var(--green-bg);border-left-color:var(--green)}
 .cmpv-col-hd-top{display:flex;align-items:center;gap:8px;min-width:0}
 .cmpv-col-hd-top>div{min-width:0;flex:1}
@@ -979,6 +996,48 @@ body.is-compare #sticky-profile{margin-top:62px}
   .cmpv-topbar{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:16px}
   .cmpv-toggle-wrap{background:none;border-radius:0;padding:0;gap:0;border-bottom:1.5px solid var(--border);margin-bottom:0;width:100%;flex-shrink:1}
   .cmpv-toggle-wrap .seg-pill{display:none}
+}
+
+/* ── PRINT (A4 portrait) — compare page only ───────────────────────────── */
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm 14mm 12mm}
+  body{background:#fff !important;color:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* Hide every page except compare */
+  body.is-compare nav,body.is-compare .cmpv-nav,body.is-compare #sticky-profile,body.is-compare #edit-mode-panel,body.is-compare .cmpv-topbar .cmpv-toggle-wrap,body.is-compare .cmpv-eq-toggle,body.is-compare .cmpv-col-hd-spacer,body.is-compare .cmp-bar,body.is-compare footer{display:none !important}
+  body.is-compare #page-compare{display:block !important}
+  /* Expand every section regardless of user's collapsed state */
+  body.is-compare .cmpv-section-body,body.is-compare .cmpv-section-body.cmpv-collapsed{display:block !important}
+  body.is-compare .cmpv-chev{display:none}
+  /* Remove sticky; flatten; shrink to fit A4 width */
+  body.is-compare .cmpv-sticky-hd,body.is-compare #cmpv-col-header{position:static !important;background:#fff !important;box-shadow:none !important;backdrop-filter:none !important}
+  body.is-compare .cmpv-wrap{padding:0 !important;max-width:100% !important}
+  body.is-compare .cmpv-topbar{display:none !important}
+  body.is-compare .cmpv-col-header{padding:0 !important;background:#fff !important;border-bottom:1pt solid #000;grid-template-columns:var(--cmpv-label-w) 1fr 1fr !important}
+  body.is-compare .cmpv-col-hd-spacer{display:block !important;visibility:hidden}
+  body.is-compare .cmpv-col-hd{padding:4mm 4mm !important;min-height:22mm !important;background:#fff !important;border-left:none !important;justify-content:flex-start !important;gap:3mm !important}
+  body.is-compare .cmpv-col-hd-top{align-items:flex-start !important}
+  body.is-compare .cmpv-col-hd-costrow{align-items:center !important;min-height:7mm}
+  body.is-compare .cmpv-col-hd.winner{background:#f1f8f6 !important;border-left:2pt solid #0f766e !important}
+  body.is-compare .cmpv-col-hd-cost{font-size:11.5pt !important}
+  body.is-compare .cmpv-col-hd-name{font-size:8.5pt !important}
+  body.is-compare .cmpv-col-hd-canton{display:block !important;font-size:7pt !important}
+  body.is-compare .cmpv-col-hd-save{background:#e6f4f1 !important;color:#0b534e !important;font-size:7.5pt !important;padding:1pt 5pt !important}
+  body.is-compare .cmpv-section-hd{padding:6mm 0 2mm 4mm !important;page-break-after:avoid;break-after:avoid}
+  body.is-compare .cmpv-section-title{font-size:9.5pt !important;color:#000 !important;font-weight:700}
+  body.is-compare .cmpv-row{min-height:0 !important;page-break-inside:avoid;break-inside:avoid;border-top:0.5pt solid #d1d5db !important;grid-template-columns:var(--cmpv-label-w) 1fr 1fr !important}
+  body.is-compare .cmpv-label-cell{padding:1.5mm 4mm !important;font-size:7.5pt !important;color:#111 !important;background:#fff !important;border-top:none !important;grid-column:auto !important;flex-direction:column !important;text-transform:none !important;font-weight:500 !important}
+  body.is-compare .cmpv-label-sub{font-size:6.5pt !important}
+  body.is-compare .cmpv-val-cell{padding:1.5mm 4mm !important;font-size:8pt !important;color:#000 !important}
+  body.is-compare .cmpv-pct{font-size:7pt !important;padding:1pt 4pt !important}
+  body.is-compare .cmpv-delta{font-size:7.5pt !important}
+  body.is-compare .cmpv-val-cell.better{background:#f1f8f6 !important;color:#0b534e !important;box-shadow:inset 1.5pt 0 0 #0f766e !important}
+  body.is-compare .cmpv-delta{color:#0b534e !important}
+  body.is-compare .cmpv-pct{background:#e6f4f1 !important;color:#0b534e !important;border:0.5pt solid #cfe6e1}
+  body.is-compare .cmpv-section-body{border-bottom:0.5pt solid #d1d5db !important}
+  /* On print, force desktop 3-col grid so compares stay in 2 value columns even on a phone */
+  body.is-compare{--cmpv-label-w:40mm !important}
+  /* Footer line with date */
+  body.is-compare .cmpv-wrap::after{content:"SwissCosts · swisscosts.ch · Printed " attr(data-print-date);display:block;margin-top:10mm;padding-top:3mm;border-top:0.5pt solid #d1d5db;font-size:8pt;color:#666;text-align:center}
 }
 
 /* ── NAV LINKS ─────────────────────────────────────────────────────────── */
@@ -1900,6 +1959,7 @@ body.is-compare #sticky-profile{margin-top:62px}
         </span>
         <input class="pf-input pf-input-search" id="cin" type="text" placeholder="e.g. Zürich or 8001" autocomplete="off" spellcheck="false" oninput="onInput()" onfocus="onFocus()" onkeydown="onKey(event)">
         <div class="in-picks cin-picks"><button class="in-qp" onclick="quickCommAdd('Zürich')">Zürich</button><button class="in-qp" onclick="quickCommAdd('Genève')">Geneva</button><button class="in-qp cin-pick-lg" onclick="quickCommAdd('Bern')">Bern</button></div>
+        <button class="pf-clear" onclick="clearCommInput()" tabindex="-1" aria-label="Clear commune">×</button>
         <div class="sugg" id="sbox"></div>
       </div>
       <div class="field-error" id="cerr">Please select a commune from the list</div>
@@ -1997,7 +2057,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#79460a0c1b131c1a0d442a0e100a0a5c4b492b1c15161a180d1016175c4b493c17080c100b00" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#013e7274636b6462753c527668727224333153646d6e626075686e6f243331446f7074687378" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2056,7 +2116,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#59313c353536192a2e302a2a3a362a2d2a773a31">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#3c54595050537c4f4b554f4f5f534f484f125f54">Contact</a>
       </div>
     </div>
 
@@ -2070,7 +2130,7 @@ body.is-compare #sticky-profile{margin-top:62px}
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SWISS TAX ENGINE — Exact ESTV methodology, tax year 2024
@@ -2635,13 +2695,13 @@ function searchCommunes(query) {
   const isZip = /^\d{2,4}$/.test(q);
 
   if (isZip) {
-    return COMMUNES.filter(c => c.plz && c.plz.some(z => z.startsWith(q))).slice(0, 8);
+    return COMMUNES.filter(c => c.plz && c.plz.some(z => z.startsWith(q))).slice(0, 10);
   }
 
   // Name search with diacritic-insensitive matching
   const starts = COMMUNES.filter(c => _norm(c.name).startsWith(q));
   const contains = COMMUNES.filter(c => !_norm(c.name).startsWith(q) && _norm(c.name).includes(q));
-  return [...starts, ...contains].slice(0, 8);
+  return [...starts, ...contains].slice(0, 10);
 }
 
 
@@ -3114,6 +3174,19 @@ function clearPfField(id) {
   if (id === 'salary') updateContinueBtn();
 }
 
+function clearCommInput() {
+  const el = document.getElementById('cin');
+  if (!el) return;
+  el.value = '';
+  selComm = null;
+  hlIdx = -1;
+  _suggCache = [];
+  const sbox = document.getElementById('sbox');
+  if (sbox) { sbox.innerHTML = ''; sbox.classList.remove('on'); }
+  el.dispatchEvent(new Event('input', {bubbles: true}));
+  el.focus();
+}
+
 function clearAllProfile() {
   ['salary','salary2','assets','pillar3a','extraDed'].forEach(id => {
     const el = document.getElementById(id);
@@ -3171,11 +3244,20 @@ function _updateSidebarTop() {
   const navH = document.querySelector('nav')?.offsetHeight || 0;
   const sp   = document.getElementById('sticky-profile');
   const spH  = (sp && sp.classList.contains('visible')) ? sp.offsetHeight : 0;
-  const page = document.getElementById('page-step2');
-  const gap  = page ? parseInt(getComputedStyle(page).paddingTop, 10) : 20;
-  document.documentElement.style.setProperty('--sidebar-top', (navH + spH + gap) + 'px');
+  document.documentElement.style.setProperty('--sidebar-top', (navH + spH + 16) + 'px');
 }
 window.addEventListener('resize', _updateSidebarTop);
+// Keep sidebar-top in sync whenever the sticky-profile bar resizes (e.g. when chips wrap)
+(function(){
+  const sp = document.getElementById('sticky-profile');
+  if (sp && 'ResizeObserver' in window) {
+    new ResizeObserver(_updateSidebarTop).observe(sp);
+  }
+  const nav = document.querySelector('nav');
+  if (nav && 'ResizeObserver' in window) {
+    new ResizeObserver(_updateSidebarTop).observe(nav);
+  }
+})();
 
 function goStep2() {
   const salaryEl = document.getElementById('salary');
@@ -3638,6 +3720,12 @@ function renderCards() {
         </div>`:''}
       </div>
       <div class="card-detail"><div class="card-detail-inner">
+        ${d.rent>0?`
+          <div class="det-lines det-lines-rent">
+            <div class="det-line"><span class="det-line-lbl">Net rent</span><span class="det-line-val">CHF ${f(Math.round(d.rent*mult*0.87))}</span></div>
+            <div class="det-line"><span class="det-line-lbl">Utilities</span><span class="det-line-val">CHF ${f(Math.round(d.rent*mult*0.13))}</span></div>
+          </div>
+        `:''}
         ${tb?`
           <div class="det-lines">
             <div class="det-line"><span class="det-line-lbl">${t('card.cantonal')}<span class="dv-pct">${fp(tb.cantonal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.cantonal*mult/12))}</span></div>
@@ -3958,6 +4046,61 @@ function onKey(e){
 }
 function updHL(items){items.forEach((el,i)=>el.classList.toggle('hl',i===hlIdx));}
 document.addEventListener('click',e=>{if(!e.target.closest('#cwrap'))document.getElementById('sbox').classList.remove('on');});
+// Attention-grab on the commune input until the user interacts with it
+(function(){
+  const PHRASES = ['Try "Zürich"','Try "Lausanne"','Try "8001"','Try "Geneva"','Try "Bern"','Try "1201"','Try "Lugano"','Try "Basel"'];
+  let idx = 0, timer = null, typeTimer = null;
+  const cin = ()=>document.getElementById('cin');
+  const w   = ()=>document.getElementById('cwrap');
+  function setPlaceholder(text){ const el = cin(); if(el) el.placeholder = text || '\u200B'; }
+  function typePhrase(target, done){
+    let i = 0;
+    clearTimeout(typeTimer);
+    function step(){
+      if (!w()?.classList.contains('pf-attract')) return;
+      setPlaceholder(target.slice(0, i));
+      i++;
+      if (i <= target.length) typeTimer = setTimeout(step, 55);
+      else if (done) typeTimer = setTimeout(done, 1600);
+    }
+    step();
+  }
+  function erasePhrase(done){
+    const el = cin(); if (!el) return;
+    let s = el.placeholder;
+    function step(){
+      if (!w()?.classList.contains('pf-attract')) return;
+      if (s.length === 0) { done && done(); return; }
+      s = s.slice(0,-1);
+      setPlaceholder(s);
+      typeTimer = setTimeout(step, 28);
+    }
+    step();
+  }
+  function cycle(){
+    if (!w()?.classList.contains('pf-attract')) return;
+    const next = PHRASES[idx % PHRASES.length]; idx++;
+    typePhrase(next, ()=>erasePhrase(cycle));
+  }
+  function startCycle(){ if (timer) return; clearTimeout(typeTimer); idx = 0; cycle(); }
+  function stopCycle(){ clearTimeout(typeTimer); timer = null; setPlaceholder('e.g. Zürich or 8001'); }
+  function refreshAttract(){
+    const el = w(); if(!el) return;
+    const isStep2 = document.getElementById('page-step2')?.style.display !== 'none';
+    const noLocs = !window.locs || window.locs.length === 0;
+    const empty = !cin()?.value;
+    const on = isStep2 && noLocs && empty;
+    el.classList.toggle('pf-attract', on);
+    if (on) startCycle(); else stopCycle();
+  }
+  document.getElementById('cin')?.addEventListener('focus', ()=>{ w()?.classList.remove('pf-attract'); stopCycle(); });
+  document.getElementById('cin')?.addEventListener('input', refreshAttract);
+  const _orig = window.recalcAndShow;
+  if (typeof _orig === 'function') {
+    window.recalcAndShow = function(){ const r=_orig.apply(this,arguments); refreshAttract(); return r; };
+  }
+  window.addEventListener('load', ()=>setTimeout(refreshAttract, 50));
+})();
 
 // ── CALCULATE ─────────────────────────────────────────────────────────────
 let _reloTimer = null;
@@ -4401,6 +4544,26 @@ function _getCol(loc) {
 function cmpvToggleEqual(cb) {
   document.getElementById('page-compare').classList.toggle('hide-equal', cb.checked);
 }
+// Stamp print date + auto-expand collapsed sections for printing; restore after
+window.addEventListener('beforeprint', () => {
+  const wrap = document.querySelector('#page-compare .cmpv-wrap');
+  if (wrap) {
+    const d = new Date();
+    wrap.dataset.printDate = d.toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+  }
+  document.querySelectorAll('#page-compare .cmpv-section-hd.cmpv-collapsed').forEach(hd=>{
+    hd.classList.add('_print-was-collapsed');
+    hd.classList.remove('cmpv-collapsed');
+    hd.nextElementSibling && hd.nextElementSibling.classList.remove('cmpv-collapsed');
+  });
+});
+window.addEventListener('afterprint', () => {
+  document.querySelectorAll('#page-compare .cmpv-section-hd._print-was-collapsed').forEach(hd=>{
+    hd.classList.add('cmpv-collapsed');
+    hd.nextElementSibling && hd.nextElementSibling.classList.add('cmpv-collapsed');
+    hd.classList.remove('_print-was-collapsed');
+  });
+});
 
 let _cmpvMode = 'monthly';
 function cmpvSetMode(mode) {
@@ -4763,7 +4926,7 @@ function _buildComparePage(nameA, nameB) {
   }
 
   /* ── Housing ── */
-  const housingRows = row('Rent', rentA, rentB, true);
+  const housingRows = row('Rent', rentA, rentB, true, null, null, null, 'Monthly housing cost');
 
   /* ── Tax breakdown ── */
   const grossA = hasTax && tdA.effectiveRate > 0 ? tdA.totalTax / tdA.effectiveRate : null;
@@ -4841,9 +5004,14 @@ function _buildComparePage(nameA, nameB) {
         <svg class="logo-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8.5" x2="12" y2="15.5"/><line x1="8.5" y1="12" x2="15.5" y2="12"/></svg>
         SwissCosts
       </a>
-      <button class="cmpv-nav-close" onclick="goStep2FromCompare()" title="Close comparison">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <div style="display:flex;align-items:center;gap:4px">
+        <button class="cmpv-nav-print" onclick="window.print()" title="Print comparison" aria-label="Print comparison">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </button>
+        <button class="cmpv-nav-close" onclick="goStep2FromCompare()" title="Close comparison">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
     </div>
   </div>
   <div id="cmpv-sticky-hd" class="cmpv-sticky-hd">
