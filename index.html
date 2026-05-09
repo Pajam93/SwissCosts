@@ -531,6 +531,8 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .in-qp{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;padding:2px 5px;border-radius:4px;white-space:nowrap;flex-shrink:0;transition:color .12s,background .12s}
 .in-qp:hover{background:var(--green-bg);color:var(--green-dark)}
 @media(max-width:720px){.in-picks{display:flex}}
+/* Rent picks: hide 4th pick (3'000) on mobile */
+@media(max-width:640px){.rin-picks .in-qp:nth-child(4){display:none}}
 /* Commune picks: hide 3rd pick on mobile to avoid overlapping placeholder */
 @media(max-width:640px){.cin-pick-lg{display:none}}
 /* Commune input: picks flow inline next to input (matches sal/rent spacing) */
@@ -2355,7 +2357,7 @@ body.is-compare #sticky-profile{margin-top:62px}
         <input class="pf-input" id="rin" type="text" inputmode="numeric" placeholder="2'000" oninput="fmtInput(this)" onblur="fmtInput(this)">
         <span class="pf-sal-measure"></span>
         <span class="pf-sal-suffix">CHF</span>
-        <div class="in-picks"><button class="in-qp" onclick="qpRent('1500')">1'500</button><button class="in-qp" onclick="qpRent('2000')">2'000</button><button class="in-qp" onclick="qpRent('2500')">2'500</button><button class="in-qp" onclick="qpRent('3000')">3'000</button></div>
+        <div class="in-picks rin-picks"><button class="in-qp" onclick="qpRent('1500')">1'500</button><button class="in-qp" onclick="qpRent('2000')">2'000</button><button class="in-qp" onclick="qpRent('2500')">2'500</button><button class="in-qp" onclick="qpRent('3000')">3'000</button></div>
         <button class="pf-clear" onclick="clearPfField('rin')" tabindex="-1" aria-label="Clear rent">×</button>
       </div>
       <div class="median-hint" id="mhint"><button type="button" class="median-hint-btn" id="mhbtn" onclick="useMedian()"><span id="mhint-pre">Median in&nbsp;</span><strong id="mhname">–</strong>: <strong id="mhval">–</strong>&nbsp;CHF/mo</button></div>
@@ -2442,7 +2444,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#85baf6f0e7efe0e6f1b8d6f2ecf6f6a0b7b5d7e0e9eae6e4f1eceaeba0b7b5c0ebf4f0ecf7fc" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#102f6365727a7573642d436779636335222042757c7f737164797f7e352220557e6165796269" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2501,7 +2503,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#84ece1e8e8ebc4f7f3edf7f7e7ebf7f0f7aae7ec">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#5d35383131321d2e2a342e2e3e322e292e733e35">Contact</a>
       </div>
     </div>
 
@@ -5096,6 +5098,12 @@ window.addEventListener('afterprint', () => {
 });
 
 let _cmpvMode = 'monthly';
+function cmpvPrint() {
+  const sel = (typeof _cmpSel !== 'undefined' && _cmpSel) || [];
+  const orig = document.title;
+  if (sel[0] && sel[1]) document.title = `SwissCosts — ${sel[0]} vs ${sel[1]}`;
+  setTimeout(() => { window.print(); setTimeout(() => { document.title = orig; }, 500); }, 0);
+}
 function cmpvSetMode(mode) {
   _cmpvMode = mode;
   if (_cmpSel.length >= 2) {
@@ -5621,7 +5629,7 @@ function _buildComparePage(nameA, nameB) {
         SwissCosts
       </a>
       <div style="display:flex;align-items:center;gap:4px">
-        <button class="cmpv-nav-print" onclick="window.print()" title="Print comparison" aria-label="Print comparison">
+        <button class="cmpv-nav-print" onclick="cmpvPrint()" title="Print comparison" aria-label="Print comparison">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
         </button>
         <button class="cmpv-nav-close" onclick="goStep2FromCompare()" title="Close comparison">
