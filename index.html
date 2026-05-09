@@ -148,7 +148,9 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 
 /* TEXT INPUTS */
 .pf-input-wrap{position:relative;display:flex;align-items:stretch;height:53px;border:1.5px solid var(--border);border-radius:12px;background:var(--white);transition:border-color .2s var(--ease-snap),box-shadow .2s var(--ease-snap)}
+.pf-input-wrap:hover{border-color:var(--border-strong)}
 .pf-input-wrap:focus-within{border-color:var(--green);box-shadow:0 0 0 3.5px rgba(15,118,110,.12)}
+.pf-input-wrap:focus-within:hover{border-color:var(--green)}
 .pf-prefix{
   position:absolute;left:16px;top:50%;transform:translateY(-50%);
   font-family:'DM Sans',sans-serif;
@@ -281,8 +283,12 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 /* HINTS */
 .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.55}
 .median-hint{display:none;font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.55}
-.median-hint.show{display:block}
-.median-hint strong{color:var(--text)}
+.median-hint.show{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.median-hint strong{color:var(--text);font-weight:600}
+.median-hint-btn{appearance:none;background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--muted);cursor:pointer;padding:2px 6px;border-radius:4px;white-space:nowrap;transition:background .15s,color .15s}
+.median-hint-btn:hover{background:var(--green-bg);color:var(--green-dark)}
+.median-hint-btn:hover strong{color:var(--green-dark)}
+.median-hint-suffix{color:var(--subtle)}
 
 /* AUTOCOMPLETE */
 .sugg{position:absolute;top:calc(100% - 1px);left:-1.5px;right:-1.5px;background:var(--white);border:1.5px solid var(--green);border-top:none;border-radius:0 0 12px 12px;z-index:200;overflow:hidden;box-shadow:0 12px 28px rgba(15,23,42,.10),0 2px 6px rgba(15,23,42,.06);display:none}
@@ -1255,7 +1261,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 .lp-ssub{font-size:15px;color:var(--muted);font-weight:400;line-height:1.7;max-width:500px}
 
 /* Popular locations section */
-.lp-popular{background:var(--bg);padding:clamp(72px,10vh,120px) 0;border-top:1px solid var(--border)}
+.lp-popular{background:var(--bg);padding:clamp(72px,10vh,120px) 0}
 .lp-popular-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:16px;flex-wrap:wrap}
 .lp-popular-note{font-size:12px;color:var(--muted);font-weight:400}
 .lp-pop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -1426,7 +1432,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 @media(max-width:520px){.lp-feat-bento{grid-template-columns:1fr}}
 
 /* How-it-works section (3-step interactive journey) */
-.lp-jrn{background:#fff;padding:clamp(72px,10vh,120px) 0;border-top:1px solid var(--border)}
+.lp-jrn{background:#fff;padding:clamp(72px,10vh,120px) 0}
 .lp-jrn-head{max-width:680px;margin-bottom:56px}
 .lp-jrn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative}
 .lp-jrn-grid::before{content:'';display:none}und-repeat:repeat-x;z-index:0;opacity:.45}
@@ -1443,7 +1449,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 .lp-jrn-desc{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 4px 0;font-weight:400}
 
 /* Mini interactive demos inside each step card */
-.lp-jrn-demo{margin-top:auto;background:#fff;border:1.5px solid transparent;border-radius:10px;padding:14px;min-height:240px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:border-color .3s var(--ease-snap)}
+.lp-jrn-demo{margin-top:auto;background:#fff;border:1.5px solid transparent;border-radius:10px;padding:14px;min-height:240px;display:flex;flex-direction:column;gap:10px;position:relative;box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.07);overflow:hidden;transition:border-color .3s var(--ease-snap)}
 .lp-jrn-card.is-active .lp-jrn-demo{border-color:transparent}
 .lp-jrn-card:not(.is-active) .lp-jrn-demo{background:#fff;opacity:.78}
 
@@ -1563,12 +1569,12 @@ body.is-compare #sticky-profile{margin-top:62px}
 .fd3-vs{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--subtle);letter-spacing:.08em;text-transform:uppercase;opacity:0;transition:opacity .5s cubic-bezier(.22,1,.36,1)}
 .lp-jrn-card.play .fd3-vs,.lp-jrn-card.played .fd3-vs{opacity:1;transition-delay:.9s}
 .fd3-save-wrap{display:flex;margin-top:auto;padding-top:10px}
-.fd3-save{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px 14px;background:var(--green-l);color:var(--green-dark);font-size:12px;font-weight:700;letter-spacing:-.005em;opacity:0;transform:translateY(4px);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1);border-radius:99px;border:1px solid var(--green-br)}
+.fd3-save{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:42px;padding:0 14px;background:var(--green-l);color:var(--green-dark);font-size:12px;font-weight:700;letter-spacing:-.005em;opacity:0;transform:translateY(4px);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1);border-radius:99px;border:1px solid var(--green-br)}
 .fd3-save svg{flex-shrink:0}
 .lp-jrn-card.play .fd3-save,.lp-jrn-card.played .fd3-save{opacity:1;transform:translateY(0);transition:opacity .55s cubic-bezier(.22,1,.36,1) 1.45s,transform .55s cubic-bezier(.22,1,.36,1) 1.45s}
 
 /* FAQ */
-.lp-faq{background:#fff;border-top:1px solid var(--border)}
+.lp-faq{background:var(--bg)}
 .lp-faq .lp-inner{display:grid;grid-template-columns:2fr 3fr;gap:clamp(48px,7vw,112px);align-items:start}
 .lp-faq-left{position:sticky;top:96px}
 .lp-faq-heading{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(36px,4.5vw,60px);font-weight:800;letter-spacing:-.035em;line-height:1.05;color:var(--text);margin-top:14px;margin-bottom:0}
@@ -2172,7 +2178,7 @@ body.is-compare #sticky-profile{margin-top:62px}
           <div class="lp-jrn-demo" aria-hidden="true">
             <div class="fd1-field">
               <span class="fd1-flabel">Annual income</span>
-              <div class="fd1-input"><span class="fd1-left"><span class="fd1-typed" data-text="95’000"></span><span class="fd1-cur"></span></span><span class="fd1-suf">CHF</span></div>
+              <div class="fd1-input"><span class="fd1-left"><span class="fd1-typed" data-text="80’000"></span><span class="fd1-cur"></span></span><span class="fd1-suf">CHF</span></div>
             </div>
             <div class="fd1-chips">
               <span class="fd1-chip"><svg class="fd1-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Swiss</span>
@@ -2335,7 +2341,7 @@ body.is-compare #sticky-profile{margin-top:62px}
         <span class="pf-prefix" style="left:16px">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </span>
-        <input class="pf-input pf-input-search" id="cin" type="text" placeholder="e.g. Zürich or 8001" autocomplete="off" spellcheck="false" oninput="onInput()" onfocus="onFocus()" onkeydown="onKey(event)">
+        <input class="pf-input pf-input-search" id="cin" type="text" placeholder="Zürich or 8001" autocomplete="off" spellcheck="false" oninput="onInput()" onfocus="onFocus()" onkeydown="onKey(event)">
         <div class="in-picks cin-picks"><button class="in-qp" onclick="quickCommAdd('Zürich')">Zürich</button><button class="in-qp" onclick="quickCommAdd('Genève')">Geneva</button><button class="in-qp cin-pick-lg" onclick="quickCommAdd('Bern')">Bern</button></div>
         <button class="pf-clear" onclick="clearCommInput()" tabindex="-1" aria-label="Clear commune">×</button>
         <div class="sugg" id="sbox"></div>
@@ -2344,7 +2350,7 @@ body.is-compare #sticky-profile{margin-top:62px}
     </div>
 
     <div class="pf-section">
-      <div class="pf-label"><span data-i18n="loc.rent">Monthly rent</span> <span style="font-size:12px;font-weight:400;color:var(--subtle)" data-i18n="loc.rent.opt">(optional — uses local median)</span></div>
+      <div class="pf-label"><span data-i18n="loc.rent">Monthly rent</span></div>
       <div class="pf-input-wrap pf-sal pf-rent">
         <input class="pf-input" id="rin" type="text" inputmode="numeric" placeholder="2'000" oninput="fmtInput(this)" onblur="fmtInput(this)">
         <span class="pf-sal-measure"></span>
@@ -2352,7 +2358,7 @@ body.is-compare #sticky-profile{margin-top:62px}
         <div class="in-picks"><button class="in-qp" onclick="qpRent('1500')">1'500</button><button class="in-qp" onclick="qpRent('2000')">2'000</button><button class="in-qp" onclick="qpRent('2500')">2'500</button><button class="in-qp" onclick="qpRent('3000')">3'000</button></div>
         <button class="pf-clear" onclick="clearPfField('rin')" tabindex="-1" aria-label="Clear rent">×</button>
       </div>
-      <div class="median-hint" id="mhint"><span id="mhint-pre">Median in&nbsp;</span><strong id="mhname">–</strong>: <strong id="mhval">–</strong> CHF/mo <span style="color:var(--subtle)" id="mhint-blank">· leave blank to use this</span></div>
+      <div class="median-hint" id="mhint"><button type="button" class="median-hint-btn" id="mhbtn" onclick="useMedian()"><span id="mhint-pre">Median in&nbsp;</span><strong id="mhname">–</strong>: <strong id="mhval">–</strong>&nbsp;CHF/mo</button></div>
     </div>
 
     <div class="btn-row" style="margin-top:20px">
@@ -2436,7 +2442,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#201f5355424a4543541d735749535305121072454c4f434154494f4e051210654e5155495259" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#85baf6f0e7efe0e6f1b8d6f2ecf6f6a0b7b5d7e0e9eae6e4f1eceaeba0b7b5c0ebf4f0ecf7fc" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2495,7 +2501,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#177f727b7b785764607e6464747864636439747f">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#84ece1e8e8ebc4f7f3edf7f7e7ebf7f0f7aae7ec">Contact</a>
       </div>
     </div>
 
@@ -3226,7 +3232,7 @@ const TRANSLATIONS = {
     'profile.clearAll':'Clear all',
     'profile.income':'Annual income',
     'profile.income.tip':'Gross, incl. bonus',
-    'profile.income.ph':"e.g. 82'000",
+    'profile.income.ph':"82'000",
     'profile.income.err':'Please enter your annual income to continue.',
     'profile.partner':'Partner\'s income',
     'profile.permit':'Permit',
@@ -3243,27 +3249,27 @@ const TRANSLATIONS = {
     'profile.more':'More details',
     'profile.assets':'Net assets',
     'profile.assets.tip':'Savings, investments & property value',
-    'profile.assets.ph':"e.g. 150'000",
+    'profile.assets.ph':"150'000",
     'profile.assets.sub':'Wealth tax applies above CHF 300k.',
     'profile.p3a':'Pillar 3a contributions',
     'profile.p3a.tip':"Max. CHF 7'258 / year for employed (2025)",
-    'profile.p3a.ph':"e.g. 7'258",
+    'profile.p3a.ph':"7'258",
     'profile.p3a.half':'Half',
     'profile.extraDed':'Additional deductions',
     'profile.extraDed.tip':'Commuting, childcare, alimony, etc.',
-    'profile.extraDed.ph':"e.g. 5'000",
+    'profile.extraDed.ph':"5'000",
     'profile.age':'Age bracket',
     'profile.age.tip':'Affects Pensionskasse BVG contribution rate',
     'profile.continue':'Continue to Home options',
     'loc.title':'Add a location',
     'loc.commune':'Commune or postal code',
-    'loc.commune.ph':'e.g. Zürich or 8001',
+    'loc.commune.ph':'Zürich or 8001',
     'loc.commune.err':'Please select a commune from the list',
     'loc.rent':'Monthly rent',
     'loc.rent.opt':'(optional — uses local median)',
-    'loc.rent.ph':"e.g. 2'000",
+    'loc.rent.ph':"2'000",
     'loc.median':'Median in',
-    'loc.median.blank':'· leave blank to use this',
+    'loc.median.blank':'· or leave blank',
     'loc.add':'Add to comparison',
     'privacy':'Your data never leaves your device.',
     'cmp.title':'Cost comparison',
@@ -3405,6 +3411,7 @@ function bumpIncome(dir) {
 function qpAssets(raw)      { qpNum('assets',raw); onProfileChange(); }
 function qpP3a(raw)         { qpNum('pillar3a',raw); recalcAndShow(); update3aSavings(); }
 function qpRent(raw)        { qpNum('rin',raw); updateLocClearBtn(); }
+function useMedian(){ const v=document.getElementById('mhval').textContent.replace(/\D/g,''); if(!v)return; qpNum('rin',v); updateLocClearBtn(); }
 function quickCommAdd(name) {
   _suggCache = searchCommunes(name);
   if (!_suggCache.length) return;
@@ -4468,7 +4475,7 @@ function resetForm(){
   selComm=null; hlIdx=-1;
   document.getElementById('cin').value='';
   document.getElementById('rin').value='';
-  document.getElementById('rin').placeholder='e.g. 2000';
+  document.getElementById('rin').placeholder='2000';
   document.getElementById('sbox').classList.remove('on');
   document.getElementById('mhint').classList.remove('show');
   document.getElementById('cerr').classList.remove('show');
@@ -4512,7 +4519,7 @@ function pickComm(idx){
   document.getElementById('mhname').textContent=c.name;
   document.getElementById('mhval').textContent=f(c.median||CANTON_MEDIAN[c.canton]||1700);
   document.getElementById('mhint').classList.add('show');
-  const med = c.median||CANTON_MEDIAN[c.canton]||1700; document.getElementById('rin').placeholder='e.g. '+String(med).replace(/\B(?=(\d{3})+(?!\d))/g,"'");
+  const med = c.median||CANTON_MEDIAN[c.canton]||1700; document.getElementById('rin').placeholder=String(med).replace(/\B(?=(\d{3})+(?!\d))/g,"'");
   if (!_suppressFocus) document.getElementById('rin').focus();
   updateAddBtn();
   updateLocClearBtn();
@@ -4565,7 +4572,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('#cwrap'))document.ge
     typePhrase(next, ()=>erasePhrase(cycle));
   }
   function startCycle(){ if (timer) return; clearTimeout(typeTimer); idx = 0; cycle(); }
-  function stopCycle(){ clearTimeout(typeTimer); timer = null; setPlaceholder('e.g. Zürich or 8001'); }
+  function stopCycle(){ clearTimeout(typeTimer); timer = null; setPlaceholder('Zürich or 8001'); }
   function refreshAttract(){
     const el = w(); if(!el) return;
     const isStep2 = document.getElementById('page-step2')?.style.display !== 'none';
@@ -4828,7 +4835,7 @@ function spOpen(field, chipEl) {
         `<div><div class="sp-pop-lbl">${t('sp.lbl.status')}</div><div class="sp-pop-seg" id="spp-civil">`+mkSeg('civil',getSpSegs().civil.opts)+`</div></div>` +
         `<div><div class="sp-pop-lbl">${t('sp.lbl.children')}</div><div class="sp-pop-seg" id="spp-kids">`+mkSeg('kids',getSpSegs().kids.opts)+`</div></div>` +
         `<div id="spp-age"><div class="sp-pop-lbl">${t('sp.lbl.age')}</div><div class="sp-pop-seg">`+mkSeg('age',getSpSegs().age.opts)+`</div></div>` +
-        `<div><div class="sp-pop-lbl">${t('sp.lbl.p3a')}</div><div class="pf-input-wrap" id="spi-pillar3a-wrap"><span class="pf-prefix">CHF</span><input class="pf-input" id="spi-pillar3a" type="text" inputmode="numeric" placeholder="e.g. 7'258" oninput="fmtInput(this);spSyncNum(this,'pillar3a')" onkeydown="if(event.key==='Enter')spClose()"><div class="in-picks"><button class="in-qp" onclick="spQpP3a('3629')">Half</button><button class="in-qp" onclick="spQpP3a('7258')">Max 7'258</button></div><button class="pf-clear" onclick="spP3aClear()" title="Clear">×</button></div></div>` +
+        `<div><div class="sp-pop-lbl">${t('sp.lbl.p3a')}</div><div class="pf-input-wrap" id="spi-pillar3a-wrap"><span class="pf-prefix">CHF</span><input class="pf-input" id="spi-pillar3a" type="text" inputmode="numeric" placeholder="7'258" oninput="fmtInput(this);spSyncNum(this,'pillar3a')" onkeydown="if(event.key==='Enter')spClose()"><div class="in-picks"><button class="in-qp" onclick="spQpP3a('3629')">Half</button><button class="in-qp" onclick="spQpP3a('7258')">Max 7'258</button></div><button class="pf-clear" onclick="spP3aClear()" title="Clear">×</button></div></div>` +
         `<div id="spi-church-row"><div class="sp-pop-lbl">${t('sp.lbl.church')}</div><label class="sp-church-row"><span class="sp-church-lbl">${t('sp.church.lbl')}</span><div class="toggle-switch"><input type="checkbox" id="spi-church"><div class="toggle-track"></div><div class="toggle-thumb"></div></div></label></div>` +
       '</div>' +
       `<button class="sp-pop-done-btn sp-pop-done-lg sp-pop-done-desktop" onclick="spClose()">${t('sp.done')}</button>` +
@@ -5713,7 +5720,7 @@ function _buildComparePage(nameA, nameB) {
         <div class="pf-label"><span>Net assets</span> <span class="pf-tip"><span class="pf-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="pf-tip-popup">Savings, investments &amp; property value</span></span></div>
         <div class="pf-input-wrap">
           <span class="pf-prefix">CHF</span>
-          <input class="pf-input" type="text" id="assets" placeholder="e.g. 150'000" inputmode="numeric" oninput="fmtInput(this);onProfileChange()" onblur="fmtInput(this)">
+          <input class="pf-input" type="text" id="assets" placeholder="150'000" inputmode="numeric" oninput="fmtInput(this);onProfileChange()" onblur="fmtInput(this)">
           <div class="in-picks"><button class="in-qp" onclick="qpAssets('100000')">100k</button><button class="in-qp" onclick="qpAssets('250000')">250k</button><button class="in-qp" onclick="qpAssets('500000')">500k</button></div>
           <button class="pf-clear" onclick="clearPfField('assets')" tabindex="-1" aria-label="Clear assets">×</button>
         </div>
@@ -5723,7 +5730,7 @@ function _buildComparePage(nameA, nameB) {
         <div class="pf-label"><span>Pillar 3a contributions</span> <span class="pf-tip"><span class="pf-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="pf-tip-popup">Swiss private pension — contributions reduce your taxable income</span></span></div>
         <div class="pf-input-wrap">
           <span class="pf-prefix">CHF</span>
-          <input class="pf-input" type="text" id="pillar3a" placeholder="e.g. 7'258" inputmode="numeric" oninput="fmtInput(this);recalcAndShow();update3aSavings();updateDedSub();updateProfileClearBtn()" onblur="fmtInput(this)">
+          <input class="pf-input" type="text" id="pillar3a" placeholder="7'258" inputmode="numeric" oninput="fmtInput(this);recalcAndShow();update3aSavings();updateDedSub();updateProfileClearBtn()" onblur="fmtInput(this)">
           <div class="in-picks"><button class="in-qp" onclick="qpP3a('3629')">Half</button><button class="in-qp" onclick="qpP3a('7258')">Max 7'258</button></div>
           <button class="pf-clear" onclick="clearPfField('pillar3a')" tabindex="-1" aria-label="Clear pillar 3a">×</button>
         </div>
@@ -5733,7 +5740,7 @@ function _buildComparePage(nameA, nameB) {
         <div class="pf-label"><span>Additional deductions</span> <span class="pf-tip"><span class="pf-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="pf-tip-popup">Commuting, childcare, alimony, etc.</span></span></div>
         <div class="pf-input-wrap">
           <span class="pf-prefix">CHF</span>
-          <input class="pf-input" type="text" id="extraDed" placeholder="e.g. 5'000" inputmode="numeric" oninput="fmtInput(this);recalcAndShow();updateDedSub();updateProfileClearBtn()" onblur="fmtInput(this)">
+          <input class="pf-input" type="text" id="extraDed" placeholder="5'000" inputmode="numeric" oninput="fmtInput(this);recalcAndShow();updateDedSub();updateProfileClearBtn()" onblur="fmtInput(this)">
           <button class="pf-clear" onclick="clearPfField('extraDed')" tabindex="-1" aria-label="Clear additional deductions">×</button>
         </div>
       </div>
