@@ -44,6 +44,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 #page-step1,#page-step2{width:100%;min-width:0;display:flex;flex-direction:column}
 #page-step1{flex:1}
 #page-step2{flex:none}
+/* Synchronous page-routing: hide pages we know are wrong before first paint to prevent home-page flash on refresh */
+html[data-init-page="step2"] #page-step1,
+html[data-init-page="compare"] #page-step1,
+html[data-init-page="compare"] #page-step2{display:none !important}
+html[data-init-page="step2"] #page-step2{display:flex !important}
+html[data-init-page="compare"] #page-compare{display:block !important}
 a{text-decoration:none}
 
 /* NAV */
@@ -76,8 +82,8 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 
 /* DEDUCTIONS / MORE DETAILS TOGGLE */
 .ded-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:13px 15px;margin-top:0;border-radius:12px;background:#fff;border:1.5px solid var(--border);user-select:none;position:relative;transition:background .18s,border-color .18s,box-shadow .18s;gap:12px;width:100%;box-sizing:border-box;min-width:0}
-.ded-toggle:hover{background:#F2FAF8;border-color:var(--green-br);box-shadow:0 2px 8px rgba(56,163,143,.08)}
-.ded-toggle.open{border-color:var(--green-br);background:#F2FAF8}
+.ded-toggle:hover{background:#fff;border-color:var(--green);box-shadow:0 1px 4px rgba(15,118,110,.06)}
+.ded-toggle.open{border-color:var(--green);background:#fff;box-shadow:0 1px 4px rgba(15,118,110,.08)}
 .ded-toggle.customised{border-color:var(--green);background:#EDF7F5;box-shadow:0 2px 10px rgba(56,163,143,.12)}
 .ded-toggle-inner{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
 .ded-toggle-ico-wrap{width:34px;height:34px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s,color .18s;color:var(--muted)}
@@ -141,7 +147,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .seg-btn.active{background:transparent;color:var(--text);font-weight:600;box-shadow:none}
 
 /* TEXT INPUTS */
-.pf-input-wrap{position:relative;display:flex;align-items:stretch;border:1.5px solid var(--border);border-radius:12px;background:var(--white);transition:border-color .2s var(--ease-snap),box-shadow .2s var(--ease-snap)}
+.pf-input-wrap{position:relative;display:flex;align-items:stretch;height:53px;border:1.5px solid var(--border);border-radius:12px;background:var(--white);transition:border-color .2s var(--ease-snap),box-shadow .2s var(--ease-snap)}
 .pf-input-wrap:focus-within{border-color:var(--green);box-shadow:0 0 0 3.5px rgba(15,118,110,.12)}
 .pf-prefix{
   position:absolute;left:16px;top:50%;transform:translateY(-50%);
@@ -168,6 +174,52 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .pf-input::placeholder{color:#A8B8B7;font-weight:400}
 .pf-input-search{font-weight:500;padding-left:42px}
 
+/* TAX PROFILE — chips */
+.pf-tp-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-items:stretch}
+.pf-tp-chip-wrap{position:relative;width:100%}
+.pf-tp-chip{position:relative;display:inline-flex;align-items:center;gap:8px;padding:10px 12px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;color:var(--text);cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s;white-space:nowrap;width:100%;justify-content:space-between}
+.pf-tp-chip-label{flex:1;text-align:left;font-weight:600;letter-spacing:-.005em;overflow:hidden;text-overflow:ellipsis}
+.pf-tp-chip:hover{border-color:var(--green-br);background:#F2FAF8}
+.pf-tp-chip[aria-expanded="true"]{border-color:var(--green);background:#F2FAF8;box-shadow:0 0 0 3px rgba(15,118,110,.10)}
+.pf-tp-chip-icon{color:var(--subtle);display:flex;flex-shrink:0}
+.pf-tp-chip[aria-expanded="true"] .pf-tp-chip-icon{color:var(--green-dark)}
+.pf-tp-chip-chev{color:var(--subtle);transition:transform .2s var(--ease-snap);flex-shrink:0;margin-left:2px}
+.pf-tp-chip[aria-expanded="true"] .pf-tp-chip-chev{transform:rotate(180deg);color:var(--green-dark)}
+.pf-tp-chip-label{font-weight:600;letter-spacing:-.005em;flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis}
+
+/* Inline option popover */
+.pf-tp-mini{position:absolute;top:calc(100% + 6px);left:0;right:0;min-width:170px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.10);padding:5px;z-index:30;display:none;animation:pf-tp-in .14s var(--ease-snap)}
+.pf-tp-mini.open{display:block}
+.pf-tp-mini-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--text);cursor:pointer;transition:background .12s;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;letter-spacing:-.005em}
+.pf-tp-mini-opt:hover{background:#F2FAF8}
+.pf-tp-mini-opt[aria-selected="true"]{background:var(--green-bg);color:var(--green-dark);font-weight:600}
+.pf-tp-mini-opt[aria-selected="true"]::after{content:'';width:14px;height:14px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f766e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/contain no-repeat}
+.pf-tp-chip-wrap{position:relative}
+
+/* TAX PROFILE TRIGGER + POPOVER (legacy, kept for fallback) */
+.pf-tp-trigger{display:flex;align-items:center;gap:10px;width:100%;height:53px;padding:0 14px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;box-sizing:border-box;transition:border-color .15s,background .15s,box-shadow .15s;font:inherit;color:var(--text);text-align:left;transition:border-color .15s,background .15s}
+.pf-tp-trigger:hover{border-color:var(--green);background:var(--white);box-shadow:0 1px 4px rgba(15,118,110,.06)}
+.pf-tp-trigger:hover .pf-tp-chev{color:var(--green-dark)}
+.pf-tp-trigger[aria-expanded="true"]{border-color:var(--green);background:var(--white);box-shadow:0 1px 4px rgba(15,118,110,.08)}
+.pf-tp-trigger[aria-expanded="true"] .pf-tp-chev{color:var(--green-dark)}
+.pf-tp-icon{display:flex;color:var(--subtle);flex-shrink:0}
+.pf-tp-summary{flex:1;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);letter-spacing:-.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.pf-tp-chev{color:var(--subtle);flex-shrink:0;transition:transform .2s var(--ease-snap)}
+.pf-tp-trigger[aria-expanded="true"] .pf-tp-chev{transform:rotate(180deg)}
+.pf-tp-wrap{position:relative}
+.pf-tp-pop{position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:50;padding:6px 8px;background:var(--white);border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.14),0 4px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;animation:pf-tp-in .16s var(--ease-snap)}
+.pf-tp-pop[hidden]{display:none}
+@keyframes pf-tp-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.pf-tp-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 14px}
+.pf-tp-row + .pf-tp-row{border-top:1px solid #EEEAE0}
+.pf-tp-row .pf-tp-rl{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pf-tp-row .pf-tp-rl-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;color:var(--text);letter-spacing:-.005em}
+.pf-tp-row .pf-tp-rl-sub{font-size:12.5px;color:var(--muted);font-weight:400}
+.pf-tp-pop .seg-group{height:32px;border-radius:9px;padding:3px;gap:1px;background:#C8E6E2;flex-shrink:0;width:auto}
+.pf-tp-pop .seg-btn{flex:0 0 auto;font-size:12.5px;padding:0 12px;border-radius:7px;font-weight:500;color:var(--green-dark);min-width:0}
+.pf-tp-pop .seg-btn.active{font-weight:700;color:var(--text)}
+.pf-tp-pop .seg-pill{border-radius:7px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pf-tp-pop #kids-group .seg-btn{padding:0 14px}
 /* TOGGLE */
 .pf-toggle-row{display:flex;align-items:center;justify-content:space-between;min-height:var(--input-h)}
 .toggle-switch{position:relative;width:48px;height:27px;flex-shrink:0}
@@ -433,6 +485,36 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .bar-labels{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
 .tax-trend{font-size:11.5px;font-weight:500;color:var(--muted);text-align:right;margin-top:2px}
 
+/* SALARY: inline value, CHF suffix sits next to picks with a divider between */
+.pf-input-wrap.pf-sal{align-items:center}
+.pf-input-wrap.pf-sal .pf-input{padding-left:16px;padding-right:8px;flex:1 1 auto;min-width:0}
+.pf-input-wrap.pf-sal{padding-right:142px}
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)){padding-right:40px}
+@media(max-width:720px){.pf-input-wrap.pf-sal{padding-right:108px}.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)){padding-right:40px}}
+.pf-sal-measure{display:none}
+.pf-sal-suffix{font-family:'DM Sans',sans-serif;font-size:var(--input-font);font-weight:500;color:var(--muted);pointer-events:none;line-height:1;flex:0 0 auto;padding:0 14px 0 0;display:flex;align-items:center}
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)) .pf-input{flex:0 1 auto;width:auto}
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)) .pf-sal-suffix::after{display:inline-block}
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)) .pf-sal-suffix{padding-right:0;order:3;margin-right:0;margin-left:auto}
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)) .pf-sal-spin{order:2;margin-right:0}
+.pf-sal-suffix::after{content:'';display:inline-block;width:1px;height:18px;background:var(--border);margin-left:14px}
+.pf-sal-spin{display:none !important}
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)) .pf-sal-spin{display:flex}
+.pf-sal-spin button{border:none;background:transparent;width:22px;height:14px;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;border-radius:4px;padding:0;transition:background .15s,color .15s}
+.pf-sal-spin button:hover{background:var(--green-bg);color:var(--green-dark)}
+.pf-sal-spin button:active{transform:scale(.92)}
+.pf-sal-spin svg{width:10px;height:10px;display:block}
+/* show spinner only when value present */
+.pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)) .pf-sal-spin{display:flex}
+
+.pf-sal-divider{display:none}
+@media(max-width:720px){
+  .pf-input-wrap.pf-sal .pf-input{padding-right:140px}
+  .pf-sal-suffix{right:112px}
+  .pf-sal-spin{right:78px}
+  .pf-sal-divider{right:66px}
+}
+
 /* CLEAR FIELD BUTTON — inside inputs */
 .pf-clear{position:absolute;right:0;top:0;height:100%;width:36px;border:none;background:transparent;font-size:17px;color:var(--subtle);cursor:pointer;display:none;align-items:center;justify-content:center;padding:0;transition:color .12s;line-height:1;z-index:3}
 .pf-clear:hover{color:var(--text)}
@@ -444,7 +526,9 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .profile-title-clear:hover{background:var(--green-bg);color:var(--green-dark)}
 
 /* QUICK PICK CHIPS — inline inside input fields */
-.in-picks{position:absolute;right:0;top:0;height:100%;display:flex;align-items:center;gap:1px;padding:0 10px;z-index:2;pointer-events:auto;border-radius:0 12px 12px 0;overflow:hidden}
+.in-picks{position:absolute;right:0;top:0;height:100%;display:flex;align-items:center;gap:1px;padding:0 10px 0 4px;z-index:2;pointer-events:auto;border-radius:0 12px 12px 0;overflow:hidden}
+.pf-input-wrap.pf-sal .in-picks{padding-left:0}
+.pf-input-wrap.pf-sal .in-picks .in-qp:first-child{padding-left:9px}
 .in-qp{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;padding:2px 5px;border-radius:4px;white-space:nowrap;flex-shrink:0;transition:color .12s,background .12s}
 .in-qp:hover{background:var(--green-bg);color:var(--green-dark)}
 @media(max-width:720px){.in-picks{display:flex}}
@@ -598,7 +682,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .page{max-width:840px;margin:0 auto;padding:clamp(20px,3vh,48px) 24px 0}
 .page-hdr{padding-top:clamp(36px,6vh,80px)}
 .page-hdr.step-hidden{display:none}
-.step-continue-btn{width:100%;margin-top:28px;padding:14px;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .15s,opacity .15s;letter-spacing:-.2px;display:flex;align-items:center;justify-content:center;gap:8px}
+.step-continue-btn{width:100%;margin-top:28px;padding:18px;min-height:58px;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .15s,opacity .15s;letter-spacing:-.2px;display:flex;align-items:center;justify-content:center;gap:8px}
 .step-continue-btn:hover:not(:disabled){background:var(--green-dark)}
 .step-continue-btn:disabled{opacity:.45;cursor:not-allowed}
 /* ── STEP 2: full-width two-column layout ───────────────────────────────── */
@@ -635,7 +719,13 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .sugg-loc:hover .sugg-loc-add{border-color:var(--green);color:var(--green);background:var(--green-bg)}
 .sugg-loc-sub{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .sugg-loc-name{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;line-height:1.35}
-.sugg-loc-rent{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;white-space:nowrap}
+.sugg-loc-rent-wrap{display:inline-flex;align-items:center;gap:6px;position:relative;cursor:help}
+.sugg-loc-rent-icon{display:inline-flex;color:var(--subtle);transition:color .15s ease}
+.sugg-loc-rent-wrap:hover .sugg-loc-rent-icon{color:var(--green)}
+.sugg-loc-rent-tip{position:absolute;bottom:calc(100% + 6px);right:0;background:var(--text);color:#fff;font-size:11px;font-weight:500;letter-spacing:0;padding:6px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateY(2px);transition:opacity .15s ease,transform .15s ease;z-index:10}
+.sugg-loc-rent-tip::after{content:"";position:absolute;top:100%;right:8px;border:4px solid transparent;border-top-color:var(--text)}
+.sugg-loc-rent-wrap:hover .sugg-loc-rent-tip{opacity:1;transform:translateY(0)}
+.sugg-loc-rent{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;white-space:nowrap;line-height:1.1}
 .sugg-loc-rent-period{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
 /* Tablet and below: stack layout vertically, tighten padding */
 @media(max-width:1000px){.s2-layout{flex-direction:column;align-items:stretch;gap:28px}.s2-sidebar{width:100%}.back-btn{display:none}.s2-sidebar-sticky{position:static}.s2-results{width:100%;padding-top:0}.page-step2{padding-left:20px;padding-right:20px}.nav-inner{padding-left:20px;padding-right:20px}.results-empty{min-height:200px}.profile-card{min-width:0;box-sizing:border-box;width:100%}}
@@ -1176,14 +1266,25 @@ body.is-compare #sticky-profile{margin-top:62px}
 .lp-pop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media(max-width:860px){.lp-pop-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.lp-pop-grid{grid-template-columns:1fr}}
-.lp-pop-grid .loc-card{margin-bottom:0;padding:20px 20px 18px;cursor:pointer;position:relative;background:#fff;box-shadow:none}
-.lp-pop-card-arrow{position:absolute;top:14px;right:14px;width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--green-dark);transition:background .15s,transform .15s;flex-shrink:0}
+.lp-pop-grid .loc-card{margin-bottom:0;padding:18px 18px 16px;cursor:pointer;position:relative;background:#fff;box-shadow:none;border:none;border-radius:14px;transition:box-shadow .18s,transform .18s}
+.lp-pop-grid .loc-card:hover{box-shadow:0 4px 14px rgba(56,163,143,.08);transform:translateY(-1px)}
+.lp-pop-card-arrow{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--green-dark);transition:background .15s,transform .15s;flex-shrink:0}
 .lp-pop-grid .loc-card:hover .lp-pop-card-arrow{background:var(--green-bg);transform:translateX(2px)}
-.lp-pop-grid .card-top{margin-bottom:10px;align-items:flex-start;flex-direction:column;gap:6px}
-.lp-pop-grid .card-right{width:100%}
-.lp-pop-grid .card-total{font-size:20px;letter-spacing:-.5px}
-.lp-pop-grid .bar-wrap{margin-bottom:0}
-.lp-pop-grid .bar-stats{display:none}
+.lp-pop-grid .card-top{margin-bottom:14px;align-items:center;gap:8px}
+.lp-pop-grid .lp-pop-amt{margin-bottom:14px}
+.lp-pop-grid .lp-pop-amt .card-total{font-size:24px;font-weight:800;letter-spacing:-.5px}
+.lp-pop-grid .lp-pop-mo{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:1px}
+.lp-pop-grid .card-name{font-size:15px}
+.lp-pop-grid .card-canton{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.lp-pop-grid .card-total{font-size:22px;letter-spacing:-.5px;font-weight:700}
+.lp-pop-grid .bar-wrap{margin-top:8px;margin-bottom:0}
+.lp-pop-grid .bar-stats{margin-top:8px;flex-direction:column;gap:0}
+.lp-pop-grid .bst{font-size:12px;padding:2px 0;width:100%;justify-content:space-between}
+.lp-pop-grid .bst-dot{width:7px;height:7px;margin-right:6px}
+.lp-pop-grid .bst-val{font-size:12px;font-weight:600}
+.lp-pop-grid .bst-lbl{font-size:10px;letter-spacing:.7px;margin-left:4px}
+.lp-pop-grid .bst-pct{font-size:11px;width:auto;padding:2px 6px;margin-left:8px}
+.lp-pop-grid .bst-sep{display:block;width:100%;height:1px;background:var(--border);margin:2px 0}
 .lp-pop-card{border:none;border-radius:14px;cursor:pointer;transition:border-color .18s,box-shadow .18s,transform .18s;user-select:none}
 .lp-pop-card:hover{border-color:var(--green-br);box-shadow:0 4px 16px rgba(56,163,143,.1);transform:translateY(-2px)}
 .lp-pop-card-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
@@ -1329,6 +1430,148 @@ body.is-compare #sticky-profile{margin-top:62px}
 @media(max-width:900px){.lp-feat-bento{grid-template-columns:repeat(2,1fr)}.lp-feat:nth-child(n){grid-column:span 1}.lp-feat:nth-child(6){flex-direction:column;gap:12px}}
 @media(max-width:520px){.lp-feat-bento{grid-template-columns:1fr}}
 
+/* How-it-works section (3-step interactive journey) */
+.lp-jrn{background:#fff;padding:clamp(72px,10vh,120px) 0;border-top:1px solid var(--border)}
+.lp-jrn-head{max-width:680px;margin-bottom:56px}
+.lp-jrn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative}
+.lp-jrn-grid::before{content:'';display:none}und-repeat:repeat-x;z-index:0;opacity:.45}
+.lp-jrn-grid::after{content:'';display:none}
+.lp-jrn-grid[data-active="1"]::after{width:calc(36% - 4%)}
+.lp-jrn-grid[data-active="2"]::after{width:calc(72% - 14%)}
+@media(max-width:860px){.lp-jrn-grid{grid-template-columns:1fr;gap:18px}.lp-jrn-grid::before,.lp-jrn-grid::after{display:none}}
+.lp-jrn-card{background:var(--bg);border:1.5px solid transparent;border-radius:14px;padding:26px 24px 24px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1;cursor:pointer;transition:background .35s var(--ease-snap),border-color .35s var(--ease-snap),box-shadow .35s var(--ease-snap)}
+.lp-jrn-card.is-active{background:var(--green-l);border-color:var(--green-br);box-shadow:0 14px 38px rgba(15,118,110,.12)}
+.lp-jrn-step{display:flex;align-items:center;gap:14px;margin-bottom:2px}
+.lp-jrn-num{color:var(--green-dark);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.04em;flex-shrink:0;line-height:1;transition:color .35s var(--ease-snap),transform .4s var(--ease-snap)}
+.lp-jrn-card.is-active .lp-jrn-num{color:var(--green);transform:scale(1.05)}
+.lp-jrn-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--text);line-height:1.2;margin:0}
+.lp-jrn-desc{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 4px 0;font-weight:400}
+
+/* Mini interactive demos inside each step card */
+.lp-jrn-demo{margin-top:auto;background:#fff;border:1.5px solid transparent;border-radius:10px;padding:14px;min-height:240px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:border-color .3s var(--ease-snap)}
+.lp-jrn-card.is-active .lp-jrn-demo{border-color:transparent}
+.lp-jrn-card:not(.is-active) .lp-jrn-demo{background:#fff;opacity:.78}
+
+.lp-jrn-card.resetting,.lp-jrn-card.resetting *,.lp-jrn-card.resetting *::before,.lp-jrn-card.resetting *::after{transition:none!important;animation:none!important}
+
+/* Step 1 demo — income + chips (animated typing + chip select) */
+.fd1-field{display:flex;flex-direction:column;gap:8px}
+.fd1-flabel{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text);letter-spacing:0;text-transform:none}
+.fd1-flabel svg{color:var(--subtle);opacity:.7}
+.fd1-suf{margin-left:auto;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--green-dark);letter-spacing:.02em}
+.fd1-left{position:relative;display:inline-flex;align-items:center;min-width:0}
+.fd1-ph{position:absolute;left:0;top:50%;transform:translateY(-50%);color:var(--subtle);font-weight:500;opacity:.75;transition:opacity .2s;pointer-events:none}
+.lp-jrn-card.play .fd1-input:has(.fd1-typed:not(:empty)) .fd1-ph,.lp-jrn-card.played .fd1-ph{opacity:0}
+.fd1-track{position:relative;height:4px;background:var(--bg);border-radius:99px;margin-top:2px;overflow:hidden}
+.lp-jrn-card.is-active .fd1-track{background:#eef2f1}
+.fd1-track-fill{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--green-br),var(--green));border-radius:99px;transition:width 1.0s cubic-bezier(.22,1,.36,1) .35s}
+.lp-jrn-card.play .fd1-track-fill,.lp-jrn-card.played .fd1-track-fill{width:62%}
+.fd1-track-thumb{position:absolute;top:50%;left:62%;transform:translate(-50%,-50%) scale(0);width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--green);box-shadow:0 1px 4px rgba(15,118,110,.25);transition:transform .5s cubic-bezier(.22,1,.36,1) 1.65s}
+.lp-jrn-card.play .fd1-track-thumb,.lp-jrn-card.played .fd1-track-thumb{transform:translate(-50%,-50%) scale(1)}
+.fd1-check{flex-shrink:0;color:var(--green);opacity:0;transform:scale(.6);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .4s cubic-bezier(.22,1,.36,1)}
+.lp-jrn-card.play .fd1-chip .fd1-check,.lp-jrn-card.played .fd1-chip .fd1-check{opacity:1;transform:scale(1)}
+.fd1-input{display:flex;align-items:center;gap:0;height:46px;padding:0 16px;background:#fff;border:1.5px solid #d9e6e1;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--text);transition:background .3s,border-color .3s,box-shadow .3s}
+.lp-jrn-card.is-active .fd1-input{background:#fff;border-color:#bcd4cc}
+.lp-jrn-card.played .fd1-input{border-color:var(--green-br);box-shadow:0 0 0 3px rgba(15,118,110,.08)}
+.fd1-typed{display:inline-block;white-space:nowrap;min-width:0;color:var(--text);font-weight:500;font-size:14px}
+.fd1-cur{display:inline-block;width:1.5px;height:14px;background:var(--green);margin-left:1px;animation:none;opacity:0}
+.lp-jrn-card.play .fd1-input:has(.fd1-typed:not(:empty)) .fd1-cur{opacity:1;animation:fd1blink 1s steps(2) infinite}
+.fd1-typed.typed-done ~ .fd1-cur{opacity:0!important;animation:none!important}
+@keyframes fd1blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.fd1-chips{display:flex;gap:6px;flex-wrap:wrap}
+.fd1-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;color:var(--text);opacity:.45;transform:translateY(3px);transition:background .5s cubic-bezier(.22,1,.36,1),border-color .5s cubic-bezier(.22,1,.36,1),color .5s cubic-bezier(.22,1,.36,1),opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}
+.lp-jrn-card.play .fd1-chip,.lp-jrn-card.played .fd1-chip{opacity:1;transform:translateY(0);background:var(--green-l);border-color:var(--green-br);color:var(--green-dark)}
+.lp-jrn-card.play .fd1-chip:nth-child(1){transition-delay:1.45s}
+.lp-jrn-card.play .fd1-chip:nth-child(2){transition-delay:1.6s}
+.lp-jrn-card.play .fd1-chip:nth-child(3){transition-delay:1.75s}
+
+/* Step 2 demo — search field + selectable city chips */
+.fd2-wrap{position:relative;display:flex;flex-direction:column;gap:8px;flex:1}
+.fd2-wrap > .fd-cta{margin-top:auto}
+.fd2-flabel{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text);letter-spacing:0}
+.fd2-search{display:flex;align-items:center;gap:0;height:46px;padding:0 14px;background:#fff;border:1.5px solid #d9e6e1;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);transition:background .3s,border-color .3s,box-shadow .3s}
+.lp-jrn-card.is-active .fd2-search{background:#fff;border-color:#bcd4cc}
+.lp-jrn-card.played .fd2-search{border-color:var(--green-br);box-shadow:0 0 0 3px rgba(15,118,110,.08)}
+.fd2-search > svg.fd2-mag{flex-shrink:0;color:var(--green-dark);margin-right:10px;opacity:.85}
+.fd2-suf{margin-left:auto;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--green-dark);letter-spacing:.02em;flex-shrink:0;padding-left:10px}
+.fd2-left{position:relative;display:inline-flex;align-items:center;min-width:0;flex:1 1 auto}
+.fd2-ph{position:absolute;left:0;top:50%;transform:translateY(-50%);color:#A8B8B7;font-weight:400;letter-spacing:-.005em;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.lp-jrn-card.play .fd2-search:has(.fd2-typed:not(:empty)) .fd2-ph,.lp-jrn-card.played .fd2-ph{opacity:0}
+.fd2-typed{display:inline-block;white-space:nowrap;color:var(--text);font-weight:500}
+.fd2-cur{display:inline-block;width:1.5px;height:15px;background:var(--green);margin-left:1px;animation:none;opacity:0}
+.lp-jrn-card.play .fd2-search:has(.fd2-typed:not(:empty)) .fd2-cur{opacity:1;animation:fd1blink 1s steps(2) infinite}
+.fd2-typed.typed-done ~ .fd2-cur{opacity:0!important;animation:none!important}
+.fd2-flabel-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.fd2-fmeta{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:400;color:var(--subtle);letter-spacing:-.005em}
+
+/* Shared CTA button used in step 1 + step 2 demos */
+.fd-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:42px;background:var(--green);color:#fff;border:0;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:-.005em;margin-top:6px;transition:background .25s,transform .12s cubic-bezier(.4,0,.2,1),box-shadow .25s}
+.fd-cta svg{flex-shrink:0;opacity:.95}
+.lp-jrn-demo > .fd-cta{margin-top:auto}
+@keyframes fd-cta-click{0%{transform:scale(1);background:var(--green);box-shadow:none}40%{transform:scale(.965);background:var(--green-dark);box-shadow:0 0 0 4px rgba(15,118,110,.12)}80%{transform:scale(1);background:var(--green);box-shadow:none}100%{transform:scale(1);background:var(--green);box-shadow:none}}
+.lp-jrn-card.play .fd1-field ~ .fd-cta,.lp-jrn-card.played .fd1-field ~ .fd-cta,.lp-jrn-card.play .fd1-chips ~ .fd-cta,.lp-jrn-card.played .fd1-chips ~ .fd-cta{animation:fd-cta-click .55s cubic-bezier(.4,0,.2,1) 2.0s 1 both}
+.lp-jrn-card.play .fd2-wrap .fd-cta,.lp-jrn-card.played .fd2-wrap .fd-cta{animation:fd-cta-click .55s cubic-bezier(.4,0,.2,1) 1.95s 1 both}
+.lp-jrn-card.no-cta-anim .fd-cta{animation:none!important}
+.fd2-chip{display:inline-flex;align-items:center;gap:4px;padding:0;margin-right:0;background:var(--green-l);color:var(--green-dark);border-radius:5px;font-size:11px;font-weight:700;letter-spacing:-.01em;flex-shrink:0;height:22px;max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transform:scale(.85);transform-origin:left center;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),max-width .5s cubic-bezier(.22,1,.36,1),padding .5s cubic-bezier(.22,1,.36,1),margin-right .5s cubic-bezier(.22,1,.36,1)}
+.fd2-chip svg{color:var(--green-dark);opacity:.55;padding:1px}
+.lp-jrn-card.play .fd2-chip,.lp-jrn-card.played .fd2-chip{opacity:1;transform:scale(1);max-width:120px;padding:3px 4px 3px 8px;margin-right:6px;transition-delay:1.4s}
+.lp-jrn-card.play .fd2-chip-2,.lp-jrn-card.played .fd2-chip-2{transition-delay:1.65s}
+.lp-jrn-card.play .fd2-search:has(.fd2-chip[style*="opacity:1"]) .fd2-placeholder,.lp-jrn-card.play .fd2-chip ~ .fd2-placeholder,.lp-jrn-card.played .fd2-chip ~ .fd2-placeholder{display:none}
+.fd2-suggest{display:none}
+.fd2-flabel-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.fd2-fmeta{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;color:var(--subtle);letter-spacing:-.005em}
+.fd2-pre{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:var(--green-dark);margin-right:10px;letter-spacing:.01em}
+.fd2-add{display:flex;align-items:center;justify-content:center;gap:8px;height:42px;background:#a4c0b6;color:#fff;border:0;border-radius:99px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:-.005em;margin-top:2px}
+.fd2-add svg{flex-shrink:0;opacity:.95}
+.fd2-sg{display:inline-flex;align-items:center;padding:3px 7px;background:transparent;border:0;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:-.005em}
+.lp-jrn-card.play .fd2-sg,.lp-jrn-card.played .fd2-sg{opacity:.45;transform:translateY(0)}
+/* Picked pills brighten to full opacity at the moment they get picked */
+.lp-jrn-card.play .fd2-sg[data-pick="1"],.lp-jrn-card.played .fd2-sg[data-pick="1"]{opacity:1}
+.lp-jrn-card.play .fd2-sg[data-pick="2"],.lp-jrn-card.played .fd2-sg[data-pick="2"]{opacity:1}
+/* Suggestion pills are static — visible at all times in grey */
+.fd2-sg-check{flex-shrink:0;color:var(--green-dark);opacity:0;width:0;margin-left:-3px;transform:scale(.6);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),width .4s cubic-bezier(.22,1,.36,1),margin-left .4s cubic-bezier(.22,1,.36,1)}
+.lp-jrn-card.play .fd2-sg[data-pick] .fd2-sg-check,.lp-jrn-card.played .fd2-sg[data-pick] .fd2-sg-check{opacity:1;width:11px;margin-left:0;transform:scale(1)}
+.lp-jrn-card.play .fd2-sg[data-pick="1"] .fd2-sg-check,.lp-jrn-card.played .fd2-sg[data-pick="1"] .fd2-sg-check{transition-delay:1.55s}
+.lp-jrn-card.play .fd2-sg[data-pick="2"] .fd2-sg-check,.lp-jrn-card.played .fd2-sg[data-pick="2"] .fd2-sg-check{transition-delay:1.85s}
+/* Subtle scale-up when pill gets picked — softer than a pop */
+@keyframes fd2pop{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.lp-jrn-card.play .fd2-sg[data-pick="1"],.lp-jrn-card.played .fd2-sg[data-pick="1"]{animation:fd2pop .65s cubic-bezier(.22,1,.36,1) 1.55s both}
+.lp-jrn-card.play .fd2-sg[data-pick="2"],.lp-jrn-card.played .fd2-sg[data-pick="2"]{animation:fd2pop .65s cubic-bezier(.22,1,.36,1) 1.85s both}
+/* Zürich (1st pill) gets picked — turns green at .35s, chip lands at .50s */
+.lp-jrn-card.play .fd2-sg[data-pick="1"],.lp-jrn-card.played .fd2-sg[data-pick="1"]{background:var(--green-l);border-color:var(--green-br);color:var(--green-dark);transition:background .5s cubic-bezier(.22,1,.36,1) 1.55s,border-color .5s cubic-bezier(.22,1,.36,1) 1.55s,color .5s cubic-bezier(.22,1,.36,1) 1.55s,opacity .5s cubic-bezier(.22,1,.36,1) 1.55s}
+/* Then Zug (last pill) gets picked — turns green at .85s, chip lands at 1.0s */
+.lp-jrn-card.play .fd2-sg[data-pick="2"],.lp-jrn-card.played .fd2-sg[data-pick="2"]{background:var(--green-l);border-color:var(--green-br);color:var(--green-dark);transition:background .5s cubic-bezier(.22,1,.36,1) 1.85s,border-color .5s cubic-bezier(.22,1,.36,1) 1.85s,color .5s cubic-bezier(.22,1,.36,1) 1.85s,opacity .5s cubic-bezier(.22,1,.36,1) 1.85s}
+
+/* Step 3 demo — empty state → comparison bars (stacked: tax + rent + take-home) */
+.fd3-empty{position:absolute;inset:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;padding:8px 4px;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);font-family:'DM Sans',sans-serif}
+.fd3-empty-icon{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--green-l);color:var(--green-dark);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.fd3-empty-title{font-size:12.5px;font-weight:700;color:var(--text);letter-spacing:-.015em}
+.fd3-empty-sub{font-size:11px;font-weight:500;color:var(--subtle);letter-spacing:-.005em;line-height:1.35;max-width:200px}
+.lp-jrn-card.play .fd3-empty,.lp-jrn-card.played .fd3-empty{opacity:0;transform:translateY(-3px);pointer-events:none;position:absolute;left:14px;right:14px}
+
+/* Step 3 — vs comparison cards */
+.fd3-vs-wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:8px;font-family:'DM Sans',sans-serif;opacity:0;flex:1;transition:opacity .5s cubic-bezier(.22,1,.36,1)}
+.lp-jrn-card.play .fd3-vs-wrap,.lp-jrn-card.played .fd3-vs-wrap{opacity:1}
+.fd3-card{display:flex;flex-direction:column;justify-content:flex-end;padding:14px 14px 13px;border-radius:10px;min-height:120px;opacity:0;transform:translateY(4px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}
+.fd3-card-win{background:var(--green-dark);color:#fff}
+.fd3-card-lose{background:#fff;color:var(--text);border:1px solid var(--border)}
+.lp-jrn-card.play .fd3-card,.lp-jrn-card.played .fd3-card{opacity:1;transform:translateY(0)}
+.lp-jrn-card.play .fd3-card-win,.lp-jrn-card.played .fd3-card-win{transition-delay:.3s}
+.lp-jrn-card.play .fd3-card-lose,.lp-jrn-card.played .fd3-card-lose{transition-delay:.55s}
+.fd3-card-label{font-size:9.5px;font-weight:700;letter-spacing:.12em;opacity:.78;margin-bottom:4px}
+.fd3-card-win .fd3-card-label{color:rgba(255,255,255,.78)}
+.fd3-card-lose .fd3-card-label{color:var(--subtle);opacity:1}
+.fd3-card-amt{font-size:26px;font-weight:800;letter-spacing:-.025em;line-height:1;margin-bottom:6px}
+.fd3-card-sub{font-size:10px;font-weight:500;letter-spacing:-.005em;opacity:.7}
+.fd3-card-win .fd3-card-sub{color:rgba(255,255,255,.7)}
+.fd3-card-lose .fd3-card-sub{color:var(--subtle);opacity:1}
+.fd3-vs{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--subtle);letter-spacing:.08em;text-transform:uppercase;opacity:0;transition:opacity .5s cubic-bezier(.22,1,.36,1)}
+.lp-jrn-card.play .fd3-vs,.lp-jrn-card.played .fd3-vs{opacity:1;transition-delay:.9s}
+.fd3-save-wrap{display:flex;margin-top:auto;padding-top:10px}
+.fd3-save{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px 14px;background:var(--green-l);color:var(--green-dark);font-size:12px;font-weight:700;letter-spacing:-.005em;opacity:0;transform:translateY(4px);transition:opacity .35s cubic-bezier(.22,1,.36,1),transform .35s cubic-bezier(.22,1,.36,1);border-radius:99px;border:1px solid var(--green-br)}
+.fd3-save svg{flex-shrink:0}
+.lp-jrn-card.play .fd3-save,.lp-jrn-card.played .fd3-save{opacity:1;transform:translateY(0);transition:opacity .55s cubic-bezier(.22,1,.36,1) 1.45s,transform .55s cubic-bezier(.22,1,.36,1) 1.45s}
+
 /* FAQ */
 .lp-faq{background:#fff;border-top:1px solid var(--border)}
 .lp-faq .lp-inner{display:grid;grid-template-columns:2fr 3fr;gap:clamp(48px,7vw,112px);align-items:start}
@@ -1372,6 +1615,24 @@ body.is-compare #sticky-profile{margin-top:62px}
 @media(max-width:560px){.lp-footer-grid{grid-template-columns:1fr}.lp-footer-brand{grid-column:span 1}}
 </style>
 </head>
+<script>
+/* Pre-paint page routing — set data-init-page on <html> based on saved state so the
+   correct page is visible from the very first paint (avoids home-page flash on refresh). */
+(function(){
+  try {
+    var raw = localStorage.getItem('swisscosts_v2');
+    if (!raw) return;
+    var s = JSON.parse(raw);
+    var hist = (window.history && window.history.state && window.history.state.page) || null;
+    var page = hist || s.page;
+    if (page === 'compare' && s.locs && s.locs.length >= 2) {
+      document.documentElement.setAttribute('data-init-page', 'compare');
+    } else if (page === 'step2' && s.inputs && s.inputs.salary) {
+      document.documentElement.setAttribute('data-init-page', 'step2');
+    }
+  } catch(e) {}
+})();
+</script>
 <body>
 <nav>
   <div class="nav-inner">
@@ -1516,9 +1777,15 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="pf-section pf-income-row">
               <div class="pf-income-col">
                 <div class="pf-label"><span id="salary-label">Annual income</span> <span class="pf-tip"><span class="pf-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="pf-tip-popup">Gross, incl. bonus</span></span></div>
-                <div class="pf-input-wrap">
-                  <span class="pf-prefix">CHF</span>
-                  <input class="pf-input" type="text" id="salary" placeholder="e.g. 82'000" inputmode="numeric" oninput="fmtInput(this);onProfileChange();document.getElementById('salary-err').classList.remove('show');updateContinueBtn()" onblur="fmtInput(this)">
+                <div class="pf-input-wrap pf-sal">
+                  <input class="pf-input" type="text" id="salary" placeholder="" inputmode="numeric" oninput="fmtInput(this);salarySize();onProfileChange();document.getElementById('salary-err').classList.remove('show');updateContinueBtn()" onblur="fmtInput(this);salarySize()">
+                  <span class="pf-sal-measure" id="salary-measure"></span>
+                  <span class="pf-sal-suffix">CHF</span>
+                  <div class="pf-sal-spin" aria-hidden="true">
+                    <button type="button" tabindex="-1" aria-label="Increase income" onclick="bumpIncome(1)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5L6 4.5L9 7.5"/></svg></button>
+                    <button type="button" tabindex="-1" aria-label="Decrease income" onclick="bumpIncome(-1)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></button>
+                  </div>
+                  <div class="pf-sal-divider"></div>
                   <div class="in-picks"><button class="in-qp" onclick="qpIncome('80000')">80k</button><button class="in-qp" onclick="qpIncome('100000')">100k</button><button class="in-qp" onclick="qpIncome('120000')">120k</button><button class="in-qp" onclick="qpIncome('150000')">150k</button></div>
                   <button class="pf-clear" onclick="clearPfField('salary')" tabindex="-1" aria-label="Clear income">×</button>
                 </div>
@@ -1526,37 +1793,64 @@ body.is-compare #sticky-profile{margin-top:62px}
               </div>
               <div class="pf-income-col" id="salary2-section" style="display:none">
                 <div class="pf-label"><span>Partner's income</span> <span class="pf-tip"><span class="pf-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="pf-tip-popup">Gross, incl. bonus</span></span></div>
-                <div class="pf-input-wrap">
-                  <span class="pf-prefix">CHF</span>
-                  <input class="pf-input" type="text" id="salary2" placeholder="e.g. 82'000" inputmode="numeric" oninput="fmtInput(this);onProfileChange()" onblur="fmtInput(this)">
-                  <div class="in-picks"><button class="in-qp" onclick="qpIncome('60000','salary2')">60k</button><button class="in-qp" onclick="qpIncome('80000','salary2')">80k</button><button class="in-qp" onclick="qpIncome('100000','salary2')">100k</button></div>
+                <div class="pf-input-wrap pf-sal">
+                  <input class="pf-input" type="text" id="salary2" placeholder="&#8203;" inputmode="numeric" oninput="fmtInput(this);onProfileChange()" onblur="fmtInput(this)">
+                  <span class="pf-sal-measure"></span>
+                  <span class="pf-sal-suffix">CHF</span>
+                  <div class="pf-sal-spin" aria-hidden="true">
+                    <button type="button" tabindex="-1" aria-label="Increase partner income" onclick="bumpIncome2(1)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5L6 4.5L9 7.5"/></svg></button>
+                    <button type="button" tabindex="-1" aria-label="Decrease partner income" onclick="bumpIncome2(-1)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5L6 7.5L9 4.5"/></svg></button>
+                  </div>
+                  <div class="pf-sal-divider"></div>
+                  <div class="in-picks"><button class="in-qp" onclick="qpIncome('60000','salary2')">60k</button><button class="in-qp" onclick="qpIncome('80000','salary2')">80k</button><button class="in-qp" onclick="qpIncome('100000','salary2')">100k</button><button class="in-qp" onclick="qpIncome('120000','salary2')">120k</button></div>
                   <button class="pf-clear" onclick="clearPfField('salary2')" tabindex="-1" aria-label="Clear partner income">×</button>
                 </div>
               </div>
             </div>
             <div class="pf-section">
-              <div class="pf-label">Permit</div>
-              <div class="seg-group" id="permit-group">
-                <button class="seg-btn active" data-val="C" onclick="setSeg('permit',this)">Swiss / C</button>
-                <button class="seg-btn" data-val="B" onclick="setSeg('permit',this)">B permit</button>
-                <button class="seg-btn" data-val="other" onclick="setSeg('permit',this)">Other</button>
+              <div class="pf-label"><span>Tax profile</span> <span class="pf-tip"><span class="pf-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="pf-tip-popup">Affects tax brackets &amp; deductions</span></span></div>
+              <div class="pf-tp-wrap">
+              <button type="button" class="pf-tp-trigger" id="pf-tp-trigger" aria-expanded="false" onclick="pfTpToggle()">
+                <span class="pf-tp-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></span>
+                <span class="pf-tp-summary" id="pf-tp-summary">Swiss/C · Single · 0 kids</span>
+                <svg class="pf-tp-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="pf-tp-pop" id="pf-tp-pop" hidden>
+                <div class="pf-tp-row">
+                  <div class="pf-tp-rl">
+                    <div class="pf-tp-rl-title">Permit</div>
+                    <div class="pf-tp-rl-sub">Residence status</div>
+                  </div>
+                  <div class="seg-group" id="permit-group" role="radiogroup">
+                    <button class="seg-btn active" data-val="C" onclick="setSeg('permit',this);pfTpUpdateSummary()">Swiss / C</button>
+                    <button class="seg-btn" data-val="B" onclick="setSeg('permit',this);pfTpUpdateSummary()">B</button>
+                    <button class="seg-btn" data-val="other" onclick="setSeg('permit',this);pfTpUpdateSummary()">Other</button>
+                  </div>
+                </div>
+                <div class="pf-tp-row">
+                  <div class="pf-tp-rl">
+                    <div class="pf-tp-rl-title">Civil status</div>
+                    <div class="pf-tp-rl-sub">Affects tax brackets</div>
+                  </div>
+                  <div class="seg-group" id="civil-group" role="radiogroup">
+                    <button class="seg-btn active" data-val="single" onclick="setSeg('civil',this);pfTpUpdateSummary()">Single</button>
+                    <button class="seg-btn" data-val="married" onclick="setSeg('civil',this);pfTpUpdateSummary()">Married</button>
+                    <button class="seg-btn" data-val="married2" onclick="setSeg('civil',this);pfTpUpdateSummary()">Couple</button>
+                  </div>
+                </div>
+                <div class="pf-tp-row">
+                  <div class="pf-tp-rl">
+                    <div class="pf-tp-rl-title">Children</div>
+                    <div class="pf-tp-rl-sub">Adds child deductions</div>
+                  </div>
+                  <div class="seg-group" id="kids-group" role="radiogroup">
+                    <button class="seg-btn active" data-val="0" onclick="setSeg('kids',this);pfTpUpdateSummary()">0</button>
+                    <button class="seg-btn" data-val="1" onclick="setSeg('kids',this);pfTpUpdateSummary()">1</button>
+                    <button class="seg-btn" data-val="2" onclick="setSeg('kids',this);pfTpUpdateSummary()">2</button>
+                    <button class="seg-btn" data-val="3" onclick="setSeg('kids',this);pfTpUpdateSummary()">3+</button>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="pf-section">
-              <div class="pf-label">Marital status</div>
-              <div class="seg-group" id="civil-group">
-                <button class="seg-btn active" data-val="single" onclick="setSeg('civil',this)">Single</button>
-                <button class="seg-btn" data-val="married" onclick="setSeg('civil',this)">Married</button>
-                <button class="seg-btn" data-val="married2" onclick="setSeg('civil',this)">Couple</button>
-              </div>
-            </div>
-            <div class="pf-section">
-              <div class="pf-label">Children</div>
-              <div class="seg-group" id="kids-group">
-                <button class="seg-btn active" data-val="0" onclick="setSeg('kids',this)">0</button>
-                <button class="seg-btn" data-val="1" onclick="setSeg('kids',this)">1</button>
-                <button class="seg-btn" data-val="2" onclick="setSeg('kids',this)">2</button>
-                <button class="seg-btn" data-val="3" onclick="setSeg('kids',this)">3+</button>
               </div>
             </div>
             <div class="pf-section">
@@ -1865,6 +2159,95 @@ body.is-compare #sticky-profile{margin-top:62px}
     </div>
   </section>
 
+  <!-- ── HOW IT WORKS ── -->
+  <section class="lp-section lp-jrn" id="lp-jrn">
+    <div class="lp-inner">
+      <div class="lp-jrn-head reveal">
+        <span class="lp-section-label">How it works</span>
+        <h2 class="lp-sh">From profile to decision in <em>three steps</em></h2>
+      </div>
+      <div class="lp-jrn-grid" id="lp-jrn-grid" data-active="0">
+
+        <div class="lp-jrn-card reveal is-active" data-step="0" tabindex="0" role="button" aria-label="Step 1 of 3: Set up your household">
+          <div class="lp-jrn-step">
+            <div class="lp-jrn-num">01</div>
+          </div>
+          <h3 class="lp-jrn-title">Set up your household</h3>
+          <p class="lp-jrn-desc">Income, permit, marital status, kids — the calculator's full input.</p>
+          <div class="lp-jrn-demo" aria-hidden="true">
+            <div class="fd1-field">
+              <span class="fd1-flabel">Annual income</span>
+              <div class="fd1-input"><span class="fd1-left"><span class="fd1-typed" data-text="95’000"></span><span class="fd1-cur"></span></span><span class="fd1-suf">CHF</span></div>
+            </div>
+            <div class="fd1-chips">
+              <span class="fd1-chip"><svg class="fd1-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Swiss</span>
+              <span class="fd1-chip"><svg class="fd1-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Single</span>
+              <span class="fd1-chip"><svg class="fd1-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>No kids</span>
+            </div>
+            <button class="fd-cta" type="button" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Continue to Home options</button>
+          </div>
+        </div>
+
+        <div class="lp-jrn-card reveal reveal-d1" data-step="1" tabindex="0" role="button" aria-label="Step 2 of 3: Pick location and rent to compare">
+          <div class="lp-jrn-step">
+            <div class="lp-jrn-num">02</div>
+          </div>
+          <h3 class="lp-jrn-title">Pick location and rent to compare</h3>
+          <p class="lp-jrn-desc">Search 2'000+ Swiss communes side-by-side. Median rent is suggested for each location.</p>
+          <div class="lp-jrn-demo" aria-hidden="true">
+            <div class="fd2-wrap">
+              <span class="fd2-flabel">Commune</span>
+              <div class="fd2-search">
+                <svg class="fd2-mag" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="fd2-left"><span class="fd2-typed" data-text="Zürich" data-delay="180" data-speed="115"></span><span class="fd2-cur"></span></span>
+              </div>
+              <span class="fd2-flabel" style="margin-top:2px">Monthly rent</span>
+              <div class="fd2-search fd2-rent">
+                <span class="fd2-left"><span class="fd2-typed" data-text="2’000" data-delay="1200" data-speed="120"></span><span class="fd2-cur"></span></span>
+                <span class="fd2-suf">CHF</span>
+              </div>
+              <button class="fd-cta" type="button" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add to comparison</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lp-jrn-card reveal reveal-d2" data-step="2" tabindex="0" role="button" aria-label="Step 3 of 3: See the real cost">
+          <div class="lp-jrn-step">
+            <div class="lp-jrn-num">03</div>
+          </div>
+          <h3 class="lp-jrn-title">See the real cost</h3>
+          <p class="lp-jrn-desc">See tax + rent at a glance and compare it across communes to find the best deal.</p>
+          <div class="lp-jrn-demo" aria-hidden="true">
+            <div class="fd3-empty">
+              <div class="fd3-empty-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              </div>
+              <div class="fd3-empty-title">Your comparison appears here</div>
+              <div class="fd3-empty-sub">Pick communes to see the side-by-side breakdown.</div>
+            </div>
+            <div class="fd3-vs-wrap">
+              <div class="fd3-card fd3-card-win">
+                <div class="fd3-card-label">ZUG</div>
+                <div class="fd3-card-amt">5'420</div>
+                <div class="fd3-card-sub">CHF / month</div>
+              </div>
+              <div class="fd3-vs">vs</div>
+              <div class="fd3-card fd3-card-lose">
+                <div class="fd3-card-label">ZÜRICH</div>
+                <div class="fd3-card-amt">6'180</div>
+                <div class="fd3-card-sub">CHF / month</div>
+              </div>
+            </div>
+            <div class="fd3-save-wrap">
+              <span class="fd3-save"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>Save CHF 760 / mo by moving to Zug</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ── FAQ ── -->
   <section class="lp-section lp-faq" id="lp-faq">
     <div class="lp-inner">
@@ -2003,27 +2386,27 @@ body.is-compare #sticky-profile{margin-top:62px}
         <div class="sugg-locs">
           <button class="sugg-loc" onclick="addSuggLoc('Zürich')">
             <div class="sugg-loc-top"><div class="sugg-loc-meta"><span class="sugg-loc-canton">ZH</span><span class="sugg-loc-tag">Financial hub</span></div><div class="sugg-loc-add"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
-            <div class="sugg-loc-sub"><span class="sugg-loc-name">Zürich</span><span class="sugg-loc-rent">CHF&nbsp;2'350<span class="sugg-loc-rent-period">/mo</span></span></div>
+            <div class="sugg-loc-sub"><span class="sugg-loc-name">Zürich</span><span class="sugg-loc-rent-wrap" tabindex="0"><span class="sugg-loc-rent-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="sugg-loc-rent">CHF&nbsp;2'350<span class="sugg-loc-rent-period">/mo</span></span><span class="sugg-loc-rent-tip">Median rent</span></span></div>
           </button>
           <button class="sugg-loc" onclick="addSuggLoc('Zug')">
             <div class="sugg-loc-top"><div class="sugg-loc-meta"><span class="sugg-loc-canton">ZG</span><span class="sugg-loc-tag">Lowest taxes</span></div><div class="sugg-loc-add"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
-            <div class="sugg-loc-sub"><span class="sugg-loc-name">Zug</span><span class="sugg-loc-rent">CHF&nbsp;2'200<span class="sugg-loc-rent-period">/mo</span></span></div>
+            <div class="sugg-loc-sub"><span class="sugg-loc-name">Zug</span><span class="sugg-loc-rent-wrap" tabindex="0"><span class="sugg-loc-rent-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="sugg-loc-rent">CHF&nbsp;2'200<span class="sugg-loc-rent-period">/mo</span></span><span class="sugg-loc-rent-tip">Median rent</span></span></div>
           </button>
           <button class="sugg-loc" onclick="addSuggLoc('Genève')">
             <div class="sugg-loc-top"><div class="sugg-loc-meta"><span class="sugg-loc-canton">GE</span><span class="sugg-loc-tag">International</span></div><div class="sugg-loc-add"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
-            <div class="sugg-loc-sub"><span class="sugg-loc-name">Genève</span><span class="sugg-loc-rent">CHF&nbsp;2'200<span class="sugg-loc-rent-period">/mo</span></span></div>
+            <div class="sugg-loc-sub"><span class="sugg-loc-name">Genève</span><span class="sugg-loc-rent-wrap" tabindex="0"><span class="sugg-loc-rent-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="sugg-loc-rent">CHF&nbsp;2'200<span class="sugg-loc-rent-period">/mo</span></span><span class="sugg-loc-rent-tip">Median rent</span></span></div>
           </button>
           <button class="sugg-loc" onclick="addSuggLoc('Bern')">
             <div class="sugg-loc-top"><div class="sugg-loc-meta"><span class="sugg-loc-canton">BE</span><span class="sugg-loc-tag">Capital city</span></div><div class="sugg-loc-add"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
-            <div class="sugg-loc-sub"><span class="sugg-loc-name">Bern</span><span class="sugg-loc-rent">CHF&nbsp;1'820<span class="sugg-loc-rent-period">/mo</span></span></div>
+            <div class="sugg-loc-sub"><span class="sugg-loc-name">Bern</span><span class="sugg-loc-rent-wrap" tabindex="0"><span class="sugg-loc-rent-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="sugg-loc-rent">CHF&nbsp;1'820<span class="sugg-loc-rent-period">/mo</span></span><span class="sugg-loc-rent-tip">Median rent</span></span></div>
           </button>
           <button class="sugg-loc" onclick="addSuggLoc('Basel')">
             <div class="sugg-loc-top"><div class="sugg-loc-meta"><span class="sugg-loc-canton">BS</span><span class="sugg-loc-tag">Pharma hub</span></div><div class="sugg-loc-add"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
-            <div class="sugg-loc-sub"><span class="sugg-loc-name">Basel</span><span class="sugg-loc-rent">CHF&nbsp;1'920<span class="sugg-loc-rent-period">/mo</span></span></div>
+            <div class="sugg-loc-sub"><span class="sugg-loc-name">Basel</span><span class="sugg-loc-rent-wrap" tabindex="0"><span class="sugg-loc-rent-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="sugg-loc-rent">CHF&nbsp;1'920<span class="sugg-loc-rent-period">/mo</span></span><span class="sugg-loc-rent-tip">Median rent</span></span></div>
           </button>
           <button class="sugg-loc" onclick="addSuggLoc('Lugano')">
             <div class="sugg-loc-top"><div class="sugg-loc-meta"><span class="sugg-loc-canton">TI</span><span class="sugg-loc-tag">Lakeside</span></div><div class="sugg-loc-add"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div></div>
-            <div class="sugg-loc-sub"><span class="sugg-loc-name">Lugano</span><span class="sugg-loc-rent">CHF&nbsp;1'700<span class="sugg-loc-rent-period">/mo</span></span></div>
+            <div class="sugg-loc-sub"><span class="sugg-loc-name">Lugano</span><span class="sugg-loc-rent-wrap" tabindex="0"><span class="sugg-loc-rent-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span class="sugg-loc-rent">CHF&nbsp;1'700<span class="sugg-loc-rent-period">/mo</span></span><span class="sugg-loc-rent-tip">Median rent</span></span></div>
           </button>
         </div>
       </div>
@@ -2057,7 +2440,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#013e7274636b6462753c527668727224333153646d6e626075686e6f243331446f7074687378" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#89b6fafcebe3eceafdb4dafee0fafaacbbb9dbece5e6eae8fde0e6e7acbbb9cce7f8fce0fbf0" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2116,7 +2499,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#3c54595050537c4f4b554f4f5f534f484f125f54">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#d4bcb1b8b8bb94a7a3bda7a7b7bba7a0a7fab7bc">Contact</a>
       </div>
     </div>
 
@@ -2890,7 +3273,7 @@ const TRANSLATIONS = {
     'cmp.title':'Cost comparison',
     'cmp.monthly':'Monthly',
     'cmp.annual':'Annual',
-    'card.best':'Better deal',
+    'card.best':'Best deal',
     'card.worst':'Most expensive',
     'card.net':'Est. net take-home',
     'card.rent':'Rent',
@@ -2996,6 +3379,33 @@ document.addEventListener('keydown', function(e) {
 // ── QUICK PICKS ────────────────────────────────────────────────────────────
 function qpNum(id, raw) { const el=document.getElementById(id); if(!el)return; el.value=raw; fmtInput(el); }
 function qpIncome(raw, id)  { qpNum(id||'salary',raw); onProfileChange(); updateStickyProfile(); if (!id || id==='salary') updateContinueBtn(); }
+function salarySize() {
+  const el = document.getElementById('salary'); if(el) el.style.width='';
+}
+window.addEventListener('load', ()=>setTimeout(salarySize, 50));
+
+function bumpIncome2(dir) {
+  const el = document.getElementById('salary2'); if(!el) return;
+  const cur = parseInt((el.value||'').replace(/\D/g,''),10) || 0;
+  const step = cur < 50000 ? 5000 : cur < 200000 ? 10000 : 25000;
+  const next = Math.max(0, cur + dir*step);
+  el.value = String(next);
+  fmtInput(el);
+  onProfileChange();
+}
+function bumpIncome(dir) {
+  const el = document.getElementById('salary'); if (!el) return;
+  const cur = parseInt((el.value||'').replace(/[^0-9]/g,''),10) || 0;
+  const STEP = 5000;
+  const next = Math.max(0, (cur === 0 ? (dir>0?80000:0) : cur + dir*STEP));
+  el.value = String(next);
+  fmtInput(el);
+  salarySize();
+  onProfileChange();
+  updateStickyProfile();
+  updateContinueBtn();
+  document.getElementById('salary-err')?.classList.remove('show');
+}
 function qpAssets(raw)      { qpNum('assets',raw); onProfileChange(); }
 function qpP3a(raw)         { qpNum('pillar3a',raw); recalcAndShow(); update3aSavings(); }
 function qpRent(raw)        { qpNum('rin',raw); updateLocClearBtn(); }
@@ -3165,6 +3575,86 @@ function clearLocForm() {
   updateLocClearBtn();
 }
 
+function pfTpToggle() {
+  const t = document.getElementById('pf-tp-trigger');
+  const p = document.getElementById('pf-tp-pop');
+  const open = t.getAttribute('aria-expanded') === 'true';
+  t.setAttribute('aria-expanded', open ? 'false' : 'true');
+  if (open) p.setAttribute('hidden',''); else {
+    p.removeAttribute('hidden');
+    // Reposition pills now that popover is visible
+    p.querySelectorAll('.seg-group').forEach(g => posSegPill(g, true));
+  }
+}
+document.addEventListener('mousedown', function(e){
+  const t = document.getElementById('pf-tp-trigger');
+  const p = document.getElementById('pf-tp-pop');
+  if (!t || !p || p.hasAttribute('hidden')) return;
+  if (t.contains(e.target) || p.contains(e.target)) return;
+  t.setAttribute('aria-expanded','false');
+  p.setAttribute('hidden','');
+});
+document.addEventListener('keydown', function(e){
+  if (e.key !== 'Escape') return;
+  const t = document.getElementById('pf-tp-trigger');
+  const p = document.getElementById('pf-tp-pop');
+  if (!t || !p || p.hasAttribute('hidden')) return;
+  t.setAttribute('aria-expanded','false');
+  p.setAttribute('hidden','');
+  t.focus();
+});
+function pfTpUpdateSummary() {
+  const permit = document.querySelector('#permit-group .seg-btn.active')?.dataset.val || 'C';
+  const civil = document.querySelector('#civil-group .seg-btn.active')?.dataset.val || 'single';
+  const kids = document.querySelector('#kids-group .seg-btn.active')?.dataset.val || '0';
+  const permLbl = {C:'Swiss / C',B:'B permit',other:'Other'}[permit] || permit;
+  const civLbl = {single:'Single',married:'Married',married2:'Couple'}[civil] || civil;
+  const kidLbl = kids === '0' ? 'No kids' : kids === '1' ? '1 kid' : kids === '3' ? '3+ kids' : kids + ' kids';
+  const el = document.getElementById('pf-tp-summary');
+  if (el) el.textContent = `${{C:'Swiss/C',B:'B permit',other:'Other'}[permit] || permit} · ${civLbl} · ${kids === '0' ? '0 kids' : kidLbl}`;
+  // Update inline chips
+  const pl = document.getElementById('tpc-permit-label'); if (pl) pl.textContent = permLbl;
+  const cl = document.getElementById('tpc-civil-label'); if (cl) cl.textContent = civLbl;
+  const kl = document.getElementById('tpc-kids-label'); if (kl) kl.textContent = kidLbl;
+  // Sync mini-list aria-selected
+  ['permit','civil','kids'].forEach(f=>{
+    const cur = ({permit,civil,kids})[f];
+    document.querySelectorAll('#tpm-'+f+' .pf-tp-mini-opt').forEach(b=>{
+      b.setAttribute('aria-selected', b.dataset.val === cur ? 'true' : 'false');
+    });
+  });
+}
+
+function pfTpcOpen(field, ev) {
+  ev?.stopPropagation();
+  const chip = document.getElementById('tpc-'+field);
+  const mini = document.getElementById('tpm-'+field);
+  if (!chip || !mini) return;
+  const isOpen = chip.getAttribute('aria-expanded') === 'true';
+  // close all
+  document.querySelectorAll('.pf-tp-chip').forEach(c=>c.setAttribute('aria-expanded','false'));
+  document.querySelectorAll('.pf-tp-mini').forEach(m=>m.classList.remove('open'));
+  if (!isOpen) {
+    chip.setAttribute('aria-expanded','true');
+    mini.classList.add('open');
+  }
+}
+function pfTpcSet(field, val) {
+  setSegByVal(field, val);
+  pfTpUpdateSummary();
+  // close
+  document.getElementById('tpc-'+field)?.setAttribute('aria-expanded','false');
+  document.getElementById('tpm-'+field)?.classList.remove('open');
+  if (typeof onProfileChange === 'function') onProfileChange();
+}
+document.addEventListener('click', (e)=>{
+  if (!e.target.closest('.pf-tp-chip-wrap')) {
+    document.querySelectorAll('.pf-tp-chip').forEach(c=>c.setAttribute('aria-expanded','false'));
+    document.querySelectorAll('.pf-tp-mini').forEach(m=>m.classList.remove('open'));
+  }
+});
+document.addEventListener('DOMContentLoaded', pfTpUpdateSummary);
+
 function clearPfField(id) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -3204,6 +3694,7 @@ function clearAllProfile() {
   updateCivilUI();
   updatePermitUI();
   spUpdateProfileSegs();
+  pfTpUpdateSummary();
   updateDedSub();
   recalcAndShow();
   saveState();
@@ -3720,12 +4211,7 @@ function renderCards() {
         </div>`:''}
       </div>
       <div class="card-detail"><div class="card-detail-inner">
-        ${d.rent>0?`
-          <div class="det-lines det-lines-rent">
-            <div class="det-line"><span class="det-line-lbl">Net rent</span><span class="det-line-val">CHF ${f(Math.round(d.rent*mult*0.87))}</span></div>
-            <div class="det-line"><span class="det-line-lbl">Utilities</span><span class="det-line-val">CHF ${f(Math.round(d.rent*mult*0.13))}</span></div>
-          </div>
-        `:''}
+        ${''}
         ${tb?`
           <div class="det-lines">
             <div class="det-line"><span class="det-line-lbl">${t('card.cantonal')}<span class="dv-pct">${fp(tb.cantonal/cardGross*100)}%</span></span><span class="det-line-val">CHF ${f(Math.round(tb.cantonal*mult/12))}</span></div>
@@ -4102,6 +4588,45 @@ document.addEventListener('click',e=>{if(!e.target.closest('#cwrap'))document.ge
   window.addEventListener('load', ()=>setTimeout(refreshAttract, 50));
 })();
 
+// Animated placeholder for #salary — cycles example incomes when empty/unfocused
+(function(){
+  const PHRASES = ["82'000","100'000","120'000","150'000","85'000","110'000"];
+  let idx = 0, typeTimer = null, focused = false;
+  const sal = ()=>document.getElementById('salary');
+  function active(){ const el=sal(); return el && !focused && !el.value; }
+  function setPh(t){ const el=sal(); if(el) { el.placeholder = (t && t.length) ? t : '\u200B'; if(typeof salarySize==='function') salarySize(); } }
+  function pad(t){ return (t && t.length) ? t : '\u200B'; }
+  function typeP(target, done){
+    let i = 0; clearTimeout(typeTimer);
+    function step(){
+      if (!active()) return;
+      const slice = target.slice(0,i);
+      setPh(slice.length ? slice : '\u200B'); i++;
+      if (i <= target.length) typeTimer = setTimeout(step, 60);
+      else if (done) typeTimer = setTimeout(done, 1500);
+    }
+    step();
+  }
+  function eraseP(done){
+    const el=sal(); if(!el) return;
+    let s = (el.placeholder||'').replace(/\u200B/g,'');
+    function step(){
+      if (!active()) return;
+      if (s.length === 0) { setPh('\u200B'); done && done(); return; }
+      s = s.slice(0,-1); setPh(s.length ? s : '\u200B');
+      typeTimer = setTimeout(step, 30);
+    }
+    step();
+  }
+  function cycle(){ if(!active()) return; const next=PHRASES[idx%PHRASES.length]; idx++; typeP(next, ()=>eraseP(cycle)); }
+  function start(){ clearTimeout(typeTimer); idx=0; cycle(); }
+  function stop(){ clearTimeout(typeTimer); setPh("\u200B"); }
+  document.getElementById('salary')?.addEventListener('focus', ()=>{ focused=true; stop(); });
+  document.getElementById('salary')?.addEventListener('blur', ()=>{ focused=false; if(active()) start(); });
+  document.getElementById('salary')?.addEventListener('input', ()=>{ if(!active()) stop(); });
+  window.addEventListener('load', ()=>setTimeout(()=>{ if(active()) start(); }, 200));
+})();
+
 // ── CALCULATE ─────────────────────────────────────────────────────────────
 let _reloTimer = null;
 function _armReloCard() {
@@ -4190,6 +4715,8 @@ function loadState() {
       document.body.classList.add('is-compare');
       _applyCompareStickyStyles();
     }
+    // Clear the pre-paint init hint now that real inline displays are set
+    document.documentElement.removeAttribute('data-init-page');
     // Seed initial history state if none exists (fresh page load)
     if (!history.state) {
       const _pg = document.getElementById('page-compare').style.display === 'block' ? 'compare' :
@@ -4670,19 +5197,12 @@ function renderPopularLocs() {
           <span class="card-sep"></span>
           <span class="card-canton">${c.canton}</span>
         </div>
-        <div class="card-right" style="padding-right:32px">
-          <span class="card-total">CHF\u00a0${f(c.total)}<span style="font-size:12px;font-weight:500;color:var(--muted)">/mo</span></span>
-        </div>
       </div>
+      <div class="lp-pop-amt"><span class="card-total">CHF&nbsp;${f(c.total)}<span class="lp-pop-mo">/mo</span></span></div>
       <span class="lp-pop-card-arrow"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       <div class="bar-wrap">
-        <div class="bar-rent" style="width:${c.rP}%" data-tip="Rent · CHF\u00a0${f(c.rent)}/mo · ${c.rP}% of gross"></div>
-        <div class="bar-tax"  style="width:${c.tP}%" data-tip="Tax · CHF\u00a0${f(c.taxMo)}/mo · ${c.tP}% of gross"></div>
-      </div>
-      <div class="bar-stats">
-        <span class="bst"><span class="bst-dot" style="background:var(--green)"></span><span class="bst-val">CHF\u00a0${f(c.rent)}/mo</span><span class="bst-lbl">rent</span><span class="bst-pct">${c.rP}%</span></span>
-        <span class="bst-sep"></span>
-        <span class="bst"><span class="bst-dot" style="background:var(--green-br)"></span><span class="bst-val">CHF\u00a0${f(c.taxMo)}/mo</span><span class="bst-lbl">tax</span><span class="bst-pct">${c.tP}%</span></span>
+        <div class="bar-rent" style="width:${c.rP}%" data-tip="Rent · CHF&nbsp;${f(c.rent)}/mo · ${c.rP}% of gross"></div>
+        <div class="bar-tax" style="width:${c.tP}%" data-tip="Tax · CHF&nbsp;${f(c.taxMo)}/mo · ${c.tP}% of gross"></div>
       </div>
     </div>
   `).join('');
@@ -4716,6 +5236,99 @@ function lpPopCardClick(name, canton, rent) {
 
 // ── BAR TOOLTIP ────────────────────────────────────────────────────────────
 renderPopularLocs();
+
+// ── HOW IT WORKS — interactive 3-step ─────────────────────────────────────
+(function(){
+  const grid = document.getElementById('lp-jrn-grid');
+  if (!grid) return;
+  const cards = [...grid.querySelectorAll('.lp-jrn-card')];
+  let active = 0, timer = null, paused = false;
+  function setActive(i, isWrap){
+    const prev = active;
+    active = i;
+    grid.dataset.active = String(i);
+    cards.forEach((c,idx)=>{
+      const on = idx===i;
+      // mark non-active cards as 'played' if they had been showing the play animation, so their end state persists
+      if (!on && c.classList.contains('play')) {
+        c.classList.add('played');
+        c.classList.add('no-cta-anim');
+        // snap any in-flight typed text to its final value so we never leave a card mid-type
+        c.querySelectorAll('[data-text]').forEach(el => { el.textContent = el.getAttribute('data-text') || ''; el.classList.add('typed-done'); });
+      }
+      // active card always re-runs its own CTA animation
+      if (on) c.classList.remove('no-cta-anim');
+      c.classList.toggle('is-active', on);
+      // restart play class so CSS animations re-trigger each cycle
+      c.classList.remove('play');
+      // only clear/retype text fields on the card becoming active — leave others' typed text in place so it persists across the cycle
+      if (on){
+        // any later steps should appear fresh — clear their played state and typed text
+        cards.forEach((cc, j) => {
+          if (j > idx) {
+            cc.classList.remove('played');
+            cc.classList.remove('play');
+            cc.classList.remove('no-cta-anim');
+            cc.querySelectorAll('[data-text]').forEach(el => { el.textContent=''; el.classList.remove('typed-done'); });
+          }
+        });
+        // wrap-around to step 0 starts a new cycle — clear 'played' marks AND typed text on all cards so they reset to initial state
+        if (idx === 0 && isWrap){
+          cards.forEach(cc => {
+            cc.classList.add('resetting');
+            cc.classList.remove('played');
+            cc.classList.remove('play');
+            cc.querySelectorAll('[data-text]').forEach(el => { el.textContent=''; el.classList.remove('typed-done'); });
+          });
+          // force reflow so the resetting/no-class state actually paints (chips snap to grey)
+          void grid.offsetWidth;
+          cards.forEach(cc => cc.classList.remove('resetting'));
+        }
+        c.querySelectorAll('[data-text]').forEach(el => { el.textContent=''; el.classList.remove('typed-done'); });
+        // remove 'played' on the active card so the animation re-runs from the start (don't keep prior cycle state)
+        c.classList.remove('played');
+        void c.offsetWidth;
+        c.classList.add('play');
+        // start typing animation for this card
+        c.querySelectorAll('[data-text]').forEach(el => {
+          const full = el.getAttribute('data-text') || '';
+          const delay = parseInt(el.dataset.delay || '150', 10);
+          const speed = parseInt(el.dataset.speed || '110', 10);
+          let n = 0;
+          setTimeout(function step(){
+            if (!c.classList.contains('is-active')) return;
+            n++;
+            el.textContent = full.slice(0, n);
+            if (n < full.length) setTimeout(step, speed);
+            else el.classList.add('typed-done');
+          }, delay);
+        });
+      }
+    });
+  }
+  // Card 3 (index 2) is the climax — bars + save banner — so it gets a longer dwell before looping back.
+  const DWELL = [2700, 2700, 7000];
+  function tick(){ if (paused) return; setActive((active+1) % cards.length, true); }
+  function start(){ stop(); setActive(active); schedule(); }
+  function schedule(){ if (timer){ clearTimeout(timer); } timer = setTimeout(()=>{ tick(); schedule(); }, DWELL[active] || 4500); }
+  function stop(){ if (timer){ clearTimeout(timer); timer=null; } }
+  cards.forEach((c,idx)=>{
+    c.addEventListener('click', ()=>{ setActive(idx); start(); });
+    c.addEventListener('mouseenter', ()=>{ paused = true; setActive(idx, idx===0); });
+    c.addEventListener('mouseleave', ()=>{ paused = false; });
+    c.addEventListener('focus', ()=>{ paused = true; setActive(idx); });
+    c.addEventListener('blur', ()=>{ paused = false; });
+    c.addEventListener('keydown', e=>{
+      if (e.key==='Enter'||e.key===' '){ e.preventDefault(); setActive(idx); }
+      if (e.key==='ArrowRight'){ e.preventDefault(); const n=(idx+1)%cards.length; cards[n].focus(); setActive(n); }
+      if (e.key==='ArrowLeft'){ e.preventDefault(); const n=(idx-1+cards.length)%cards.length; cards[n].focus(); setActive(n); }
+    });
+  });
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if (e.isIntersecting) start(); else stop(); });
+  }, {threshold:.25});
+  io.observe(grid);
+})();
 
 // ── Side-by-side compare ─────────────────────────────────────────────────────
 
@@ -4933,6 +5546,9 @@ function _buildComparePage(nameA, nameB) {
   const grossB = hasTax && tdB.effectiveRate > 0 ? tdB.totalTax / tdB.effectiveRate : null;
 
   const taxBreakdownRows = hasTax ? [
+    row('Total tax',
+      Math.round(tdA.totalTax/12), Math.round(tdB.totalTax/12), true, chf,
+      pctBadge(tdA.effectiveRate*100), pctBadge(tdB.effectiveRate*100), 'Effective rate'),
     row('Cantonal tax',
       Math.round(tdA.cantonal/12), Math.round(tdB.cantonal/12), true, chf,
       pctBadge(grossA ? tdA.cantonal/grossA*100 : null),
@@ -4953,9 +5569,6 @@ function _buildComparePage(nameA, nameB) {
       Math.round(tdA.totalWealthTax/12), Math.round(tdB.totalWealthTax/12), true, chf,
       pctBadge(grossA ? tdA.totalWealthTax/grossA*100 : null),
       pctBadge(grossB ? tdB.totalWealthTax/grossB*100 : null), 'On net assets') : '',
-    row('Total tax',
-      Math.round(tdA.totalTax/12), Math.round(tdB.totalTax/12), true, chf,
-      pctBadge(tdA.effectiveRate*100), pctBadge(tdB.effectiveRate*100), 'Effective rate'),
     row('Days worked for taxes',
       tdA.taxFreedomDay, tdB.taxFreedomDay, true, v => v !== null ? `${v} days` : '—', null, null, 'Out of 365 days/year')
   ].join('') : '';
