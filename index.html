@@ -531,8 +531,6 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .in-qp{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;padding:2px 5px;border-radius:4px;white-space:nowrap;flex-shrink:0;transition:color .12s,background .12s}
 .in-qp:hover{background:var(--green-bg);color:var(--green-dark)}
 @media(max-width:720px){.in-picks{display:flex}}
-/* Rent picks: hide 4th pick (3'000) on mobile */
-@media(max-width:640px){.rin-picks .in-qp:nth-child(4){display:none}}
 /* Commune picks: hide 3rd pick on mobile to avoid overlapping placeholder */
 @media(max-width:640px){.cin-pick-lg{display:none}}
 /* Commune input: picks flow inline next to input (matches sal/rent spacing) */
@@ -638,7 +636,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .relo-card.relo-visible{opacity:1;transform:translateY(0);pointer-events:auto;display:flex}
 .relo-card-body{flex:1 1 300px;min-width:0;padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between}
 .relo-card-illus{flex:1 1 200px;min-width:150px;background:#E8F5F3;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}
-.relo-card-illus svg{width:100%;height:100%;display:block}
+.relo-card-illus svg,.relo-card-illus img{width:100%;height:100%;display:block;object-fit:cover;object-position:center bottom}
 @container (max-width:499px){.relo-card-illus{height:150px}}
 .relo-card-title{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.5px;line-height:1.3;margin-top:8px;margin-bottom:6px}
 .relo-card-sub{font-size:14px;color:var(--muted);line-height:1.5;font-weight:400}
@@ -938,10 +936,7 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .cmp-bar-inner{max-width:1440px;margin:0 auto;padding:7px 32px;display:flex;align-items:center;gap:14px}
 @media(max-width:1000px){.cmp-bar-inner{padding-left:20px;padding-right:20px;gap:8px}}
 @media(max-width:640px){
-  .cmp-bar-inner{padding:10px 16px;flex-direction:column;align-items:stretch;gap:8px}
-  .cmp-bar-slots{flex-direction:column;gap:6px}
-  .cmp-bar-slot,.cmp-bar-slot.slot-filled{padding:9px 12px;border-radius:8px;font-size:13px}
-  .cmp-bar-btn{padding:11px 16px;border-radius:10px;font-size:14px;text-align:center}
+  .cmp-bar{display:none !important}
 }
 .cmp-bar.cmp-bar-on{transform:translateY(0);pointer-events:auto}
 .cmp-bar-slots{display:flex;gap:8px;flex:1;min-width:0}
@@ -1145,6 +1140,24 @@ body.is-compare #sticky-profile{margin-top:62px}
 .nav-lang-btn.active{color:var(--green-dark)}
 /* nav-links always visible across all pages */
 @media(max-width:640px){.nav-link:not(.nav-link-cta){display:none}.nav-lang{display:none}}
+
+/* Mobile nav compare button + popover */
+.nav-cmp-btn{display:none;position:relative;background:none;border:none;cursor:pointer;color:var(--text);padding:6px;border-radius:8px;margin-right:2px;margin-left:0;align-items:center;justify-content:center;transition:background .15s}
+.nav-cmp-btn:hover{background:var(--border)}
+.nav-cmp-btn.has-sel{color:var(--green-dark)}
+.nav-cmp-badge{position:absolute;top:2px;right:2px;background:var(--green);width:6px;height:6px;border-radius:50%;border:1.5px solid #fff;box-sizing:content-box}
+@media(max-width:640px){.nav-cmp-btn{display:inline-flex !important}}
+.nav-cmp-pop{position:fixed;top:60px;right:12px;left:12px;max-width:420px;margin-left:auto;z-index:301;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.18);padding:14px;animation:nav-cmp-pop-in .18s var(--ease-snap)}
+@keyframes nav-cmp-pop-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.nav-cmp-pop-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.nav-cmp-pop-title{font-size:14px;font-weight:600;color:var(--text)}
+.nav-cmp-pop-close{background:none;border:none;cursor:pointer;color:var(--subtle);padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+.nav-cmp-pop-close:hover{background:var(--bg);color:var(--text)}
+.nav-cmp-pop-body{display:flex;flex-direction:column;gap:8px}
+.nav-cmp-pop-body .cmp-bar-slots{flex-direction:column;gap:6px}
+.nav-cmp-pop-body .cmp-bar-slot,.nav-cmp-pop-body .cmp-bar-slot.slot-filled{padding:9px 12px;border-radius:8px;font-size:13px}
+.nav-cmp-pop-body .cmp-bar-btn{width:100%;padding:11px 16px;border-radius:10px;font-size:14px;text-align:center}
+.nav-cmp-scrim{position:fixed;inset:0;z-index:300;background:transparent}
 
 /* ── LANDING PAGE ─────────────────────────────────────────────────────── */
 #page-step1.lp-page{max-width:100%;padding:0;margin:0}
@@ -1652,10 +1665,28 @@ body.is-compare #sticky-profile{margin-top:62px}
         <button class="nav-lang-btn" type="button">FR</button>
         <button class="nav-lang-btn" type="button">IT</button>
       </div>
+      <button id="nav-cmp-btn" class="nav-cmp-btn" type="button" onclick="toggleNavCmpPop(event)" aria-label="Compare locations" style="display:none">
+        <svg width="17" height="17" viewBox="0 0 16 16" fill="#000"><path fill-rule="evenodd" d="M9 8h7V1H9zm1-1h5V2h-5zM0 8h7V1H0zm1-1h5V2H1zm8 5h7v-1.001H9zm-9 0h7v-1.001H0zm9 2h7v-1H9zm-9 0h7v-1H0zm9 2h7v-1H9zm-9 0h7v-1H0z" clip-rule="evenodd"/></svg>
+        <span class="nav-cmp-badge" id="nav-cmp-badge" style="display:none"></span>
+      </button>
       <a class="nav-link nav-link-cta" href="#" onclick="event.preventDefault();goStep1()">Get started</a>
     </div>
   </div>
 </nav>
+<!-- Mobile compare popover (anchored to navbar button) -->
+<div id="nav-cmp-pop" class="nav-cmp-pop" role="dialog" aria-label="Compare locations" style="display:none">
+  <div class="nav-cmp-pop-hd">
+    <div class="nav-cmp-pop-title">Compare locations</div>
+    <button class="nav-cmp-pop-close" onclick="closeNavCmpPop()" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="nav-cmp-pop-body">
+    <div class="cmp-bar-slots">
+      <div class="cmp-bar-slot" data-slot="0" data-pop="1"><span class="cmp-bar-slot-name">Pick a location</span></div>
+      <div class="cmp-bar-slot" data-slot="1" data-pop="1"><span class="cmp-bar-slot-name">Pick a location</span></div>
+    </div>
+    <button class="cmp-bar-btn" id="nav-cmp-pop-btn" onclick="closeNavCmpPop();goCompare()" type="button">Compare</button>
+  </div>
+</div>
 <div class="sticky-profile" id="sticky-profile">
   <div class="sp-container">
     <div class="sp-inner">
@@ -2357,7 +2388,7 @@ body.is-compare #sticky-profile{margin-top:62px}
         <input class="pf-input" id="rin" type="text" inputmode="numeric" placeholder="2'000" oninput="fmtInput(this)" onblur="fmtInput(this)">
         <span class="pf-sal-measure"></span>
         <span class="pf-sal-suffix">CHF</span>
-        <div class="in-picks rin-picks"><button class="in-qp" onclick="qpRent('1500')">1'500</button><button class="in-qp" onclick="qpRent('2000')">2'000</button><button class="in-qp" onclick="qpRent('2500')">2'500</button><button class="in-qp" onclick="qpRent('3000')">3'000</button></div>
+        <div class="in-picks rin-picks"><button class="in-qp" onclick="qpRent('1500')">1'500</button><button class="in-qp" onclick="qpRent('2000')">2'000</button><button class="in-qp" onclick="qpRent('2500')">2'500</button></div>
         <button class="pf-clear" onclick="clearPfField('rin')" tabindex="-1" aria-label="Clear rent">×</button>
       </div>
       <div class="median-hint" id="mhint"><button type="button" class="median-hint-btn" id="mhbtn" onclick="useMedian()"><span id="mhint-pre">Median in&nbsp;</span><strong id="mhname">–</strong>: <strong id="mhval">–</strong>&nbsp;CHF/mo</button></div>
@@ -2444,31 +2475,13 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#102f6365727a7573642d436779636335222042757c7f737164797f7e352220557e6165796269" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#221d515740484741561f71554b515107101270474e4d4143564b4d4c071012674c53574b505b" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         </div>
         <div class="relo-card-illus" aria-hidden="true">
-          <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
-            <defs>
-              <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#C8EAE6"/>
-                <stop offset="100%" stop-color="#E8F5F3"/>
-              </linearGradient>
-            </defs>
-            <rect width="180" height="200" fill="url(#skyG)"/>
-            <polygon points="0,140 40,70 80,120 120,55 160,100 180,80 180,200 0,200" fill="#A8D8D2" opacity=".5"/>
-            <polygon points="0,160 50,100 90,140 130,85 180,120 180,200 0,200" fill="#7EC8C0" opacity=".7"/>
-            <polygon points="50,100 42,116 58,116" fill="#fff" opacity=".8"/>
-            <polygon points="130,85 121,104 139,104" fill="#fff" opacity=".8"/>
-            <rect x="0" y="175" width="180" height="25" fill="#5BB8AE" opacity=".4"/>
-            <rect x="118" y="90" width="3" height="10" rx="1" fill="#fff" opacity=".9"/>
-            <rect x="114" y="94" width="11" height="3" rx="1" fill="#fff" opacity=".9"/>
-            <circle cx="90" cy="108" r="14" fill="#0f766e" opacity=".9"/>
-            <circle cx="90" cy="108" r="6" fill="#fff"/>
-            <line x1="90" y1="122" x2="90" y2="136" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
-          </svg>
+          <img src="assets/zurich.svg" alt=""/>
         </div>
       </div>
     </div><!-- /s2-results -->
@@ -2503,7 +2516,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#5d35383131321d2e2a342e2e3e322e292e733e35">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#137b767f7f7c5360647a6060707c6067603d707b">Contact</a>
       </div>
     </div>
 
@@ -4189,10 +4202,10 @@ function renderCards() {
       : (n >= 2 && i === n - 1) ? `<span class="card-pill pill-worst">${t('card.worst')}</span>` : '';
 
     return `<div class="lc-swipe-wrap" data-swipe-name="${d.name}" style="--card-i:${i}"><div class="lc-delete-bg" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>
-<div class="loc-card${i===0?' best':''}${_cmpSel.includes(d.name)?' card-selected':''}" onclick="toggleCard(this,event)" data-name="${d.name}">
+<div class="loc-card${i===0?' best':''}${_cmpSel.includes(d._uid)?' card-selected':''}" onclick="toggleCard(this,event)" data-name="${d.name}" data-uid="${d._uid}">
       <div class="lc-head">
         <div class="lc-row-main">
-          <div class="lc-meta" onclick="toggleSelCard(event,'${d.name}')"><div class="lc-coa-sel">${coaImg(d.canton,18)}<button class="card-sel${_cmpSel.includes(d.name)?' sel-on':''}" onclick="toggleSelCard(event,'${d.name}')" type="button" aria-label="Select for comparison"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button></div><span class="lc-canton">${d.canton||''}</span>${pillHtml}</div>
+          <div class="lc-meta" onclick="toggleSelCard(event,'${d._uid}')"><div class="lc-coa-sel">${coaImg(d.canton,18)}<button class="card-sel${_cmpSel.includes(d._uid)?' sel-on':''}" onclick="toggleSelCard(event,'${d._uid}')" type="button" aria-label="Select for comparison"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button></div><span class="lc-canton">${d.canton||''}</span>${pillHtml}</div>
           <span class="lc-chevron"><span class="lc-chevron-lbl">Details</span><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 9l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </div>
         <div class="lc-row-sub">
@@ -4273,20 +4286,22 @@ function renderCards() {
       const rentDiffMo = Math.round(w.rent - b.rent);
       const abTax  = Math.abs(taxDiffMo);
       const abRent = Math.abs(rentDiffMo);
+      const _ann = viewMode === 'annual';
+      const _per = _ann ? '/yr' : '/mo';
       let driver = '';
-      const tm = f(abTax), rm = f(abRent);
+      const tm = f(abTax * (_ann?12:1)), rm = f(abRent * (_ann?12:1));
       if (abTax > 50 && abRent > 50) {
         // Both differ — show the trade-off
         if (taxDiffMo > 0 && rentDiffMo > 0)
-          driver = `<strong>CHF\u00a0${tm}/mo</strong> less tax and <strong>CHF\u00a0${rm}/mo</strong> less rent in ${b.name}.`;
+          driver = `<strong>CHF\u00a0${tm}${_per}</strong> less tax and <strong>CHF\u00a0${rm}${_per}</strong> less rent in ${b.name}.`;
         else if (taxDiffMo > 0 && rentDiffMo < 0)
-          driver = `<strong>CHF\u00a0${tm}/mo</strong> less tax, offset by <strong>CHF\u00a0${rm}/mo</strong> higher rent.`;
+          driver = `<strong>CHF\u00a0${tm}${_per}</strong> less tax, offset by <strong>CHF\u00a0${rm}${_per}</strong> higher rent.`;
         else if (taxDiffMo < 0 && rentDiffMo > 0)
-          driver = `<strong>CHF\u00a0${rm}/mo</strong> less rent, offset by <strong>CHF\u00a0${tm}/mo</strong> higher tax.`;
+          driver = `<strong>CHF\u00a0${rm}${_per}</strong> less rent, offset by <strong>CHF\u00a0${tm}${_per}</strong> higher tax.`;
       } else if (abTax > 50) {
-        driver = `<strong>CHF\u00a0${tm}/mo</strong> lower taxes in ${b.name} vs ${w.name}.`;
+        driver = `<strong>CHF\u00a0${tm}${_per}</strong> lower taxes in ${b.name} vs ${w.name}.`;
       } else if (abRent > 50) {
-        driver = `<strong>CHF\u00a0${rm}/mo</strong> lower rent in ${b.name} vs ${w.name}.`;
+        driver = `<strong>CHF\u00a0${rm}${_per}</strong> lower rent in ${b.name} vs ${w.name}.`;
       }
 
       // Tax-freedom-day insight
@@ -4391,8 +4406,9 @@ function tryAdd() {
 
 function removeLoc(i){
   const name = locs[i] && locs[i].name;
+  const removed = locs[i];
   locs.splice(i,1);
-  if (name) { const si = _cmpSel.indexOf(name); if (si>=0) { _cmpSel.splice(si,1); _renderCmpSel(); _updateCmpBar(); } }
+  if (removed) { const si = _cmpSel.indexOf(removed._uid); if (si>=0) { _cmpSel.splice(si,1); _renderCmpSel(); _updateCmpBar(); } }
   renderChips(); recalcAndShow(); saveState();
 }
 
@@ -4692,7 +4708,11 @@ function loadState() {
     if (s.toggles) Object.entries(s.toggles).forEach(([id, val]) => { const el = document.getElementById(id); if(el) el.checked = val; });
     // Locations
     if (s.locs && s.locs.length) {
-      locs = s.locs;
+      // Dedupe by commune name + rent (allow same commune at different rents)
+      const _seen = new Set();
+      locs = s.locs.filter(l => { const k = l.name+'|'+l.rent; if (_seen.has(k)) return false; _seen.add(k); return true; });
+      // Ensure every loc has a stable _uid for selection tracking
+      locs.forEach(l => { if (!l._uid) l._uid = Date.now()+Math.random(); });
       const p = getProfile();
       locs.forEach(l => {
         const comm = COMMUNES.find(c => c.name === l.name && c.canton === l.canton);
@@ -4711,7 +4731,15 @@ function loadState() {
       document.getElementById('page-step2').style.display = '';
       document.getElementById('sticky-profile').classList.add('visible','step-pinned');
     } else if (_targetPage === 'compare' && s.locs && s.locs.length >= 2) {
-      const sel = (s.cmpSel && s.cmpSel.length === 2) ? s.cmpSel : [locs[0].name, locs[1].name];
+      const rawSel = (s.cmpSel && s.cmpSel.length === 2) ? s.cmpSel : [locs[0]._uid, locs[1]._uid];
+      // Migrate legacy name-based selection to uid-based
+      const sel = rawSel.map(v => {
+        if (typeof v === 'number') return v;
+        const byUid = locs.find(l => String(l._uid) === String(v));
+        if (byUid) return byUid._uid;
+        const byName = locs.find(l => l.name === v);
+        return byName ? byName._uid : null;
+      }).filter(v => v != null);
       _cmpSel = sel.slice();
       document.getElementById('page-step1').style.display = 'none';
       document.getElementById('page-step2').style.display = 'none';
@@ -5101,7 +5129,9 @@ let _cmpvMode = 'monthly';
 function cmpvPrint() {
   const sel = (typeof _cmpSel !== 'undefined' && _cmpSel) || [];
   const orig = document.title;
-  if (sel[0] && sel[1]) document.title = `SwissCosts — ${sel[0]} vs ${sel[1]}`;
+  const la = locs.find(l => l._uid === sel[0]);
+  const lb = locs.find(l => l._uid === sel[1]);
+  if (la && lb) document.title = `SwissCosts — ${la.name} vs ${lb.name}`;
   setTimeout(() => { window.print(); setTimeout(() => { document.title = orig; }, 500); }, 0);
 }
 function cmpvSetMode(mode) {
@@ -5343,14 +5373,15 @@ renderPopularLocs();
 
 // ── Side-by-side compare ─────────────────────────────────────────────────────
 
-function toggleSelCard(event, name) {
+function toggleSelCard(event, uid) {
   if (event) event.stopPropagation();
-  const idx = _cmpSel.indexOf(name);
+  uid = (typeof uid === 'string') ? parseFloat(uid) : uid;
+  const idx = _cmpSel.indexOf(uid);
   if (idx >= 0) {
     _cmpSel.splice(idx, 1);
   } else {
     if (_cmpSel.length >= 2) _cmpSel.shift();
-    _cmpSel.push(name);
+    _cmpSel.push(uid);
   }
   _renderCmpSel();
   _updateCmpBar();
@@ -5358,8 +5389,8 @@ function toggleSelCard(event, name) {
 
 function _renderCmpSel() {
   document.querySelectorAll('.loc-card').forEach(card => {
-    const name = card.dataset.name;
-    const on = _cmpSel.includes(name);
+    const uid = parseFloat(card.dataset.uid);
+    const on = _cmpSel.includes(uid);
     card.classList.toggle('card-selected', on);
     const btn = card.querySelector('.card-sel');
     if (btn) btn.classList.toggle('sel-on', on);
@@ -5371,24 +5402,64 @@ function _updateCmpBar() {
   if (!bar) return;
   const onStep2 = document.getElementById('page-step2').style.display !== 'none';
   bar.classList.toggle('cmp-bar-on', _cmpSel.length > 0 && onStep2);
+  // Update both desktop bar slots + mobile popover slots
   for (let i = 0; i < 2; i++) {
-    const slot = bar.querySelector(`[data-slot="${i}"]`);
-    if (!slot) continue;
-    const name = _cmpSel[i];
-    if (name) {
-      const loc = locs.find(l => l.name === name);
-      slot.className = 'cmp-bar-slot slot-filled';
-      slot.onclick = () => { _cmpSel.splice(_cmpSel.indexOf(name),1); _renderCmpSel(); _updateCmpBar(); };
-      const slotRent = loc && (loc.rent || loc.median) ? `<span style="font-size:11.5px;color:var(--muted);font-weight:400;margin-left:4px">· CHF ${f(loc.rent||loc.median)}/mo</span>` : '';
-      slot.innerHTML = `${coaImg(loc&&loc.canton,13)}<span class="cmp-bar-slot-name">${name}${slotRent}</span><button class="cmp-bar-slot-x" onclick="event.stopPropagation();_cmpSel.splice(_cmpSel.indexOf('${name}'),1);_renderCmpSel();_updateCmpBar()" type="button" aria-label="Remove ${name}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>`;
-    } else {
-      slot.className = 'cmp-bar-slot';
-      slot.removeAttribute('onclick');
-      slot.innerHTML = `<span class="cmp-bar-slot-name">Pick a location</span>`;
-    }
+    const slots = document.querySelectorAll(`.cmp-bar-slot[data-slot="${i}"], #nav-cmp-pop .cmp-bar-slot[data-slot="${i}"]`);
+    slots.forEach(slot => {
+      const uid = _cmpSel[i];
+      if (uid != null) {
+        const loc = locs.find(l => l._uid === uid);
+        if (!loc) { slot.className = 'cmp-bar-slot'; slot.removeAttribute('onclick'); slot.innerHTML = `<span class="cmp-bar-slot-name">Pick a location</span>`; return; }
+        const name = loc.name;
+        slot.className = 'cmp-bar-slot slot-filled';
+        slot.onclick = () => { _cmpSel.splice(_cmpSel.indexOf(uid),1); _renderCmpSel(); _updateCmpBar(); };
+        const slotRent = loc && (loc.rent || loc.median) ? `<span style="font-size:11.5px;color:var(--muted);font-weight:400;margin-left:4px">· CHF ${f(loc.rent||loc.median)}/mo</span>` : '';
+        slot.innerHTML = `${coaImg(loc&&loc.canton,13)}<span class="cmp-bar-slot-name">${name}${slotRent}</span><button class="cmp-bar-slot-x" onclick="event.stopPropagation();_cmpSel.splice(_cmpSel.indexOf(${uid}),1);_renderCmpSel();_updateCmpBar()" type="button" aria-label="Remove ${name}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>`;
+      } else {
+        slot.className = 'cmp-bar-slot';
+        slot.removeAttribute('onclick');
+        slot.innerHTML = `<span class="cmp-bar-slot-name">Pick a location</span>`;
+      }
+    });
   }
   const btn = document.getElementById('cmp-bar-btn');
   if (btn) btn.classList.toggle('ready', _cmpSel.length === 2);
+  const popBtn = document.getElementById('nav-cmp-pop-btn');
+  if (popBtn) popBtn.classList.toggle('ready', _cmpSel.length === 2);
+  // Mobile nav button visibility + badge
+  const navBtn = document.getElementById('nav-cmp-btn');
+  const navBadge = document.getElementById('nav-cmp-badge');
+  if (navBtn && navBadge) {
+    const showNav = _cmpSel.length > 0 && onStep2;
+    navBtn.style.display = showNav ? '' : 'none';
+    navBtn.classList.toggle('has-sel', _cmpSel.length > 0);
+    navBadge.style.display = _cmpSel.length > 0 ? 'block' : 'none';
+    if (!showNav) closeNavCmpPop();
+  }
+}
+
+function toggleNavCmpPop(e) {
+  if (e) e.stopPropagation();
+  const pop = document.getElementById('nav-cmp-pop');
+  if (!pop) return;
+  if (pop.style.display === 'block') { closeNavCmpPop(); return; }
+  pop.style.display = 'block';
+  // Outside-click scrim
+  let scrim = document.getElementById('nav-cmp-scrim');
+  if (!scrim) {
+    scrim = document.createElement('div');
+    scrim.id = 'nav-cmp-scrim';
+    scrim.className = 'nav-cmp-scrim';
+    scrim.onclick = closeNavCmpPop;
+    document.body.appendChild(scrim);
+  }
+  scrim.style.display = 'block';
+}
+function closeNavCmpPop() {
+  const pop = document.getElementById('nav-cmp-pop');
+  if (pop) pop.style.display = 'none';
+  const scrim = document.getElementById('nav-cmp-scrim');
+  if (scrim) scrim.style.display = 'none';
 }
 
 function _applyCompareStickyStyles() {
@@ -5475,9 +5546,9 @@ function cmpvToggle(hd) {
   hd.nextElementSibling.classList.toggle('cmpv-collapsed');
 }
 
-function _buildComparePage(nameA, nameB) {
-  const la = locs.find(l => l.name === nameA);
-  const lb = locs.find(l => l.name === nameB);
+function _buildComparePage(uidA, uidB) {
+  const la = locs.find(l => l._uid === uidA);
+  const lb = locs.find(l => l._uid === uidB);
   if (!la || !lb) return;
   const tdA = la.taxData, tdB = lb.taxData;
   const rentA = la.rent || la.median || 1800;
@@ -5641,7 +5712,7 @@ function _buildComparePage(nameA, nameB) {
   <div id="cmpv-sticky-hd" class="cmpv-sticky-hd">
     <div class="cmpv-topbar-outer">
       <div class="cmpv-topbar">
-        <div class="cmpv-title">${nameA} vs ${nameB}</div>
+        <div class="cmpv-title">${la.name} vs ${lb.name}</div>
         ${toggleHtml}
       </div>
     </div>
@@ -5656,7 +5727,7 @@ function _buildComparePage(nameA, nameB) {
       <div class="cmpv-col-hd${aWins?' winner':''}">
         <div class="cmpv-col-hd-top">
           ${coaImg(la.canton,20)}
-          <div><div class="cmpv-col-hd-name">${nameA}</div><div class="cmpv-col-hd-canton">${la.canton||''}</div></div>
+          <div><div class="cmpv-col-hd-name">${la.name}</div><div class="cmpv-col-hd-canton">${la.canton||''}</div></div>
         </div>
         <div class="cmpv-col-hd-costrow">
           <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalA*12:totalA)}${isAnn?'/yr':'/mo'}</div>
@@ -5666,7 +5737,7 @@ function _buildComparePage(nameA, nameB) {
       <div class="cmpv-col-hd${!aWins?' winner':''}">
         <div class="cmpv-col-hd-top">
           ${coaImg(lb.canton,20)}
-          <div><div class="cmpv-col-hd-name">${nameB}</div><div class="cmpv-col-hd-canton">${lb.canton||''}</div></div>
+          <div><div class="cmpv-col-hd-name">${lb.name}</div><div class="cmpv-col-hd-canton">${lb.canton||''}</div></div>
         </div>
         <div class="cmpv-col-hd-costrow">
           <div class="cmpv-col-hd-cost">CHF&nbsp;${f(isAnn?totalB*12:totalB)}${isAnn?'/yr':'/mo'}</div>
