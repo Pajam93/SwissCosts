@@ -211,6 +211,18 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .pf-tp-wrap{position:relative}
 .pf-tp-pop{position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:50;padding:6px 8px;background:var(--white);border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.14),0 4px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;animation:pf-tp-in .16s var(--ease-snap)}
 .pf-tp-pop[hidden]{display:none}
+/* Airbnb-style: when tax-profile dropdown is open, fade siblings */
+.step1-body:has(.pf-tp-trigger[aria-expanded="true"]) > .pf-section:not(:has(.pf-tp-trigger[aria-expanded="true"])),
+.step1-body:has(.pf-tp-trigger[aria-expanded="true"]) > .ded-toggle{
+  opacity:.42;filter:saturate(.4);pointer-events:none;transition:opacity .22s var(--ease-snap),filter .22s var(--ease-snap)
+}
+.profile-card:has(.pf-tp-trigger[aria-expanded="true"]) .profile-title{
+  opacity:.55;transition:opacity .22s var(--ease-snap)
+}
+.profile-card:has(.pf-tp-trigger[aria-expanded="true"]) .step-continue-btn{
+  opacity:.5;transition:opacity .22s var(--ease-snap)
+}
+.pf-section,.ded-toggle{transition:opacity .22s var(--ease-snap),filter .22s var(--ease-snap)}
 @keyframes pf-tp-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .pf-tp-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 14px}
 .pf-tp-row + .pf-tp-row{border-top:1px solid #EEEAE0}
@@ -1210,7 +1222,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 .lp-h1 em{font-style:normal;color:var(--green)}
 @media(max-width:640px){
   /* Hero section */
-  .lp-hero{padding:40px 0 36px}
+  .lp-hero{padding:40px 0 36px;overflow:visible}
   .lp-eyebrow{font-size:10px;margin-bottom:14px}
   .lp-h1{font-size:36px;line-height:1.05;margin-bottom:16px}
   .lp-h1 br{display:none}
@@ -1226,9 +1238,16 @@ body.is-compare #sticky-profile{margin-top:62px}
   .lp-cta-btn{justify-content:center;padding:15px 22px;font-size:15px;border-radius:12px}
   .lp-hero-note{text-align:center;font-size:11.5px}
   /* Profile card */
-  .lp-hero-right{gap:0}
+  .lp-hero-right{gap:0;overflow:visible}
   .lp-hero-card{display:none}
-  .profile-card{padding:20px;border-radius:16px;margin-bottom:0}
+  .profile-card{padding:20px;border-radius:16px;margin-bottom:0;min-width:0}
+  /* Tax-profile popover: stack title above seg, seg fills width */
+  .pf-tp-pop{padding:4px 6px}
+  .pf-tp-row{flex-direction:column;align-items:stretch;gap:10px;padding:14px 12px}
+  .pf-tp-pop .seg-group{width:100%;height:40px;border-radius:11px;padding:4px;gap:2px}
+  .pf-tp-pop .seg-btn{flex:1 1 0;min-width:0;font-size:13.5px;padding:0 6px;border-radius:8px}
+  .pf-tp-pop #kids-group .seg-btn{padding:0 6px}
+  .pf-tp-pop .seg-pill{border-radius:8px}
 }
 @media(max-width:640px){.pf-input,input,select,textarea{font-size:16px !important}}
 .lp-hsub{font-size:16px;color:var(--muted);line-height:1.7;max-width:390px;margin-bottom:36px;font-weight:400}
@@ -1238,7 +1257,7 @@ body.is-compare #sticky-profile{margin-top:62px}
 .lp-cta-btn:hover{background:var(--green-dark);transform:translateY(-2px)}
 
 /* Hero card */
-.lp-hero-right{display:flex;flex-direction:column;align-items:stretch;gap:10px;width:680px;flex-shrink:0;min-width:0;overflow:hidden}
+.lp-hero-right{display:flex;flex-direction:column;align-items:stretch;gap:10px;width:680px;flex-shrink:0;min-width:0}
 .lp-hero-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px;width:100%;box-shadow:0 2px 4px rgba(15,118,110,.04),0 12px 32px rgba(15,118,110,.07),0 32px 64px rgba(0,0,0,.04);transform:rotate(-.8deg);transition:transform .6s var(--ease-spring),box-shadow .6s var(--ease-spring)}
 .lp-hero-card:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 2px 4px rgba(15,118,110,.04),0 24px 56px rgba(15,118,110,.11)}
 .lp-hcard-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle);margin-bottom:16px}
@@ -2481,7 +2500,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#58672b2d3a323d3b2c650b2f312b2b7d6a680a3d34373b392c3137367d6a681d36292d312a21" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#37084442555d5254430a64405e444412050765525b585456435e5859120507725946425e454e" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2522,7 +2541,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#d2bab7bebebd92a1a5bba1a1b1bda1a6a1fcb1ba">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#1a727f7676755a696d7369697975696e69347972">Contact</a>
       </div>
     </div>
 
