@@ -211,17 +211,118 @@ h1{font-family:'DM Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:6
 .pf-tp-wrap{position:relative}
 .pf-tp-pop{position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:50;padding:6px 8px;background:var(--white);border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.14),0 4px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;animation:pf-tp-in .16s var(--ease-snap)}
 .pf-tp-pop[hidden]{display:none}
-/* Airbnb-style: when tax-profile dropdown is open, fade siblings */
-.step1-body:has(.pf-tp-trigger[aria-expanded="true"]) > .pf-section:not(:has(.pf-tp-trigger[aria-expanded="true"])),
-.step1-body:has(.pf-tp-trigger[aria-expanded="true"]) > .ded-toggle{
-  opacity:.42;filter:saturate(.4);pointer-events:none;transition:opacity .22s var(--ease-snap),filter .22s var(--ease-snap)
+/* Mobile entry pill + fullscreen takeover */
+.hh-pill{display:none}
+.hh-close{display:none}
+@media(max-width:640px){
+  .hh-pill{display:flex;align-items:center;gap:12px;width:100%;background:#fff;border:1px solid var(--border);border-radius:99px;padding:12px 14px 12px 18px;box-shadow:0 4px 14px rgba(15,118,110,.10);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:left;transition:box-shadow .2s,transform .2s}
+  .hh-pill:active{transform:scale(.985)}
+  .hh-pill-icon{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--green-l);color:var(--green);display:flex;align-items:center;justify-content:center}
+  .hh-pill-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .hh-pill-t{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.01em}
+  .hh-pill-s{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+  .hh-pill-cta{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center}
+  #step1-card{display:none}
+  body.hh-open{overflow:hidden;position:fixed;width:100%;height:100%;top:0;left:0}
+  html:has(body.hh-open){overflow:hidden;height:100%}
+  body.hh-open nav{display:none}
+  body.hh-open #step1-card .profile-title-clear{display:none}
+  body.hh-open #step1-card{display:block;position:fixed;inset:0;z-index:500;background:#F4F6F5;border-radius:0;padding:0;margin:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;animation:hh-up .26s var(--ease-snap);box-shadow:none;min-width:0}
+  body.hh-open #step1-card .profile-title{position:sticky;top:0;z-index:3;background:#fff;margin:0;padding:14px 56px 14px 20px;border-bottom:1px solid var(--border);font-size:16px;gap:10px}
+  body.hh-open #step1-card .profile-icon{width:32px;height:32px}
+  body.hh-open #step1-card .profile-title-clear{margin:0;padding:6px 10px}
+  body.hh-open #step1-card .profile-title-clear.visible{display:inline-flex !important;position:fixed;left:14px;bottom:18px;z-index:5;font-size:12px;font-weight:500;color:var(--subtle);background:none;border:none;border-radius:6px;text-decoration:none;height:auto}
+  body.hh-open #step1-card .hh-close{display:flex;position:fixed;top:10px;right:12px;z-index:5;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--border);align-items:center;justify-content:center;color:var(--text);cursor:pointer;padding:0}
+  body.hh-open #step1-card .step1-body{padding:14px 14px 100px;display:flex;flex-direction:column;gap:10px}
+  body.hh-open #step1-card .step1-body > .pf-section:has(.pf-toggle-row){order:2}
+  body.hh-open #step1-card .step1-body > .ded-wrap{order:1}
+  body.hh-open #step1-card .pf-section,
+  body.hh-open #step1-card .ded-wrap{background:#fff;border-radius:16px;padding:0;margin:0;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;transition:box-shadow .22s var(--ease-snap)}
+  body.hh-open #step1-card .pf-section:has(.pf-tp-trigger[aria-expanded="true"]),
+  body.hh-open #step1-card .ded-wrap:has(.ded-toggle[aria-expanded="true"]),
+  body.hh-open #step1-card .pf-section.pf-income-row{box-shadow:0 0 0 1px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.2)}
+  body.hh-open #step1-card:has(.pf-tp-trigger[aria-expanded="true"]) .pf-section.pf-income-row,
+  body.hh-open #step1-card:has(.ded-toggle[aria-expanded="true"]) .pf-section.pf-income-row{box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  body.hh-open #step1-card .ded-toggle{background:transparent;border:none;border-radius:0;padding:18px;box-shadow:none;height:auto}
+  body.hh-open #step1-card .ded-toggle:hover{background:transparent;border:none;box-shadow:none}
+  body.hh-open #step1-card .ded-toggle[aria-expanded="true"]{border-bottom:1px solid var(--border)}
+  body.hh-open #step1-card .ded-toggle[aria-expanded="true"] .ded-toggle-sub{display:none}
+  body.hh-open #step1-card .ded-toggle[aria-expanded="true"] .ded-toggle-icon{transform:rotate(90deg);color:var(--green-dark)}
+  body.hh-open #step1-card .ded-inline{padding:0;background:transparent}
+  body.hh-open #step1-card .ded-inline .ded-grid{display:block;gap:0;padding:4px 8px 8px}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section{margin:0;padding:14px 12px;display:flex;flex-direction:column;gap:10px;align-items:stretch;background:transparent;border-radius:0;box-shadow:none}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section + .pf-section{border-top:1px solid #EEEAE0}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section > .pf-label{margin:0;font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.005em;flex-direction:column;align-items:flex-start;gap:2px}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section > .pf-sublabel{margin:0;font-size:12px;color:var(--muted)}
+  body.hh-open #step1-card .pf-tp-row .pf-tp-rl-title{font-size:14px;font-weight:600}
+  body.hh-open #step1-card .pf-tp-row .pf-tp-rl-sub{font-size:12px}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section .pf-tip{display:block;position:static}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section .pf-tip-icon{display:none}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section .pf-tip-popup{position:static;display:block;background:transparent;color:var(--muted);padding:0;font-size:12px;font-weight:400;box-shadow:none;opacity:1;visibility:visible;pointer-events:none;transform:none;white-space:normal;max-width:none;border:none;line-height:1.4}
+  body.hh-open #step1-card .ded-inline .seg-group{width:100%;height:40px;border-radius:11px;padding:4px;gap:2px;background:#C8E6E2}
+  body.hh-open #step1-card .ded-inline .seg-btn{flex:1 1 0;min-width:0;font-size:13.5px;padding:0 6px;border-radius:8px;color:var(--green-dark)}
+  body.hh-open #step1-card .pf-income-row{flex-direction:column;gap:0;padding:0}
+  body.hh-open #step1-card .pf-income-row::before{display:none}
+  body.hh-open #step1-card .pf-income-head{display:flex;align-items:center;justify-content:space-between;width:100%;padding:18px;background:transparent;border:none;cursor:pointer;font:inherit;color:var(--text);text-align:left;letter-spacing:-.01em}
+  body.hh-open #step1-card .pf-income-head-title{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  body.hh-open #step1-card .pf-income-head-val{font-size:14px;font-weight:500;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:none}
+  body.hh-open #step1-card .pf-income-col{padding:18px;border-top:1px solid var(--border)}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section + .pf-section{border-top:none;position:relative}
+  body.hh-open #step1-card .ded-inline .ded-grid > .pf-section + .pf-section::before{content:'';position:absolute;top:0;left:14px;right:14px;height:1px;background:#EEEAE0}
+  body.hh-open #step1-card .pf-tp-pop .pf-tp-row + .pf-tp-row{border-top:none;position:relative}
+  body.hh-open #step1-card .pf-tp-pop .pf-tp-row + .pf-tp-row::before{content:'';position:absolute;top:0;left:14px;right:14px;height:1px;background:#EEEAE0}
+  body.hh-open #step1-card .pf-income-col + .pf-income-col{border-top:none;position:relative}
+  body.hh-open #step1-card .pf-income-col + .pf-income-col::before{content:'';position:absolute;top:0;left:18px;right:18px;height:1px;background:#EEEAE0}
+  /* Collapsed state — when Tax profile or Deductions is expanded */
+  body.hh-open #step1-card:has(.pf-tp-trigger[aria-expanded="true"]) .pf-income-row .pf-income-col,
+  body.hh-open #step1-card:has(.ded-toggle[aria-expanded="true"]) .pf-income-row .pf-income-col{display:none}
+  body.hh-open #step1-card:has(.pf-tp-trigger[aria-expanded="true"]) .pf-income-head-title,
+  body.hh-open #step1-card:has(.ded-toggle[aria-expanded="true"]) .pf-income-head-title{font-size:14px;font-weight:600}
+  body.hh-open #step1-card:has(.pf-tp-trigger[aria-expanded="true"]) .pf-income-head-val,
+  body.hh-open #step1-card:has(.ded-toggle[aria-expanded="true"]) .pf-income-head-val{display:inline}
+  body.hh-open #step1-card .pf-income-col{display:flex;flex-direction:column;gap:10px}
+  body.hh-open #step1-card .pf-input-wrap.pf-sal{padding-right:18px}
+  body.hh-open #step1-card .pf-input-wrap.pf-sal:has(.pf-input:not(:placeholder-shown)){padding-right:44px}
+  body.hh-open #step1-card .pf-toggle-row{padding:18px}
+  /* Match the title style used in tax profile / deductions (14px/600) */
+  body.hh-open #step1-card .pf-income-row .pf-label,
+  body.hh-open #step1-card .pf-toggle-row .pf-label{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.005em;flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:0}
+  body.hh-open #step1-card .pf-income-row .pf-label .pf-tip,
+  body.hh-open #step1-card .pf-toggle-row .pf-label .pf-tip{display:block;position:static}
+  body.hh-open #step1-card .pf-income-row .pf-label .pf-tip-icon,
+  body.hh-open #step1-card .pf-toggle-row .pf-label .pf-tip-icon{display:none}
+  body.hh-open #step1-card .pf-income-row .pf-label .pf-tip-popup,
+  body.hh-open #step1-card .pf-toggle-row .pf-label .pf-tip-popup{position:static;display:block;background:transparent;color:var(--muted);padding:0;font-size:12px;font-weight:400;box-shadow:none;opacity:1;visibility:visible;pointer-events:none;transform:none;white-space:normal;max-width:none;border:none;line-height:1.4;margin-top:2px}
+  /* Tax profile in modal: row layout, no chevron, expand inline */
+  body.hh-open #step1-card .pf-section:has(.pf-tp-wrap) > .pf-label{display:none}
+  body.hh-open #step1-card .pf-section:has(.pf-tp-wrap){padding:0;overflow:hidden}
+  body.hh-open #step1-card .pf-tp-wrap{position:static}
+  body.hh-open #step1-card .pf-tp-trigger{border:none;background:transparent;height:auto;padding:18px;border-radius:0;display:flex;align-items:center;gap:12px;box-shadow:none;transition:none}
+  body.hh-open #step1-card .pf-tp-trigger:hover{border:none;background:transparent;box-shadow:none}
+  body.hh-open #step1-card .pf-tp-trigger .pf-tp-icon,
+  body.hh-open #step1-card .pf-tp-trigger .pf-tp-chev{display:none}
+  body.hh-open #step1-card .pf-tp-trigger::before{content:'Tax profile';font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.005em}
+  body.hh-open #step1-card .pf-tp-summary{flex:1;text-align:right;font-weight:500;color:var(--muted)}
+  body.hh-open #step1-card .pf-tp-trigger[aria-expanded="true"]{border-bottom:1px solid var(--border)}
+  body.hh-open #step1-card .pf-tp-trigger[aria-expanded="true"]::before{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  body.hh-open #step1-card .pf-tp-trigger[aria-expanded="true"] .pf-tp-summary{display:none}
+  body.hh-open #step1-card .pf-tp-pop{position:static;border:none;border-radius:0;box-shadow:none;padding:4px 8px 8px;background:transparent;animation:none}
+  /* Assets & deductions in modal: row layout, no icons */
+  body.hh-open #step1-card .ded-toggle{display:flex;align-items:center;gap:12px}
+  body.hh-open #step1-card .ded-toggle .ded-toggle-ico-wrap,
+  body.hh-open #step1-card .ded-toggle .ded-toggle-icon,
+  body.hh-open #step1-card .ded-toggle .ded-optional-badge{display:none}
+  body.hh-open #step1-card .ded-toggle .ded-toggle-inner{flex:1;min-width:0}
+  body.hh-open #step1-card .ded-toggle .ded-toggle-label{font-size:14px;font-weight:600;color:var(--text)}
+  body.hh-open #step1-card .ded-toggle[aria-expanded="true"] .ded-toggle-label{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  body.hh-open #step1-card .ded-toggle .ded-toggle-sub{flex:1;text-align:right;margin-top:0;font-size:14px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body.hh-open #step1-card .ded-toggle{justify-content:space-between}
+  body.hh-open #step1-card .ded-toggle .ded-toggle-text{flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  body.hh-open #step1-card::after{content:'';position:fixed;left:0;right:0;bottom:0;height:64px;background:#fff;border-top:1px solid var(--border);box-shadow:0 -4px 14px rgba(0,0,0,.06);z-index:3}
+  body.hh-open #step1-card .step-continue-btn{position:fixed;bottom:10px;right:14px;left:auto;z-index:4;border-radius:12px;margin:0;padding:0 22px;background:#0F766E;min-height:44px;width:auto;font-size:14px}
 }
-.profile-card:has(.pf-tp-trigger[aria-expanded="true"]) .profile-title{
-  opacity:.55;transition:opacity .22s var(--ease-snap)
-}
-.profile-card:has(.pf-tp-trigger[aria-expanded="true"]) .step-continue-btn{
-  opacity:.5;transition:opacity .22s var(--ease-snap)
-}
+@keyframes hh-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* (Removed) Sibling fade when a section is expanded */
 .pf-section,.ded-toggle{transition:opacity .22s var(--ease-snap),filter .22s var(--ease-snap)}
 @keyframes pf-tp-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .pf-tp-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 14px}
@@ -1826,7 +1927,16 @@ body.is-compare #sticky-profile{margin-top:62px}
         </div>
       </div>
       <div class="lp-hero-right reveal reveal-d1">
+        <button type="button" class="hh-pill" id="hh-pill" onclick="hhOpen()" aria-label="Open household profile">
+          <span class="hh-pill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          <span class="hh-pill-text">
+            <span class="hh-pill-t">Household profile</span>
+            <span class="hh-pill-s" id="hh-pill-s">Income · Tax profile · Deductions</span>
+          </span>
+          <span class="hh-pill-cta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </button>
         <div class="profile-card" id="step1-card">
+          <button type="button" class="hh-close" onclick="hhClose()" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
           <div class="profile-title">
             <div class="profile-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             Household profile
@@ -1925,17 +2035,20 @@ body.is-compare #sticky-profile{margin-top:62px}
                 </label>
               </div>
             </div>
-            <div class="ded-toggle" id="ded-toggle" onclick="toggleDed()">
-              <div class="ded-toggle-inner">
-                <span class="ded-toggle-ico-wrap" id="ded-toggle-ico">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="10" cy="18" r="2" fill="currentColor" stroke="none"/></svg>
-                </span>
-                <div class="ded-toggle-text">
-                  <div class="ded-toggle-label">Assets & deductions <span class="ded-optional-badge">Optional</span></div>
-                  <div class="ded-toggle-sub" id="ded-toggle-sub">Tap to personalise</div>
+            <div class="ded-wrap" id="ded-wrap">
+              <div class="ded-toggle" id="ded-toggle" aria-expanded="false" onclick="toggleDed()">
+                <div class="ded-toggle-inner">
+                  <span class="ded-toggle-ico-wrap" id="ded-toggle-ico">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="10" cy="18" r="2" fill="currentColor" stroke="none"/></svg>
+                  </span>
+                  <div class="ded-toggle-text">
+                    <div class="ded-toggle-label">Assets & deductions <span class="ded-optional-badge">Optional</span></div>
+                    <div class="ded-toggle-sub" id="ded-toggle-sub">Age 35–44</div>
+                  </div>
                 </div>
+                <span class="ded-toggle-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
               </div>
-              <span class="ded-toggle-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+              <div class="ded-inline" id="ded-inline" hidden></div>
             </div>
           </div><!-- /step1-body -->
           <button class="step-continue-btn" id="continue-btn" onclick="goStep2()" disabled><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8.25" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 9h5M9 6.5l2.5 2.5-2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Continue to Home options</button>
@@ -2500,7 +2613,7 @@ body.is-compare #sticky-profile{margin-top:62px}
             <div class="relo-card-title">Want a local expert handling your Swiss move?</div>
             <div class="relo-card-sub">Talk to a Swiss relocation specialist — housing, permits, registration.</div>
           </div>
-          <a href="/cdn-cgi/l/email-protection#37084442555d5254430a64405e444412050765525b585456435e5859120507725946425e454e" class="relo-card-btn">
+          <a href="/cdn-cgi/l/email-protection#9ca3efe9fef6f9ffe8a1cfebf5efefb9aeaccef9f0f3fffde8f5f3f2b9aeacd9f2ede9f5eee5" class="relo-card-btn">
             Book a free consultation
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -2541,7 +2654,7 @@ body.is-compare #sticky-profile{margin-top:62px}
       <div class="site-footer-col-links">
         <a href="#">Imprint</a>
         <a href="#">Privacy policy</a>
-        <a href="/cdn-cgi/l/email-protection#1a727f7676755a696d7369697975696e69347972">Contact</a>
+        <a href="/cdn-cgi/l/email-protection#3058555c5c5f704347594343535f4344431e5358">Contact</a>
       </div>
     </div>
 
@@ -3292,7 +3405,7 @@ const TRANSLATIONS = {
     'profile.assets.ph':"150'000",
     'profile.assets.sub':'Wealth tax applies above CHF 300k.',
     'profile.p3a':'Pillar 3a contributions',
-    'profile.p3a.tip':"Max. CHF 7'258 / year for employed (2025)",
+    'profile.p3a.tip':'Swiss private pension — contributions reduce your taxable income',
     'profile.p3a.ph':"7'258",
     'profile.p3a.half':'Half',
     'profile.extraDed':'Additional deductions',
@@ -3391,10 +3504,42 @@ function getProfile() {
 }
 
 function toggleDed() {
-  const toggle  = document.getElementById('ded-toggle');
+  const toggle = document.getElementById('ded-toggle');
+  const inline = document.getElementById('ded-inline');
   const overlay = document.getElementById('ded-modal-overlay');
+  const modal  = overlay && overlay.querySelector('.ded-modal');
+  const grid   = (modal && modal.querySelector('.ded-grid')) || document.querySelector('.ded-grid');
+  const isMobile = document.body.classList.contains('hh-open');
+  if (isMobile) {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    if (!expanded) {
+      // close tax profile if open
+      const t = document.getElementById('pf-tp-trigger');
+      const p = document.getElementById('pf-tp-pop');
+      if (t && p && !p.hasAttribute('hidden')) { t.setAttribute('aria-expanded','false'); p.setAttribute('hidden',''); }
+      if (grid && inline && grid.parentElement !== inline) inline.appendChild(grid);
+      inline.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded','true');
+    } else {
+      toggle.setAttribute('aria-expanded','false');
+      inline.setAttribute('hidden','');
+      // return grid to modal so desktop modal still works
+      if (grid && modal && grid.parentElement !== modal) {
+        const footer = modal.querySelector('.ded-modal-footer');
+        if (footer) modal.insertBefore(grid, footer); else modal.appendChild(grid);
+      }
+      updateDedSub();
+      updateProfileClearBtn();
+    }
+    return;
+  }
   const isOpen  = overlay.classList.contains('open');
   if (!isOpen) {
+    // ensure grid is back in the modal (in case mobile moved it)
+    if (grid && modal && grid.parentElement !== modal) {
+      const footer = modal.querySelector('.ded-modal-footer');
+      if (footer) modal.insertBefore(grid, footer); else modal.appendChild(grid);
+    }
     overlay.classList.add('open');
     toggle.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3618,22 +3763,54 @@ function clearLocForm() {
   updateLocClearBtn();
 }
 
+function hhOpen(){document.body.classList.add('hh-open');hhSyncPill()}
+function hhClose(){document.body.classList.remove('hh-open');const t=document.getElementById('pf-tp-trigger');const p=document.getElementById('pf-tp-pop');if(t&&p&&!p.hasAttribute('hidden')){t.setAttribute('aria-expanded','false');p.setAttribute('hidden','')}}
+function hhSyncPill(){const el=document.getElementById('hh-pill-s');if(!el)return;const sal=document.getElementById('salary')?.value?.replace(/[^\d]/g,'');const tp=document.getElementById('pf-tp-summary')?.textContent||'';const parts=[];if(sal)parts.push('CHF '+Number(sal).toLocaleString('de-CH'));if(tp)parts.push(tp);el.textContent=parts.length?parts.join(' · '):'Income · Tax profile · Deductions'}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('hh-open'))hhClose()});
 function pfTpToggle() {
   const t = document.getElementById('pf-tp-trigger');
   const p = document.getElementById('pf-tp-pop');
   const open = t.getAttribute('aria-expanded') === 'true';
   t.setAttribute('aria-expanded', open ? 'false' : 'true');
   if (open) p.setAttribute('hidden',''); else {
+    // Mutual exclusion: close Assets & deductions if open (mobile modal)
+    if (document.body.classList.contains('hh-open')) {
+      const dt = document.getElementById('ded-toggle');
+      if (dt && dt.getAttribute('aria-expanded') === 'true') toggleDed();
+    }
     p.removeAttribute('hidden');
     // Reposition pills now that popover is visible
     p.querySelectorAll('.seg-group').forEach(g => posSegPill(g, true));
   }
+  if (typeof pfIncomeSyncVal === 'function') pfIncomeSyncVal();
 }
+function pfIncomeExpand(){
+  // Clicking the income header collapses any open section so income re-expands via CSS
+  const t = document.getElementById('pf-tp-trigger');
+  const p = document.getElementById('pf-tp-pop');
+  if (t && p && t.getAttribute('aria-expanded')==='true'){ t.setAttribute('aria-expanded','false'); p.setAttribute('hidden',''); }
+  const dt = document.getElementById('ded-toggle');
+  if (dt && dt.getAttribute('aria-expanded')==='true') toggleDed();
+  const s = document.getElementById('salary'); if (s) s.focus();
+}
+function pfIncomeSyncVal(){
+  const el = document.getElementById('pf-income-val'); if(!el) return;
+  const s1 = (document.getElementById('salary')?.value||'').replace(/[^\d]/g,'');
+  const s2 = (document.getElementById('salary2')?.value||'').replace(/[^\d]/g,'');
+  const fmt = n => n ? Number(n).toLocaleString('de-CH').replace(/,/g,"'") + ' CHF' : '';
+  const partnerVisible = document.getElementById('salary2-section')?.style.display !== 'none';
+  if (partnerVisible && (s1||s2)) el.textContent = (fmt(s1)||'—') + ' · ' + (fmt(s2)||'—');
+  else el.textContent = s1 ? fmt(s1) : 'Add';
+}
+document.addEventListener('input', e => { if (e.target && (e.target.id==='salary'||e.target.id==='salary2')) pfIncomeSyncVal(); });
 document.addEventListener('mousedown', function(e){
   const t = document.getElementById('pf-tp-trigger');
   const p = document.getElementById('pf-tp-pop');
   if (!t || !p || p.hasAttribute('hidden')) return;
   if (t.contains(e.target) || p.contains(e.target)) return;
+  // In mobile modal, don't auto-close on mousedown — let other tabs' click handlers manage mutual exclusion
+  // (closing here on mousedown shifts layout before the mouseup, swallowing the click on the next tab).
+  if (document.body.classList.contains('hh-open')) return;
   t.setAttribute('aria-expanded','false');
   p.setAttribute('hidden','');
 });
@@ -3655,6 +3832,7 @@ function pfTpUpdateSummary() {
   const kidLbl = kids === '0' ? 'No kids' : kids === '1' ? '1 kid' : kids === '3' ? '3+ kids' : kids + ' kids';
   const el = document.getElementById('pf-tp-summary');
   if (el) el.textContent = `${{C:'Swiss/C',B:'B permit',other:'Other'}[permit] || permit} · ${civLbl} · ${kids === '0' ? '0 kids' : kidLbl}`;
+  if (typeof hhSyncPill === 'function') hhSyncPill();
   // Update inline chips
   const pl = document.getElementById('tpc-permit-label'); if (pl) pl.textContent = permLbl;
   const cl = document.getElementById('tpc-civil-label'); if (cl) cl.textContent = civLbl;
@@ -3756,14 +3934,12 @@ function updateDedSub() {
   const defaultAge = ageText === '35–44' || ageText === '35-44';
   const isCustomised = assets || p3a || extraDed || !defaultAge;
   document.getElementById('ded-toggle').classList.toggle('customised', !!isCustomised);
-  if (!isCustomised) {
-    sub.textContent = 'Tap to personalise';
-    return;
-  }
-  const parts = [assets ? 'CHF\u00a0'+assets+' assets' : null,
-                 p3a ? 'pillar 3a CHF\u00a0'+p3a : null,
-                 extraDed ? 'CHF\u00a0'+extraDed+' deductions' : null,
-                 !defaultAge ? 'age '+ageText : null].filter(Boolean);
+  const parts = [
+    'Age '+ageText,
+    assets ? 'CHF\u00a0'+assets+' assets' : null,
+    p3a ? 'Pillar 3a CHF\u00a0'+p3a : null,
+    extraDed ? 'CHF\u00a0'+extraDed+' deductions' : null
+  ].filter(Boolean);
   sub.textContent = parts.join(' · ');
 }
 
